@@ -138,4 +138,33 @@ public class Teacher implements Serializable {
 		this.techSpecialty = techSpecialty;
 	}
 
+	public Teacher() {
+		super();
+	}
+
+	public Teacher(String techNick, String techHead, String techTitle, String techLabel, String techIntro,
+			String techMechanism, String tchCertificate, Integer techWorkage, String techSpecialty) {
+		super();
+		this.techNick = techNick;
+		this.techHead = techHead;
+		this.techTitle = techTitle;
+		this.techLabel = techLabel;
+		this.techIntro = techIntro;
+		this.techMechanism = techMechanism;
+		this.tchCertificate = tchCertificate;
+		this.techWorkage = techWorkage;
+		this.techSpecialty = techSpecialty;
+	}
+
+	@Override
+	public String toString() {
+		return "Teacher [techId=" + techId + ", techNick=" + techNick + ", techHead=" + techHead + ", techTitle="
+				+ techTitle + ", techLabel=" + techLabel + ", techIntro=" + techIntro + ", techMechanism="
+				+ techMechanism + ", tchCertificate=" + tchCertificate + ", techWorkage=" + techWorkage
+				+ ", techSpecialty=" + techSpecialty + "]";
+	}
+
+	
+	
+	
 }

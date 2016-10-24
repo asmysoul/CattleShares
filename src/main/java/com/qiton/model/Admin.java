@@ -66,4 +66,24 @@ public class Admin implements Serializable {
 		this.adminType = adminType;
 	}
 
+	public Admin() {
+		super();
+	}
+
+	public Admin(String adminUsername, String adminPassword, Integer adminType) {
+		super();
+		this.adminUsername = adminUsername;
+		this.adminPassword = adminPassword;
+		this.adminType = adminType;
+	}
+
+	@Override
+	public String toString() {
+		return "Admin [adminId=" + adminId + ", adminUsername=" + adminUsername + ", adminPassword=" + adminPassword
+				+ ", adminType=" + adminType + "]";
+	}
+
+	
+	
+	
 }
