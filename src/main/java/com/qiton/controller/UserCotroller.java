@@ -47,7 +47,7 @@ import com.qiton.utils.StringUtils;
 
 /**
  * @ClassName UserCotroller
- * @Description TODO(这里用一句话描述这个类的作用)
+ * @Description TODO用户注册控制层
  * @author 抽离
  * @Date 2016年10月21日 下午5:10:05
  * @version 1.0.0
@@ -64,22 +64,38 @@ public class UserCotroller extends BaseController{
 	@Autowired
 	private IUserService userService;
 	
+	/**
+	 * @author 抽离
+	 * @Description 用户注册时填写手机号发送验证码
+	 * @param phoneNumber 用户手机号
+	 * @param session
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("sendSms")
-	public Object sendSms(String phoneNumber, HttpSession session){
+	public Object sendSms(String phone, HttpSession session){
 		String validateCode = StringUtils.getRandomCode();
 		session.setAttribute("validateCode", validateCode);
 		try{
-			smsService.sendSms(phoneNumber, validateCode);
+			smsService.sendSms(phone, validateCode);
 			session.setAttribute("rightValidateCode", validateCode);
 		}catch(BussinessException e){
-			LOGGER.info(phoneNumber + "----" + e.getLocalizedMessage());
+			LOGGER.info(phone + "----" + e.getLocalizedMessage());
 			return renderError(e.getLocalizedMessage());
 		}
 		return renderSuccess();
 	}
 	
 	
+	
+	/**
+	 * 
+	 * @author 抽离
+	 * @Description 注册用户
+	 * @param user
+	 * @param session
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("regist")
 	public Object regist(User user, HttpSession session){
