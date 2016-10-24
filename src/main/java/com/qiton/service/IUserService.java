@@ -1,5 +1,6 @@
 package com.qiton.service;
 
+import com.qiton.exception.BussinessException;
 import com.qiton.model.User;
 import com.baomidou.framework.service.ISuperService;
 
@@ -9,6 +10,7 @@ import com.baomidou.framework.service.ISuperService;
  *
  */
 public interface IUserService extends ISuperService<User> {
-
+	
+	public void regist(User user, String rightValidateCode) throws BussinessException;
 
 }

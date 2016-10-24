@@ -30,7 +30,7 @@ public class User implements Serializable {
 	private String password;
 
 	/** 0:普通用户，1:会员用户，2:合作用户 */
-	private Integer grade;
+	private Integer grade = 0;
 
 	/**  */
 	@TableField(value = "register_time")
@@ -42,7 +42,7 @@ public class User implements Serializable {
 
 	/** 0:未开通，1:已开通，2:已过期 */
 	@TableField(value = "vip_status")
-	private Integer vipStatus;
+	private Integer vipStatus = 0;
 
 	/**  */
 	private Integer phone;
@@ -57,10 +57,29 @@ public class User implements Serializable {
 	@TableField(value = "account_type")
 	private Integer accountType;
 
-	/** 体现账户 */
+	/** 提现账户 */
 	@TableField(value = "reflect_account")
 	private String reflectAccount;
+	
+	@TableField(exist = false)
+	private String validateCode;
+	
+	
 
+
+	/**
+	 * @return the validateCode
+	 */
+	public String getValidateCode() {
+		return validateCode;
+	}
+
+	/**
+	 * @param validateCode the validateCode to set
+	 */
+	public void setValidateCode(String validateCode) {
+		this.validateCode = validateCode;
+	}
 
 	public Long getUserId() {
 		return this.userId;

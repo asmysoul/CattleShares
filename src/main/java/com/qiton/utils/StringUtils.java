@@ -1,4 +1,7 @@
 package com.qiton.utils;
+
+import org.apache.logging.log4j.core.config.status.StatusConfiguration;
+
 public class StringUtils extends org.springframework.util.StringUtils {
 
     /**
@@ -40,5 +43,10 @@ public class StringUtils extends org.springframework.util.StringUtils {
      */
     public static boolean isNotBlank(final CharSequence cs) {
         return StringUtils.hasText(cs);
+    }
+    
+    public static String getRandomCode(){
+    	int randomCode =  (int)((Math.random()*9+1)*100000);
+    	return randomCode + "";
     }
 }
