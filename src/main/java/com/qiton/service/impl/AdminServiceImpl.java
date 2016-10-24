@@ -14,6 +14,7 @@ import com.qiton.mapper.UserMapper;
 import com.qiton.model.Admin;
 import com.qiton.model.User;
 import com.qiton.service.IAdminService;
+import com.qiton.utils.StringUtils;
 import com.baomidou.framework.service.impl.SuperServiceImpl;
 
 /**
@@ -34,6 +35,11 @@ public class AdminServiceImpl extends SuperServiceImpl<AdminMapper, Admin> imple
 	 */
 	@Override
 	public Admin login(Admin admin)throws BussinessException{
+		if(admin == null || StringUtils.isBlank(admin.getAdminUsername()) || StringUtils.isBlank(admin.getAdminPassword())
+				|| admin.getAdminUsername().length() < 6 || admin.getAdminUsername().length() > 20 
+				|| admin.getAdminPassword().length() < 6 || admin.getAdminPassword().length() > 20 ){
+					throw new BussinessException("参数错误");	
+		}
 		 Admin admin2=new Admin();
 		admin2.setAdminUsername(admin.getAdminUsername());
 		Admin selectadmin=adminmapper.selectOne(admin2);

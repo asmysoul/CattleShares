@@ -67,7 +67,7 @@ public class UserCotroller extends BaseController{
 	/**
 	 * @author 抽离
 	 * @Description 用户注册时填写手机号发送验证码
-	 * @param phoneNumber 用户手机号
+	 * @param phone 用户手机号
 	 * @param session
 	 * @return
 	 */
