@@ -13,4 +13,12 @@ public interface IUserService extends ISuperService<User> {
 	
 	public void regist(User user, String rightValidateCode) throws BussinessException;
 
+	/**
+	 * 用户登录
+	 * @param user
+	 * @return
+	 * @throws BussinessException
+	 */
+	public User userlogin(User user)throws BussinessException;
+	
 }

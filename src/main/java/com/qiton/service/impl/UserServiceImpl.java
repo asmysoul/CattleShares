@@ -48,5 +48,21 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 		this.userMapper.insert(user);
 	}
 
+	
+	/**
+	 * 用户登录验证
+	 */
+	@Override
+	public User userlogin(User user) throws BussinessException {
+		User user2=new User();
+		user2.setUserName(user2.getUserName());
+		User selectUser=userMapper.selectOne(user2);
+		if(selectUser==null||!user.getPassword().trim().equals(selectUser.getPassword())){
+			throw new BussinessException("用户名或密码不正确");
+		}
+		return selectUser;
+	}
+
+	
 
 }
