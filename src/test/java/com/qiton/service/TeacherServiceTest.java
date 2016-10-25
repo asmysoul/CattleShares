@@ -24,9 +24,6 @@ public class TeacherServiceTest {
 	@Autowired
 	private ITeacherService iTeacherService;
 	
-	
-	
-	
 	@Test
 	public void AddTeacherTest(){
 		try{

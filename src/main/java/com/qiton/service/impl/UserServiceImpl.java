@@ -54,6 +54,12 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 	 */
 	@Override
 	public User userlogin(User user) throws BussinessException {
+		if(user == null || StringUtils.isBlank(user.getUserName()) || StringUtils.isBlank(user.getPassword())
+				|| user.getUserName().length() < 6 || user.getUserName().length() > 20 
+				|| user.getPassword().length() < 6 || user.getPassword().length() > 20 ){
+					throw new BussinessException("参数错误");	
+		}
+		
 		User user2=new User();
 		user2.setUserName(user2.getUserName());
 		User selectUser=userMapper.selectOne(user2);
