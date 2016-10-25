@@ -25,7 +25,7 @@ import com.qiton.service.ITeacherService;
 public class TeacherController extends BaseController{
 
 	
-	private static final int PAGENUM=1;          //分页显示数量
+	private static final int PAGENUM=10;          //分页显示数量
 	
 	@Autowired
 	private ITeacherService teacherService;
@@ -116,9 +116,6 @@ public class TeacherController extends BaseController{
 		try{
 			Page<Teacher> pages=teacherService.selectPage(page, null);
 			List<Teacher> list=pages.getRecords();
-			for(Teacher teacher:list){
-				System.out.println("-----------"+teacher.toString());
-			}
 			view.addObject("tech_list", list);
 			
 		}catch(BussinessException e){
