@@ -1,3 +1,4 @@
+
 package com.qiton.controller;
 
 import java.util.List;
@@ -15,11 +16,6 @@ import com.qiton.exception.BussinessException;
 import com.qiton.model.Teacher;
 import com.qiton.service.ITeacherService;
 
-/**
- * 教师controller
- * @author yqc
- *
- */
 @Controller
 @RequestMapping("/teacher")
 public class TeacherController extends BaseController{
