@@ -10,5 +10,5 @@ import com.baomidou.framework.service.ISuperService;
  */
 public interface IInviteService extends ISuperService<Invite> {
 
-
+	
 }

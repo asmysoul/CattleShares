@@ -24,9 +24,6 @@ import com.qiton.service.ITeacherService;
 @RequestMapping("/teacher")
 public class TeacherController extends BaseController{
 
-	
-	private static final int PAGENUM=1;          //分页显示数量
-	
 	@Autowired
 	private ITeacherService teacherService;
 	
@@ -112,7 +109,7 @@ public class TeacherController extends BaseController{
 	@RequestMapping("/selectTechList")
 	public ModelAndView selectTechList(Integer currentPage,HttpServletRequest request){
 		ModelAndView view=new ModelAndView();
-		Page<Teacher> page=new Page<Teacher>(currentPage, PAGENUM);
+		Page<Teacher> page=new Page<Teacher>(currentPage, Config.PAGENUM);
 		try{
 			Page<Teacher> pages=teacherService.selectPage(page, null);
 			List<Teacher> list=pages.getRecords();

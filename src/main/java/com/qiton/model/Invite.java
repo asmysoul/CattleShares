@@ -32,7 +32,7 @@ public class Invite implements Serializable {
 
 	/** 接受人电话 */
 	@TableField(value = "invi_acceptmobile")
-	private Integer inviAcceptmobile;
+	private String inviAcceptmobile;
 
 	/** 接受人注册时间 */
 	@TableField(value = "invi_registtime")
@@ -75,11 +75,11 @@ public class Invite implements Serializable {
 		this.inviAcceptuser = inviAcceptuser;
 	}
 
-	public Integer getInviAcceptmobile() {
+	public String getInviAcceptmobile() {
 		return this.inviAcceptmobile;
 	}
 
-	public void setInviAcceptmobile(Integer inviAcceptmobile) {
+	public void setInviAcceptmobile(String inviAcceptmobile) {
 		this.inviAcceptmobile = inviAcceptmobile;
 	}
 

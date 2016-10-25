@@ -1,31 +1,29 @@
-package com.qiton.controller;
+package com.qiton.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.qiton.controller.Config;
 import com.qiton.exception.BussinessException;
 import com.qiton.model.Invite;
-import com.qiton.model.Teacher;
 import com.qiton.model.User;
-import com.qiton.service.IInviteService;
-import com.qiton.service.IUserService;
-import com.sun.xml.internal.xsom.impl.scd.Iterators.Map;
 
 /**
- * 用户管理模块
- * @author yqc
+ * 用户管理
+ * @author Administrator
  *
  */
-@RequestMapping("/userManager")
-public class UserManagerController extends BaseController{
+@RunWith(SpringJUnit4ClassRunner.class) // 整合 
+@ContextConfiguration(locations="classpath:spring-config.xml") // 加载配置
+public class UserManagerTest {
 	
 	@Autowired
 	private IInviteService inviteService;//邀请
@@ -33,10 +31,8 @@ public class UserManagerController extends BaseController{
 	@Autowired
 	private IUserService userService;//用户
 	
-	
-	@RequestMapping("/getallUser")
-	@ResponseBody
-	public Object getAllUser(Integer current, HttpServletRequest request){
+	@Test
+	public void getAllUser(){
 		Page<Invite> page=new Page<>(0, Config.PAGENUM);
 		List<HashMap<String, Object>> list=new ArrayList<HashMap<String,Object>>();
 		try{
@@ -67,12 +63,11 @@ public class UserManagerController extends BaseController{
 				list.add(map);
 			}
 			System.out.println("-----------------"+list.toString());
+			
 		}catch(BussinessException e){
 			e.printStackTrace();
-			renderError(e.getLocalizedMessage());
 		}catch (Exception e) {
-			renderError("访问失败请重试");
+			e.printStackTrace();
 		}
-		return request;
 	}
 }

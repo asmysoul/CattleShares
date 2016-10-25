@@ -30,7 +30,7 @@ public class User implements Serializable {
 	private String password;
 
 	/** 0:普通用户，1:会员用户，2:合作用户 */
-	private Integer grade = 0;
+	private Integer grade;
 
 	/**  */
 	@TableField(value = "register_time")
@@ -42,44 +42,28 @@ public class User implements Serializable {
 
 	/** 0:未开通，1:已开通，2:已过期 */
 	@TableField(value = "vip_status")
-	private Integer vipStatus = 0;
+	private Integer vipStatus;
 
 	/**  */
-	private Integer phone;
+	private String phone;
 
 	/**  */
 	private Integer gold;
 
 	/**  */
 	private Integer mark;
+	@TableField(exist = false)
+	private String validateCode;
+	
 
 	/** 0:财付通，1：支付宝 2：银行 */
 	@TableField(value = "account_type")
 	private Integer accountType;
 
-	/** 提现账户 */
+	/** 体现账户 */
 	@TableField(value = "reflect_account")
 	private String reflectAccount;
-	
-	@TableField(exist = false)
-	private String validateCode;
-	
-	
 
-
-	/**
-	 * @return the validateCode
-	 */
-	public String getValidateCode() {
-		return validateCode;
-	}
-
-	/**
-	 * @param validateCode the validateCode to set
-	 */
-	public void setValidateCode(String validateCode) {
-		this.validateCode = validateCode;
-	}
 
 	public Long getUserId() {
 		return this.userId;
@@ -137,11 +121,11 @@ public class User implements Serializable {
 		this.vipStatus = vipStatus;
 	}
 
-	public Integer getPhone() {
+	public String getPhone() {
 		return this.phone;
 	}
 
-	public void setPhone(Integer phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
@@ -177,4 +161,42 @@ public class User implements Serializable {
 		this.reflectAccount = reflectAccount;
 	}
 
+	
+
+	public String getValidateCode() {
+		return validateCode;
+	}
+
+	public void setValidateCode(String validateCode) {
+		this.validateCode = validateCode;
+	}
+
+	public User() {
+		super();
+	}
+
+	public User(String userName, String password, Integer grade, Date registerTime, Date endVipTime, Integer vipStatus,
+			String phone, Integer gold) {
+		super();
+		this.userName = userName;
+		this.password = password;
+		this.grade = grade;
+		this.registerTime = registerTime;
+		this.endVipTime = endVipTime;
+		this.vipStatus = vipStatus;
+		this.phone = phone;
+		this.gold = gold;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", userName=" + userName + ", password=" + password + ", grade=" + grade
+				+ ", registerTime=" + registerTime + ", endVipTime=" + endVipTime + ", vipStatus=" + vipStatus
+				+ ", phone=" + phone + ", gold=" + gold + ", mark=" + mark + ", accountType=" + accountType
+				+ ", reflectAccount=" + reflectAccount + "]";
+	}
+
+	
+	
+	
 }
