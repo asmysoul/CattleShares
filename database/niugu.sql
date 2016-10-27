@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v11.33 (64 bit)
-MySQL - 5.5.40 : Database - niugu
+MySQL - 5.7.15-log : Database - niugu
 *********************************************************************
 */
 
@@ -26,32 +26,27 @@ CREATE TABLE `admin` (
   `admin_password` varchar(64) NOT NULL COMMENT '密码',
   `admin_type` int(1) NOT NULL DEFAULT '0' COMMENT '管理员类型：0.客服，1.管理员',
   PRIMARY KEY (`admin_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*Data for the table `admin` */
-
-insert  into `admin`(`admin_id`,`admin_username`,`admin_password`,`admin_type`) values (1,'admin','1111',1);
 
 /*Table structure for table `gold_record` */
 
 DROP TABLE IF EXISTS `gold_record`;
 
 CREATE TABLE `gold_record` (
-  `grid_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `grd_userid` bigint(20) NOT NULL COMMENT '账户id',
+  `grd_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '账户id',
   `grd_username` varchar(20) NOT NULL COMMENT '账户名称',
-  `grd_profittype` int(2) NOT NULL DEFAULT '0' COMMENT '收益类型：0.邀请，1：充值 2:支出',
+  `grd_profittype` int(2) NOT NULL DEFAULT '0' COMMENT '收益类型：0.邀请，1：充值',
   `grd_time` datetime NOT NULL COMMENT '时间',
-  `grd_income` float DEFAULT NULL COMMENT '收入',
-  `grd_pay` float DEFAULT NULL COMMENT '支出',
+  `grd_income` float NOT NULL COMMENT '收入',
+  `grd_pay` float NOT NULL COMMENT '支出',
   `grd_spare` float NOT NULL COMMENT '余钱',
   `grd_remark` varchar(100) DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`grid_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`grd_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*Data for the table `gold_record` */
-
-insert  into `gold_record`(`grid_id`,`grd_userid`,`grd_username`,`grd_profittype`,`grd_time`,`grd_income`,`grd_pay`,`grd_spare`,`grd_remark`) values (1,1,'aa',2,'2016-10-27 09:31:14',100,NULL,300,'备注'),(2,1,'aa',2,'2016-10-27 09:36:49',100,NULL,200,'备注'),(3,1,'aa',2,'2016-10-27 09:37:57',100,NULL,200,'备注'),(4,1,'aa',2,'2016-10-27 09:38:46',NULL,20,60,'备注');
 
 /*Table structure for table `invite` */
 
@@ -67,32 +62,27 @@ CREATE TABLE `invite` (
   `invi_gold` int(4) NOT NULL COMMENT '邀请金币',
   `invi_mark` int(4) NOT NULL COMMENT '邀请积分',
   PRIMARY KEY (`invi_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*Data for the table `invite` */
-
-insert  into `invite`(`invi_id`,`invi_username`,`invi_acceptuser`,`invi_acceptmobile`,`invi_registtime`,`invi_userstate`,`invi_gold`,`invi_mark`) values (1,'zhangsan','maimai','2147483647','2016-10-25','0',10,10),(2,'maimai','lisi','2147483647','2016-10-25','0',10,10);
 
 /*Table structure for table `mark_recode` */
 
 DROP TABLE IF EXISTS `mark_recode`;
 
 CREATE TABLE `mark_recode` (
-  `mrd_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `mrd_userid` bigint(20) NOT NULL COMMENT '账号id',
+  `mrd_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '账号id',
   `mrd_username` varchar(20) NOT NULL COMMENT '账号昵称',
-  `mrd_profittype` int(2) NOT NULL DEFAULT '0' COMMENT '收支类型：0：邀请，1：充值 2:支出',
+  `mrd_profittype` int(2) NOT NULL DEFAULT '0' COMMENT '收支类型：0：邀请，1：充值',
   `mrd_time` datetime NOT NULL COMMENT '时间',
-  `mrd_income` float DEFAULT NULL COMMENT '收入',
-  `mrd_pay` float DEFAULT NULL COMMENT '支出',
+  `mrd_income` float NOT NULL COMMENT '收入',
+  `mrd_pay` float NOT NULL COMMENT '支出',
   `mrd_share` float NOT NULL COMMENT '余钱',
-  `mrd_remark` varchar(100) NOT NULL COMMENT '备注',
+  `mrd_remark` varchar(100) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`mrd_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*Data for the table `mark_recode` */
-
-insert  into `mark_recode`(`mrd_id`,`mrd_userid`,`mrd_username`,`mrd_profittype`,`mrd_time`,`mrd_income`,`mrd_pay`,`mrd_share`,`mrd_remark`) values (1,1,'aa',2,'2016-10-27 09:33:39',100,NULL,300,'备注'),(2,1,'aa',2,'2016-10-27 09:37:11',100,NULL,300,'备注'),(3,1,'aa',2,'2016-10-27 09:38:19',100,NULL,200,'备注'),(4,1,'aa',2,'2016-10-27 09:39:20',NULL,20,60,'备注');
 
 /*Table structure for table `problem` */
 
@@ -115,12 +105,13 @@ CREATE TABLE `problem` (
 DROP TABLE IF EXISTS `purchase`;
 
 CREATE TABLE `purchase` (
+  `pur_type` int(1) NOT NULL DEFAULT '0' COMMENT '0:普通用户，1：会员',
   `pur_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `pur_stockcode` int(10) NOT NULL,
-  `pur_stockname` varchar(20) NOT NULL,
-  `pur_purchasetime` date NOT NULL,
+  `pur_stockname` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `pur_purchasetime` datetime NOT NULL,
   `pur_stockprice` float NOT NULL,
-  `pur_technick` varchar(10) NOT NULL,
+  `pur_technick` varchar(10) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`pur_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=ucs2;
 
@@ -131,8 +122,7 @@ CREATE TABLE `purchase` (
 DROP TABLE IF EXISTS `reflect_recode`;
 
 CREATE TABLE `reflect_recode` (
-  `rrd_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `rrd_userid` bigint(20) NOT NULL COMMENT '体现用户账号id',
+  `rrd_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '体现用户账号id',
   `rrd_username` varchar(20) NOT NULL COMMENT '体现用户昵称',
   `rrd_serialnum` bigint(20) NOT NULL COMMENT '体现流水号',
   `rrd_price` float NOT NULL COMMENT '体现金额',
@@ -149,6 +139,7 @@ CREATE TABLE `reflect_recode` (
 DROP TABLE IF EXISTS `sellout`;
 
 CREATE TABLE `sellout` (
+  `sell_type` int(1) NOT NULL DEFAULT '0' COMMENT '0:普通用户，1：会员',
   `sell_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `sell_stockcode` varchar(20) NOT NULL COMMENT '股票代码',
   `sell_selltime` date NOT NULL COMMENT '卖出时间',
@@ -177,11 +168,9 @@ CREATE TABLE `teacher` (
   `tech_workage` int(2) DEFAULT NULL COMMENT '从业年限',
   `tech_specialty` varchar(30) DEFAULT NULL COMMENT '特长',
   PRIMARY KEY (`tech_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*Data for the table `teacher` */
-
-insert  into `teacher`(`tech_id`,`tech_nick`,`tech_head`,`tech_title`,`tech_label`,`tech_intro`,`tech_mechanism`,`tch_certificate`,`tech_workage`,`tech_specialty`) values (1,'a老师','a.jpg','分析师','股神','简介','所属机构','分析师资格证',5,'特长'),(3,'张老师','a.jpg','分析师','股神','简介','所属机构 ','分析师资格证',5,'特长'),(4,'张老师','a.jpg','分析师','股神','简介','所属机构 ','分析师资格证',5,'特长');
 
 /*Table structure for table `user` */
 
@@ -201,11 +190,9 @@ CREATE TABLE `user` (
   `account_type` int(2) DEFAULT NULL COMMENT '0:财付通，1：支付宝 2：银行',
   `reflect_account` varchar(20) DEFAULT NULL COMMENT '体现账户',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `user` */
-
-insert  into `user`(`user_id`,`user_name`,`password`,`grade`,`register_time`,`end_vip_time`,`vip_status`,`phone`,`gold`,`mark`,`account_type`,`reflect_account`) values (1,'aa','123123',0,'2016-10-27','2016-10-27',0,'18159801679',100,80,NULL,NULL),(2,'maimai','123123',0,'2016-10-25','2016-10-25',0,'2147483647',10,10,0,'422149196@qq.com'),(3,'lisi','123123',0,'2016-10-25','2016-10-25',0,'2147483647',0,11,11,'422149193@qq.com');
 
 /*Table structure for table `vip_record` */
 

@@ -18,6 +18,10 @@ public class Sellout implements Serializable {
 	@TableField(exist = false)
 	private static final long serialVersionUID = 1L;
 
+	/** 0:普通用户，1：会员 */
+	@TableField(value = "sell_type")
+	private Integer sellType;
+
 	/**  */
 	@TableId(value = "sell_id", type = IdType.AUTO)
 	private Long sellId;
@@ -46,6 +50,14 @@ public class Sellout implements Serializable {
 	@TableField(value = "pur_purprice")
 	private Float purPurprice;
 
+
+	public Integer getSellType() {
+		return this.sellType;
+	}
+
+	public void setSellType(Integer sellType) {
+		this.sellType = sellType;
+	}
 
 	public Long getSellId() {
 		return this.sellId;

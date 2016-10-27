@@ -18,6 +18,10 @@ public class Purchase implements Serializable {
 	@TableField(exist = false)
 	private static final long serialVersionUID = 1L;
 
+	/** 0:普通用户，1：会员 */
+	@TableField(value = "pur_type")
+	private Integer purType;
+
 	/**  */
 	@TableId(value = "pur_id", type = IdType.AUTO)
 	private Long purId;
@@ -42,6 +46,14 @@ public class Purchase implements Serializable {
 	@TableField(value = "pur_technick")
 	private String purTechnick;
 
+
+	public Integer getPurType() {
+		return this.purType;
+	}
+
+	public void setPurType(Integer purType) {
+		this.purType = purType;
+	}
 
 	public Long getPurId() {
 		return this.purId;

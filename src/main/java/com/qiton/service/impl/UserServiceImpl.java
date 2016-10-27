@@ -50,7 +50,7 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 		if (user == null || StringUtils.isBlank(user.getUserName()) || StringUtils.isBlank(user.getPassword())
 				|| StringUtils.isBlank(user.getValidateCode()) || user.getUserName().length() < 6
 				|| user.getUserName().length() > 20 || user.getPassword().length() < 6
-				|| user.getPassword().length() > 20) {
+				|| user.getPassword().length() > 20 || StringUtils.isBlank(user.getPhone()) || user.getPhone().length() != 11) {
 			throw new BussinessException("参数错误");
 		}
 
