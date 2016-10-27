@@ -3,6 +3,8 @@ package com.qiton.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,12 +20,14 @@ import com.qiton.service.impl.AdminServiceImpl;
 
 /**
  * 登录
- * @author Administrator
+ * @author yqc
  *
  */
 @Controller
 @RequestMapping("/login")
 public class LoginController extends BaseController{
+	
+	private static final Logger log=LogManager.getLogger(LoginController.class);
 	
 	@Autowired
 	private IAdminService adminService;

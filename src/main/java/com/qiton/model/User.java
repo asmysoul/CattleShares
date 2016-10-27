@@ -175,8 +175,10 @@ public class User implements Serializable {
 		super();
 	}
 
+	
+
 	public User(String userName, String password, Integer grade, Date registerTime, Date endVipTime, Integer vipStatus,
-			String phone, Integer gold) {
+			String phone, Integer gold, Integer mark) {
 		super();
 		this.userName = userName;
 		this.password = password;
@@ -186,6 +188,7 @@ public class User implements Serializable {
 		this.vipStatus = vipStatus;
 		this.phone = phone;
 		this.gold = gold;
+		this.mark = mark;
 	}
 
 	@Override

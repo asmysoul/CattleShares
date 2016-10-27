@@ -20,15 +20,19 @@ public class MarkRecode implements Serializable {
 	@TableField(exist = false)
 	private static final long serialVersionUID = 1L;
 
-	/** 账号id */
+	/**  */
 	@TableId(value = "mrd_id", type = IdType.AUTO)
 	private Long mrdId;
+
+	/** 账号id */
+	@TableField(value = "mrd_userid")
+	private Long mrdUserid;
 
 	/** 账号昵称 */
 	@TableField(value = "mrd_username")
 	private String mrdUsername;
 
-	/** 收支类型：0：邀请，1：充值 */
+	/** 收支类型：0：邀请，1：充值 2:支出 */
 	@TableField(value = "mrd_profittype")
 	private Integer mrdProfittype;
 
@@ -52,6 +56,31 @@ public class MarkRecode implements Serializable {
 	@TableField(value = "mrd_remark")
 	private String mrdRemark;
 
+	
+	public MarkRecode() {
+		super();
+	}
+
+	
+	public MarkRecode(Long mrdUserid, String mrdUsername, Integer mrdProfittype, Date mrdTime, Float mrdShare,
+			String mrdRemark) {
+		super();
+		this.mrdUserid = mrdUserid;
+		this.mrdUsername = mrdUsername;
+		this.mrdProfittype = mrdProfittype;
+		this.mrdTime = mrdTime;
+		this.mrdShare = mrdShare;
+		this.mrdRemark = mrdRemark;
+	}
+
+
+	@Override
+	public String toString() {
+		return "MarkRecode [mrdId=" + mrdId + ", mrdUserid=" + mrdUserid + ", mrdUsername=" + mrdUsername
+				+ ", mrdProfittype=" + mrdProfittype + ", mrdTime=" + mrdTime + ", mrdIncome=" + mrdIncome + ", mrdPay="
+				+ mrdPay + ", mrdShare=" + mrdShare + ", mrdRemark=" + mrdRemark + "]";
+	}
+
 
 	public Long getMrdId() {
 		return this.mrdId;
@@ -59,6 +88,14 @@ public class MarkRecode implements Serializable {
 
 	public void setMrdId(Long mrdId) {
 		this.mrdId = mrdId;
+	}
+
+	public Long getMrdUserid() {
+		return this.mrdUserid;
+	}
+
+	public void setMrdUserid(Long mrdUserid) {
+		this.mrdUserid = mrdUserid;
 	}
 
 	public String getMrdUsername() {

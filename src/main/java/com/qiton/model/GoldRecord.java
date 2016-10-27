@@ -20,15 +20,19 @@ public class GoldRecord implements Serializable {
 	@TableField(exist = false)
 	private static final long serialVersionUID = 1L;
 
+	/**  */
+	@TableId(value = "grid_id", type = IdType.AUTO)
+	private Long gridId;
+
 	/** 账户id */
-	@TableId(value = "grd_id", type = IdType.AUTO)
-	private Long grdId;
+	@TableField(value = "grd_userid")
+	private Long grdUserid;
 
 	/** 账户名称 */
 	@TableField(value = "grd_username")
 	private String grdUsername;
 
-	/** 收益类型：0.邀请，1：充值 */
+	/** 收益类型：0.邀请，1：充值 2.支出 */
 	@TableField(value = "grd_profittype")
 	private Integer grdProfittype;
 
@@ -52,13 +56,50 @@ public class GoldRecord implements Serializable {
 	@TableField(value = "grd_remark")
 	private String grdRemark;
 
+	
+	
+	
+	
 
-	public Long getGrdId() {
-		return this.grdId;
+	public GoldRecord() {
+		super();
 	}
 
-	public void setGrdId(Long grdId) {
-		this.grdId = grdId;
+	public GoldRecord(Long grdUserid, String grdUsername, Integer grdProfittype, Date grdTime, Float grdSpare, String grdRemark) {
+		super();
+		this.grdUserid = grdUserid;
+		this.grdUsername = grdUsername;
+		this.grdProfittype = grdProfittype;
+		this.grdTime = grdTime;
+		this.grdSpare = grdSpare;
+		this.grdRemark = grdRemark;
+	}
+
+
+
+
+
+	@Override
+	public String toString() {
+		return "GoldRecord [gridId=" + gridId + ", grdUserid=" + grdUserid + ", grdUsername=" + grdUsername
+				+ ", grdProfittype=" + grdProfittype + ", grdTime=" + grdTime + ", grdIncome=" + grdIncome + ", grdPay="
+				+ grdPay + ", grdSpare=" + grdSpare + ", grdRemark=" + grdRemark + "]";
+	}
+
+	public Long getGridId() {
+		return this.gridId;
+	}
+
+	public void setGridId(Long gridId) {
+		this.gridId = gridId;
+	}
+
+	public Long getGrdUserid() {
+		return this.grdUserid;
+	}
+
+	public void setGrdUserid(Long grdUserid) {
+		this.grdUserid = grdUserid;
 	}
 
 	public String getGrdUsername() {

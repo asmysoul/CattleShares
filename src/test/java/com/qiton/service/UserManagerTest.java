@@ -1,8 +1,12 @@
 package com.qiton.service;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -70,4 +74,86 @@ public class UserManagerTest {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	/**
+	 * 
+	* @Title: updateUser_Info 
+	* @Description: 修改用户信息
+	* @author 尤
+	* @date 2016年10月26日 下午4:21:37  
+	* @param     设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	@Test
+	public void updateUser_Info(){
+	/*	User user=new User("aa", "123123", 0, new Date(), new Date(), 0, "18159801679", 100);
+		user.setUserId((long) 1);
+		userService.updateUser_Info(user);*/
+	}
+	
+	/**
+	 * @throws ParseException 
+	 * @throws BussinessException 
+	 * 
+	* @Title: vipDelay 
+	* @Description: 会员延期
+	* @author 尤
+	* @date 2016年10月26日 下午4:21:23  
+	* @param     设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	@Test
+	public void vipDelay() throws BussinessException, ParseException{
+		/*User user=new User("aa", "123123", 0, new Date(), new Date(), 0, "18159801679", 100);
+		user.setUserId((long) 1);
+		userService.updateVIP_Del( user, "1");
+		userService.updateUser_Info(user);*/
+	}
+	
+	
+	/**
+	 * 
+	* @Title: getCurrentUserCapital 
+	* @Description: 取得当前用户的信息
+	* @author 尤
+	* @date 2016年10月27日 上午9:10:36  
+	* @param     设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	@Test
+	public void getCurrentUserCapital(){
+		User user = userService.getCurrentUser("1");
+		System.out.println("----"+user.toString());
+	}
+	
+	
+	/**
+	 * 
+	* @Title: updateUserCaptical 
+	* @Description: 资金操作
+	* @author 尤
+	* @date 2016年10月27日 上午9:12:08  
+	* @param @param user
+	* @param @param operId
+	* @param @param capiId
+	* @param @param money
+	* @param @param remark    设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	@Test
+	public void updateUserCaptical(){
+		User user=new User("aa", "123123", 0, new Date(), new Date(), 0, "18159801679", 100, 100);
+		user.setUserId((long) 1);
+		
+		//userService.updateUserCaptical(user, "0", "0", "100", "备注");//充值钱
+		//userService.updateUserCaptical(user, "0", "1", "100", "备注");//充值积分
+		//userService.updateUserCaptical(user, "1", "0", "20", "备注");//扣钱
+		//userService.updateUserCaptical(user, "1", "1", "20", "备注");//扣积分
+	}
+	
 }

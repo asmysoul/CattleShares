@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +18,15 @@ import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 import com.qiton.exception.BussinessException;
 import com.qiton.model.Teacher;
 import com.qiton.service.ITeacherService;
-
+/**
+ * 教师管理
+ * @author yqc
+ *
+ */
 @Controller
 @RequestMapping("/teacher")
 public class TeacherController extends BaseController{
+	private static final Logger LOGGER=LogManager.getLogger(TeacherController.class);
 
 	@Autowired
 	private ITeacherService teacherService;
@@ -35,8 +43,9 @@ public class TeacherController extends BaseController{
 			teacherService.addTeacher(teacher);
 			view.setViewName("");
 		}catch(BussinessException e){
-			e.printStackTrace();
-			view.addObject("error",e.getLocalizedMessage());
+			LOGGER.info("添加老师出错" +teacher + "----:" + e.getLocalizedMessage());
+		}catch (Exception e) {
+			LOGGER.info("添加老师出错" +teacher + "----:" + e.getLocalizedMessage());
 		}
 		return view;
 	}
@@ -96,7 +105,9 @@ public class TeacherController extends BaseController{
 			int b=teacherService.deleteTeacher(id);
 			view.setViewName("");
 		}catch(BussinessException e){
-			e.printStackTrace();
+			LOGGER.info("删除老师出错" + e.getLocalizedMessage());
+		}catch (Exception e) {
+			LOGGER.info("删除老师出错" + e.getLocalizedMessage());
 		}
 		return view;
 	}
@@ -115,8 +126,9 @@ public class TeacherController extends BaseController{
 			view.addObject("tech_list", list);
 			
 		}catch(BussinessException e){
-			e.printStackTrace();
-			renderError("查询出错");
+			LOGGER.info("获取老师列表出错" + e.getLocalizedMessage());
+		}catch (Exception e) {
+			LOGGER.info("获取老师列表出错" + "----:" + e.getLocalizedMessage());
 		}
 		return view;
 	}

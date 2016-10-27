@@ -4,7 +4,7 @@
 
 	<!-- 通用查询结果列-->
 	<sql id="Base_Column_List">
-		rrd_id AS rrdId, rrd_username AS rrdUsername, rrd_serialnum AS rrdSerialnum, rrd_price AS rrdPrice, rrd_applytime AS rrdApplytime, rrd_state AS rrdState, rrd_managetime AS rrdManagetime
+		rrd_id AS rrdId, rrd_userid AS rrdUserid, rrd_username AS rrdUsername, rrd_serialnum AS rrdSerialnum, rrd_price AS rrdPrice, rrd_applytime AS rrdApplytime, rrd_state AS rrdState, rrd_managetime AS rrdManagetime
 	</sql>
 
 </mapper>

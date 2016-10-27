@@ -20,9 +20,13 @@ public class ReflectRecode implements Serializable {
 	@TableField(exist = false)
 	private static final long serialVersionUID = 1L;
 
-	/** 体现用户账号id */
+	/**  */
 	@TableId(value = "rrd_id", type = IdType.AUTO)
 	private Long rrdId;
+
+	/** 体现用户账号id */
+	@TableField(value = "rrd_userid")
+	private Long rrdUserid;
 
 	/** 体现用户昵称 */
 	@TableField(value = "rrd_username")
@@ -55,6 +59,14 @@ public class ReflectRecode implements Serializable {
 
 	public void setRrdId(Long rrdId) {
 		this.rrdId = rrdId;
+	}
+
+	public Long getRrdUserid() {
+		return this.rrdUserid;
+	}
+
+	public void setRrdUserid(Long rrdUserid) {
+		this.rrdUserid = rrdUserid;
 	}
 
 	public String getRrdUsername() {

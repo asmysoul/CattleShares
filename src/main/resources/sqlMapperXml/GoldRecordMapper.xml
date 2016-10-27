@@ -4,7 +4,7 @@
 
 	<!-- 通用查询结果列-->
 	<sql id="Base_Column_List">
-		grd_id AS grdId, grd_username AS grdUsername, grd_profittype AS grdProfittype, grd_time AS grdTime, grd_income AS grdIncome, grd_pay AS grdPay, grd_spare AS grdSpare, grd_remark AS grdRemark
+		grid_id AS gridId, grd_userid AS grdUserid, grd_username AS grdUsername, grd_profittype AS grdProfittype, grd_time AS grdTime, grd_income AS grdIncome, grd_pay AS grdPay, grd_spare AS grdSpare, grd_remark AS grdRemark
 	</sql>
 
 </mapper>
