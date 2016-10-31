@@ -28,7 +28,7 @@ public class Sellout implements Serializable {
 
 	/** 股票代码 */
 	@TableField(value = "sell_stockcode")
-	private String sellStockcode;
+	private Long sellStockcode;
 
 	/** 卖出时间 */
 	@TableField(value = "sell_selltime")
@@ -48,7 +48,7 @@ public class Sellout implements Serializable {
 
 	/** 买入价格 */
 	@TableField(value = "pur_purprice")
-	private Float purPurprice;
+	private Double purPurprice;
 
 
 	public Integer getSellType() {
@@ -67,11 +67,11 @@ public class Sellout implements Serializable {
 		this.sellId = sellId;
 	}
 
-	public String getSellStockcode() {
+	public Long getSellStockcode() {
 		return this.sellStockcode;
 	}
 
-	public void setSellStockcode(String sellStockcode) {
+	public void setSellStockcode(Long sellStockcode) {
 		this.sellStockcode = sellStockcode;
 	}
 
@@ -107,11 +107,11 @@ public class Sellout implements Serializable {
 		this.purPurtime = purPurtime;
 	}
 
-	public Float getPurPurprice() {
+	public Double getPurPurprice() {
 		return this.purPurprice;
 	}
 
-	public void setPurPurprice(Float purPurprice) {
+	public void setPurPurprice(Double purPurprice) {
 		this.purPurprice = purPurprice;
 	}
 

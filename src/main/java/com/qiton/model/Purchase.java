@@ -28,7 +28,7 @@ public class Purchase implements Serializable {
 
 	/**  */
 	@TableField(value = "pur_stockcode")
-	private Integer purStockcode;
+	private Long purStockcode;
 
 	/**  */
 	@TableField(value = "pur_stockname")
@@ -40,7 +40,7 @@ public class Purchase implements Serializable {
 
 	/**  */
 	@TableField(value = "pur_stockprice")
-	private Float purStockprice;
+	private Double purStockprice;
 
 	/**  */
 	@TableField(value = "pur_technick")
@@ -63,11 +63,11 @@ public class Purchase implements Serializable {
 		this.purId = purId;
 	}
 
-	public Integer getPurStockcode() {
+	public Long getPurStockcode() {
 		return this.purStockcode;
 	}
 
-	public void setPurStockcode(Integer purStockcode) {
+	public void setPurStockcode(Long purStockcode) {
 		this.purStockcode = purStockcode;
 	}
 
@@ -87,11 +87,11 @@ public class Purchase implements Serializable {
 		this.purPurchasetime = purPurchasetime;
 	}
 
-	public Float getPurStockprice() {
+	public Double getPurStockprice() {
 		return this.purStockprice;
 	}
 
-	public void setPurStockprice(Float purStockprice) {
+	public void setPurStockprice(Double purStockprice) {
 		this.purStockprice = purStockprice;
 	}
 

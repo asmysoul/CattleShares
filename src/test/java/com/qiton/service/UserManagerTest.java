@@ -15,10 +15,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.qiton.controller.Config;
 import com.qiton.exception.BussinessException;
 import com.qiton.model.Invite;
 import com.qiton.model.User;
+import com.qiton.utils.Config;
 
 /**
  * 用户管理

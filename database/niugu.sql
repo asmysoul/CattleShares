@@ -107,10 +107,10 @@ DROP TABLE IF EXISTS `purchase`;
 CREATE TABLE `purchase` (
   `pur_type` int(1) NOT NULL DEFAULT '0' COMMENT '0:普通用户，1：会员',
   `pur_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `pur_stockcode` int(10) NOT NULL,
+  `pur_stockcode` bigint(20) NOT NULL,
   `pur_stockname` varchar(20) CHARACTER SET utf8 NOT NULL,
   `pur_purchasetime` datetime NOT NULL,
-  `pur_stockprice` float NOT NULL,
+  `pur_stockprice` double NOT NULL,
   `pur_technick` varchar(10) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`pur_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=ucs2;
@@ -141,12 +141,12 @@ DROP TABLE IF EXISTS `sellout`;
 CREATE TABLE `sellout` (
   `sell_type` int(1) NOT NULL DEFAULT '0' COMMENT '0:普通用户，1：会员',
   `sell_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `sell_stockcode` varchar(20) NOT NULL COMMENT '股票代码',
-  `sell_selltime` date NOT NULL COMMENT '卖出时间',
+  `sell_stockcode` bigint(20) NOT NULL COMMENT '股票代码',
+  `sell_selltime` datetime NOT NULL COMMENT '卖出时间',
   `sell_sellprice` float NOT NULL COMMENT '卖出价格',
   `sell_technick` varchar(20) NOT NULL COMMENT '推荐老师',
-  `pur_purtime` date NOT NULL COMMENT '买入时间',
-  `pur_purprice` float NOT NULL COMMENT '买入价格',
+  `pur_purtime` datetime NOT NULL COMMENT '买入时间',
+  `pur_purprice` double NOT NULL COMMENT '买入价格',
   PRIMARY KEY (`sell_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

@@ -1,4 +1,4 @@
-package com.qiton.controller;
+package com.qiton.utils;
 /**
  * 全局配置文件
  * @author Administrator
