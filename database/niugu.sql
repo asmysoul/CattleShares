@@ -127,6 +127,21 @@ CREATE TABLE `purchase` (
 
 /*Data for the table `purchase` */
 
+/*Table structure for table `reference` */
+
+DROP TABLE IF EXISTS `reference`;
+
+CREATE TABLE `reference` (
+  `rer_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '内参id',
+  `rer_shareCode` bigint(20) NOT NULL COMMENT '股票代码',
+  `rer_rerInfo` varchar(200) NOT NULL COMMENT '内参消息',
+  PRIMARY KEY (`rer_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+/*Data for the table `reference` */
+
+insert  into `reference`(`rer_id`,`rer_shareCode`,`rer_rerInfo`) values (2,123456,'测试'),(3,123123,'测试1'),(4,123123,'测试3');
+
 /*Table structure for table `reflect_recode` */
 
 DROP TABLE IF EXISTS `reflect_recode`;

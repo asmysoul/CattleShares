@@ -86,7 +86,7 @@ public class UserManagerController extends BaseController {
 		} catch (Exception e) {
 			renderError("访问失败请重试");
 		}
-		return request;
+		return renderSuccess(list);
 	}
 
 	/**

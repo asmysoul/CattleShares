@@ -114,7 +114,18 @@ public class TeacherController extends BaseController{
 		return view;
 	}
 	
-	
+	/**
+	 * 
+	* @Title: selectTechList 
+	* @Description: 取得所有老师列表
+	* @author 尤
+	* @date 2016年11月2日 上午10:58:33  
+	* @param @param currentPage
+	* @param @param request
+	* @param @return    设定文件 
+	* @return ModelAndView    返回类型 
+	* @throws
+	 */
 	@RequestMapping("/selectTechList")
 	public ModelAndView selectTechList(Integer currentPage,HttpServletRequest request){
 		ModelAndView view=new ModelAndView();
