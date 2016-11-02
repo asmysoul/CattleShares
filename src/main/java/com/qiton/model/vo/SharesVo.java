@@ -33,30 +33,30 @@ import java.util.Date;
 
 /**
  * @ClassName SharesVo
- * @Description TODO(这里用一句话描述这个类的作用)
+ * @Description TODO股票实体类
  * @author 抽离
  * @Date 2016年10月31日 下午4:15:47
  * @version 1.0.0
  */
 public class SharesVo {
 
-	private String name;
+	private String name;     //股票名称
 
-	private String code;
+	private String code;          //股票代码
 
-	private String remark;
+	private String remark;       //
 
-	private String monthurl;
+	private String monthurl;      //月图
 
-	private String minurl;
+	private String minurl;     
 
-	private String weekurl;
+	private String weekurl;   //周图
 
-	private String dayurl;
+	private String dayurl;     //今日图
 
-	private double nowPrice;
+	private double nowPrice;      //当前价格
 
-	private Date curDate;
+	private Date curDate;         //当前日期
 
 	/**
 	 * @return the name
