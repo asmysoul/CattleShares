@@ -29,6 +29,9 @@
  *****************************************************************/
 package com.qiton.controller;
 
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
@@ -58,11 +61,14 @@ public class UserCotroller extends BaseController{
 	
     private static final Logger LOGGER = LogManager.getLogger(UserCotroller.class);
 	
+    private static HttpSession currentsession;
+    
 	@Autowired
 	private ISmsService smsService;
 	
 	@Autowired
 	private IUserService userService;
+	
 	
 	/**
 	 * @author 抽离
@@ -73,18 +79,22 @@ public class UserCotroller extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping("sendSms")
-	public Object sendSms(String phone, HttpSession session){
+	public Object sendSms(String phone, 
+			HttpSession session){
+		currentsession=session;
 		String validateCode = StringUtils.getRandomCode();
 		session.setAttribute("validateCode", validateCode);
 		try{
 			smsService.sendSms(phone, validateCode);
-			session.setAttribute("rightValidateCode", validateCode);
+			currentsession.setAttribute("rightValidateCode", validateCode);
 		}catch(BussinessException e){
 			LOGGER.info(phone + "----" + e.getLocalizedMessage());
 			return renderError(e.getLocalizedMessage());
 		}
 		return renderSuccess();
 	}
+	
+	
 	
 	
 	
@@ -98,9 +108,9 @@ public class UserCotroller extends BaseController{
 	 */
 	@ResponseBody
 	@RequestMapping("regist")
-	public Object regist(User user, HttpSession session){
+	public Object regist(User user,String sessionId,HttpSession session){
 		try{
-			this.userService.regist(user, (String) session.getAttribute("rightValidateCode"));
+			this.userService.regist(user, (String) currentsession.getAttribute("rightValidateCode"));
 		}catch(BussinessException e){
 			LOGGER.info(e.getLocalizedMessage());
 			return renderError(user.getPhone() + "----" + e.getLocalizedMessage());

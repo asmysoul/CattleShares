@@ -56,6 +56,7 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 
 		User userQuery = new User();
 		userQuery.setUserName(user.getUserName());
+		
 		if (this.userMapper.selectOne(userQuery) != null) {
 			throw new BussinessException("用户名已存在");
 		}
@@ -63,8 +64,12 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 		if (!user.getValidateCode().equals(rightValidateCode)) {
 			throw new BussinessException("验证码错误，请重试");
 		}
-
+		user.setGrade(0);
+		user.setGold(0);
+		user.setMark(100);
 		user.setRegisterTime(new Date());
+		user.setEndVipTime(new Date());
+		user.setVipStatus(0);
 		this.userMapper.insert(user);
 	}
 
@@ -80,7 +85,7 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 		}
 
 		User user2 = new User();
-		user2.setUserName(user2.getUserName());
+		user2.setUserName(user.getUserName());
 		User selectUser = userMapper.selectOne(user2);
 		if (selectUser == null || !user.getPassword().trim().equals(selectUser.getPassword())) {
 			throw new BussinessException("用户名或密码不正确");

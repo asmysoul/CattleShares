@@ -48,11 +48,11 @@ public class LoginController extends BaseController{
 		try{
 			Admin selectadmin=adminService.login(admin);
 			session.setAttribute("current_admin", selectadmin);
+			return renderSuccess("登录成功");
 		}catch(BussinessException e){
 			e.printStackTrace();
 			return renderError(e.getLocalizedMessage());
 		}
-		return renderSuccess();
 	}
 	
 	
@@ -65,6 +65,9 @@ public class LoginController extends BaseController{
 	@ResponseBody
 	@RequestMapping("/userLogin")
 	public Object userlogin(User user,HttpServletRequest request){
+		
+		System.out.println("-----"+user.toString());
+		
 		HttpSession session=request.getSession();
 		try{
 			User selectUser=userservice.userlogin(user);
@@ -76,5 +79,9 @@ public class LoginController extends BaseController{
 		return renderSuccess();
 	}
 	
-	
+	@RequestMapping("/test")
+	//http://localhost:8080/CattleShares/login/test/
+	public void test(HttpServletRequest request){
+		System.out.println("---------");
+	}
 }
