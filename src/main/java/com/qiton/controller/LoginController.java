@@ -35,20 +35,31 @@ public class LoginController extends BaseController{
 	@Autowired
 	private IUserService userservice;
 	
+	
+	@RequestMapping("/login")
+	public String renderLogin(HttpServletRequest request){
+		return "/login";
+	}
+	
+	@RequestMapping("/index")
+	public String main(HttpServletRequest request){
+		return "/index";
+	}
+	
 	/**
 	 * 后台登录验证
 	 * @param admin
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/login")
+	@RequestMapping("/chenck_login")
 	@ResponseBody
 	public Object login(Admin admin,HttpServletRequest request){
 		HttpSession session=request.getSession();
 		try{
 			Admin selectadmin=adminService.login(admin);
 			session.setAttribute("current_admin", selectadmin);
-			return renderSuccess("登录成功");
+			return renderSuccess(selectadmin);
 		}catch(BussinessException e){
 			e.printStackTrace();
 			return renderError(e.getLocalizedMessage());

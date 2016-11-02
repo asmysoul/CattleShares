@@ -36,7 +36,7 @@ public class AdminServiceImpl extends SuperServiceImpl<AdminMapper, Admin> imple
 	@Override
 	public Admin login(Admin admin)throws BussinessException{
 		if(admin == null || StringUtils.isBlank(admin.getAdminUsername()) || StringUtils.isBlank(admin.getAdminPassword())
-				|| admin.getAdminUsername().length() < 6 || admin.getAdminUsername().length() > 20 
+				|| admin.getAdminUsername().length() < 4 || admin.getAdminUsername().length() > 20 
 				|| admin.getAdminPassword().length() < 6 || admin.getAdminPassword().length() > 20 ){
 					throw new BussinessException("参数错误");	
 		}
