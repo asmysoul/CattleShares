@@ -29,6 +29,7 @@
  *****************************************************************/
 package com.qiton.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
@@ -68,8 +69,9 @@ public class AdminController extends BaseController{
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("addAdmin")
+	@RequestMapping("/addAdmin")
 	public Object addAdmin(Admin admin, HttpSession session){
+		System.out.println("===============");
 		try{
 			iAdminService.addAdmin(admin);
 		}catch(BussinessException e){
@@ -174,7 +176,10 @@ public class AdminController extends BaseController{
 		return renderSuccess(page);
 	}
 	
-	
+	@RequestMapping("/addServer")
+	public String addServerJsp(HttpServletRequest request){
+		return "/addserver";
+	}
 
 	
 }

@@ -32,6 +32,7 @@ td{text-align: center;}
 .small-dealed{background-position:0px -128px;}
 .small-watch{background-position:-16px -32px;margin-bottom: -5px;}
 .content-fade{background: #fff;display: none;width: 350px;margin-top: 10%;margin-left:37%;position: absolute;z-index: 1;}
+.content-fade2{background: #fff;display: none;width: 350px;margin-top: 10%;margin-left:37%;position: absolute;z-index: 1;}
 .fade-top{background: #f6f6f6;padding: 15px;}
 .fade-top p{display: inline;}
 .fade-top img{float: right;}

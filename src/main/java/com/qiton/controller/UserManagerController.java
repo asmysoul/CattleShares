@@ -84,9 +84,9 @@ public class UserManagerController extends BaseController {
 			System.out.println("-----------------" + list.toString());
 		} catch (BussinessException e) {
 			e.printStackTrace();
-			renderError(e.getLocalizedMessage());
+			return renderError(e.getLocalizedMessage());
 		} catch (Exception e) {
-			renderError("访问失败请重试");
+			return  renderError("访问失败请重试");
 		}
 		return renderSuccess(list);
 	}
@@ -105,11 +105,11 @@ public class UserManagerController extends BaseController {
 		} catch (BussinessException e) {
 			e.printStackTrace();
 			log.info("----获取数据出错----" + e.getLocalizedMessage());
-			renderError(e.getLocalizedMessage());
+			return  renderError(e.getLocalizedMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.info("----获取数据出错----" + e.getLocalizedMessage());
-			renderError("-获取数据出错");
+			return  renderError("-获取数据出错");
 		}
 		return renderSuccess(user);
 	}
@@ -131,11 +131,11 @@ public class UserManagerController extends BaseController {
 		} catch (BussinessException e) {
 			e.printStackTrace();
 			log.info("-----资金操作失败------" + e.getLocalizedMessage());
-			renderError(e.getLocalizedMessage());
+			return  renderError(e.getLocalizedMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.info("--资金操作失败---------" + e.getLocalizedMessage());
-			renderError("资金操作失败");
+			return renderError("资金操作失败");
 		}
 		return renderSuccess("操作成功");
 	}
@@ -162,11 +162,11 @@ public class UserManagerController extends BaseController {
 		} catch (BussinessException e) {
 			e.printStackTrace();
 			log.info("--会员延期失败---------" + e.getLocalizedMessage());
-			renderError(e.getLocalizedMessage());
+			return renderError(e.getLocalizedMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.info("--会员延期失败---------" + e.getLocalizedMessage());
-			renderError("会员延期失败");
+			return renderError("会员延期失败");
 		}
 		return renderSuccess("延期成功");
 	}
@@ -179,11 +179,11 @@ public class UserManagerController extends BaseController {
 		}catch(BussinessException e){
 			e.printStackTrace();
 			log.info("--修改用户信息失败---------" + e.getLocalizedMessage());
-			renderError(e.getLocalizedMessage());
+			return renderError(e.getLocalizedMessage());
 		}catch (Exception e) {
 			e.printStackTrace();
 			log.info("--修改用户信息失败---------" + e.getLocalizedMessage());
-			renderError("修改用户信息失败");
+			return renderError("修改用户信息失败");
 		}
 		return renderSuccess("修改用户信息成功");
 	}

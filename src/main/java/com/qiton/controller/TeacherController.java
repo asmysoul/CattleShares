@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -60,10 +61,10 @@ public class TeacherController extends BaseController{
 			teacherService.addTeacher(teacher);
 		}catch(BussinessException e){
 			LOGGER.info("添加老师出错" +teacher + "----:" + e.getLocalizedMessage());
-			renderError("添加老师出错");
+			return renderError("添加老师出错");
 		}catch (Exception e) {
 			LOGGER.info("添加老师出错" +teacher + "----:" + e.getLocalizedMessage());
-			renderError("添加老师出错");
+			return renderError("添加老师出错");
 		}
 		return renderSuccess();
 	}
@@ -83,11 +84,11 @@ public class TeacherController extends BaseController{
 		}catch(BussinessException e){
 			LOGGER.info("获取老师信息失败---");
 			e.printStackTrace();
-			renderError("获取老师信息错误");
+			return renderError("获取老师信息错误");
 		}catch (Exception e) {
 			LOGGER.info("获取老师信息失败---");
 			e.printStackTrace();
-			renderError("获取老师信息失败");
+			return renderError("获取老师信息失败");
 		}
 		return renderSuccess(selectteacher);
 	}
@@ -104,16 +105,19 @@ public class TeacherController extends BaseController{
 	@ResponseBody
 	public Object updateTeacherInfo(Long id,Teacher teacher,HttpServletRequest request){
 		try{
+			System.out.println("-----id--"+id);
 			Teacher selectteacher=teacherService.selectById(id);
-			int b=teacherService.updateTeacher(teacher, teacher);
+			Teacher whTeacher=new Teacher();
+			whTeacher.setTechId(id);
+			int b=teacherService.updateTeacher(teacher, whTeacher);
 		}catch(BussinessException e){
 			LOGGER.info("更新老师失败---");
 			e.printStackTrace();
-			renderError("更新老师错误");
+			return renderError("更新老师错误");
 		}catch (Exception e) {
 			LOGGER.info("更新老师失败---");
 			e.printStackTrace();
-			renderError("更新老师错误");
+			return renderError("更新老师错误");
 		}
 		return renderSuccess();
 	}
@@ -131,10 +135,10 @@ public class TeacherController extends BaseController{
 			int b=teacherService.deleteTeacher(id);
 		}catch(BussinessException e){
 			LOGGER.info("删除老师出错" + e.getLocalizedMessage());
-			renderError("删除老师失败---");
+			return renderError("删除老师失败---");
 		}catch (Exception e) {
 			LOGGER.info("删除老师出错" + e.getLocalizedMessage());
-			renderError("删除老师失败---");
+			return renderError("删除老师失败---");
 		}
 		return renderSuccess();
 	}
@@ -164,8 +168,10 @@ public class TeacherController extends BaseController{
 			}*/
 		}catch(BussinessException e){
 			LOGGER.info("获取老师列表出错" + e.getLocalizedMessage());
+			return renderError("获取老师列表出错---");
 		}catch (Exception e) {
 			LOGGER.info("获取老师列表出错" + "----:" + e.getLocalizedMessage());
+			return renderError("获取老师列表出错---");
 		}
 		return renderSuccess(pages);
 	}
@@ -189,15 +195,27 @@ public class TeacherController extends BaseController{
      */
     @RequestMapping("/deleteAllTech")
     @ResponseBody
-    public Object deleteAllTech(List<Long> idList,HttpServletRequest request){
+    public Object deleteAllTech(String idList,HttpServletRequest request){
+    	String[] list=idList.split(",");
+    	List<Long> idLists=new ArrayList<Long>();
+    	for(String i:list){
+    		idLists.add((long) Integer.parseInt(i));
+    	}
 		try{
-			teacherService.deleteBatchIds(idList);
+			teacherService.deleteBatchIds(idLists);
 		}catch(BussinessException e){
-			LOGGER.info("获取老师列表出错" + e.getLocalizedMessage());
+			LOGGER.info("删除老师出错" + e.getLocalizedMessage());
+			return renderError("删除老师出错---");
 		}catch (Exception e) {
-			LOGGER.info("获取老师列表出错" + "----:" + e.getLocalizedMessage());
+			LOGGER.info("删除老师出错" + "----:" + e.getLocalizedMessage());
+			return renderError("删除老师出错---");
 		}
 		return renderSuccess();
     }
 	
+    @RequestMapping("/gotTechListJsp")
+    public String gotTechListJsp(HttpServletRequest request){
+		return "/teacher-manage";
+    }
+    
 }
