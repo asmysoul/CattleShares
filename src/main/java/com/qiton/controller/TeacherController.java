@@ -1,6 +1,14 @@
 
 package com.qiton.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,11 +19,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 import com.qiton.exception.BussinessException;
+import com.qiton.model.Reference;
 import com.qiton.model.Teacher;
 import com.qiton.service.ITeacherService;
 import com.qiton.utils.Config;
@@ -39,17 +54,18 @@ public class TeacherController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping("/addTeacher")
-	public ModelAndView addTeacher(Teacher teacher,HttpServletRequest request){
-		ModelAndView view=new ModelAndView();
+	@ResponseBody
+	public Object addTeacher(Teacher teacher,HttpServletRequest request){
 		try{
 			teacherService.addTeacher(teacher);
-			view.setViewName("");
 		}catch(BussinessException e){
 			LOGGER.info("添加老师出错" +teacher + "----:" + e.getLocalizedMessage());
+			renderError("添加老师出错");
 		}catch (Exception e) {
 			LOGGER.info("添加老师出错" +teacher + "----:" + e.getLocalizedMessage());
+			renderError("添加老师出错");
 		}
-		return view;
+		return renderSuccess();
 	}
 	
 	/**
@@ -59,17 +75,21 @@ public class TeacherController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping("/getTeacherInfo")
-	public ModelAndView getTeacherInfo(Long id,HttpServletRequest request){
-		ModelAndView view=new ModelAndView();
+	@ResponseBody
+	public Object getTeacherInfo(Long id,HttpServletRequest request){
+		Teacher selectteacher = null;
 		try{
-			Teacher selectteacher=teacherService.getTeacher(id);
-			view.addObject("select_teacher", selectteacher);
-			view.setViewName("");
+			 selectteacher=teacherService.getTeacher(id);
 		}catch(BussinessException e){
+			LOGGER.info("获取老师信息失败---");
 			e.printStackTrace();
-			view.addObject("error",e.getLocalizedMessage());
+			renderError("获取老师信息错误");
+		}catch (Exception e) {
+			LOGGER.info("获取老师信息失败---");
+			e.printStackTrace();
+			renderError("获取老师信息失败");
 		}
-		return view;
+		return renderSuccess(selectteacher);
 	}
 	
 	
@@ -81,17 +101,21 @@ public class TeacherController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping("/updateTeacherInfo")
-	public ModelAndView updateTeacherInfo(Long id,Teacher teacher,HttpServletRequest request){
-		ModelAndView view=new ModelAndView();
+	@ResponseBody
+	public Object updateTeacherInfo(Long id,Teacher teacher,HttpServletRequest request){
 		try{
 			Teacher selectteacher=teacherService.selectById(id);
 			int b=teacherService.updateTeacher(teacher, teacher);
-			view.setViewName("");
 		}catch(BussinessException e){
+			LOGGER.info("更新老师失败---");
 			e.printStackTrace();
-			view.addObject("error",e.getLocalizedMessage());
+			renderError("更新老师错误");
+		}catch (Exception e) {
+			LOGGER.info("更新老师失败---");
+			e.printStackTrace();
+			renderError("更新老师错误");
 		}
-		return view;
+		return renderSuccess();
 	}
 	
 	/**
@@ -101,17 +125,18 @@ public class TeacherController extends BaseController{
 	 * @return
 	 */
 	@RequestMapping("/deleteTeacher")
-	public ModelAndView deleteTeacher(Long id,HttpServletRequest request){
-		ModelAndView view=new ModelAndView();
+	 @ResponseBody
+	public Object deleteTeacher(Long id,HttpServletRequest request){
 		try{
 			int b=teacherService.deleteTeacher(id);
-			view.setViewName("");
 		}catch(BussinessException e){
 			LOGGER.info("删除老师出错" + e.getLocalizedMessage());
+			renderError("删除老师失败---");
 		}catch (Exception e) {
 			LOGGER.info("删除老师出错" + e.getLocalizedMessage());
+			renderError("删除老师失败---");
 		}
-		return view;
+		return renderSuccess();
 	}
 	
 	/**
@@ -127,22 +152,52 @@ public class TeacherController extends BaseController{
 	* @throws
 	 */
 	@RequestMapping("/selectTechList")
-	public ModelAndView selectTechList(Integer currentPage,HttpServletRequest request){
-		ModelAndView view=new ModelAndView();
-		Page<Teacher> page=new Page<Teacher>(currentPage, Config.PAGENUM);
+	@ResponseBody
+	public Object selectTechList(Page<Reference> page,HttpServletRequest request){
+		Page<Teacher> page2=new Page<Teacher>(page.getCurrent(), Config.PAGENUM);
+		Page<Teacher> pages = null;
 		try{
-			Page<Teacher> pages=teacherService.selectPage(page, null);
-			List<Teacher> list=pages.getRecords();
+			 pages=teacherService.selectPage(page2, null);
+			/*List<Teacher> list=pages.getRecords();
 			for(Teacher teacher:list){
 				System.out.println("-----------"+teacher.toString());
-			}
-			view.addObject("tech_list", list);
-			
+			}*/
 		}catch(BussinessException e){
 			LOGGER.info("获取老师列表出错" + e.getLocalizedMessage());
 		}catch (Exception e) {
 			LOGGER.info("获取老师列表出错" + "----:" + e.getLocalizedMessage());
 		}
-		return view;
+		return renderSuccess(pages);
 	}
+	
+    @RequestMapping("/testupload")
+    public String testupload(HttpServletRequest request){
+    	return "/uploadImg";
+    }
+    
+    /**
+     * 
+    * @Title: deleteAllTech 
+    * @Description: 批量删除id
+    * @author 尤
+    * @date 2016年11月4日 上午9:05:40  
+    * @param @param idList
+    * @param @param request
+    * @param @return    设定文件 
+    * @return Object    返回类型 
+    * @throws
+     */
+    @RequestMapping("/deleteAllTech")
+    @ResponseBody
+    public Object deleteAllTech(List<Long> idList,HttpServletRequest request){
+		try{
+			teacherService.deleteBatchIds(idList);
+		}catch(BussinessException e){
+			LOGGER.info("获取老师列表出错" + e.getLocalizedMessage());
+		}catch (Exception e) {
+			LOGGER.info("获取老师列表出错" + "----:" + e.getLocalizedMessage());
+		}
+		return renderSuccess();
+    }
+	
 }

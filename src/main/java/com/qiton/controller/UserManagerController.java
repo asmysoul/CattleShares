@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.qiton.exception.BussinessException;
 import com.qiton.model.Invite;
+import com.qiton.model.Reference;
 import com.qiton.model.Teacher;
 import com.qiton.model.User;
 import com.qiton.service.IInviteService;
@@ -49,11 +50,12 @@ public class UserManagerController extends BaseController {
 	 */
 	@RequestMapping("/getallUser")
 	@ResponseBody
-	public Object getAllUser(Integer current, HttpServletRequest request) {
-		Page<Invite> page = new Page<>(0, Config.PAGENUM);
+	public Object getAllUser(Page<Reference> page, HttpServletRequest request) {
+		Page<Invite> page2 = new Page<>(page.getCurrent(), Config.PAGENUM);
 		List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		Page<Invite> pages ;
 		try {
-			Page<Invite> pages = inviteService.selectPage(page, null);
+			pages = inviteService.selectPage(page2, null);
 			List<Invite> invitelist = pages.getRecords();
 			System.out.println("--------" + invitelist.size());
 			HashMap<String, Object> map = null;
@@ -120,6 +122,8 @@ public class UserManagerController extends BaseController {
 	 * money @param @param remark @param @param request @param @return
 	 * 设定文件 @return Object 返回类型 @throws
 	 */
+	@RequestMapping("/capital_Operation")
+	@ResponseBody
 	public Object Capital_Operation(User user, String operId, String capiId,
 			 String money, String remark, HttpServletRequest request) {
 		try {
@@ -150,6 +154,8 @@ public class UserManagerController extends BaseController {
 	* @return Object    返回类型 
 	* @throws
 	 */
+	@RequestMapping("/vip_Delay")
+	@ResponseBody
 	public Object VIP_Delay(User user,String delay_time, HttpServletRequest request) {
 		try {
 			userService.updateVIP_Del( user, delay_time);
@@ -165,7 +171,8 @@ public class UserManagerController extends BaseController {
 		return renderSuccess("延期成功");
 	}
 	
-	
+	@RequestMapping("/update_UserInfo")
+	@ResponseBody
 	public Object Update_UserInfo(User user,HttpServletRequest request){
 		try{
 			userService.updateUser_Info(user);

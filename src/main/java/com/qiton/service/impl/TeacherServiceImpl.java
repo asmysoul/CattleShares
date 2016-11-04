@@ -56,7 +56,7 @@ public class TeacherServiceImpl extends SuperServiceImpl<TeacherMapper, Teacher>
 				||StringUtils.isBlank(teacher.getTechTitle())||StringUtils.isBlank(teacher.getTechLabel())
 				||StringUtils.isBlank(teacher.getTechIntro())||StringUtils.isBlank(teacher.getTechMechanism())
 				||StringUtils.isBlank(teacher.getTchCertificate())
-				|| teacher.getTechIntro().length() < 100 || teacher.getTechIntro().length() > 200 
+				 || teacher.getTechIntro().length() > 200 
 			){
 					throw new BussinessException("参数错误");	
 		}
@@ -82,7 +82,7 @@ public class TeacherServiceImpl extends SuperServiceImpl<TeacherMapper, Teacher>
 		if(teacher2!=null){
 			return teacher2;
 		}else{
-			throw new BussinessException("操作失败");
+			throw new BussinessException("用户不存在");
 		}
 	}
 
@@ -92,7 +92,7 @@ public class TeacherServiceImpl extends SuperServiceImpl<TeacherMapper, Teacher>
 				||StringUtils.isBlank(teacher.getTechTitle())||StringUtils.isBlank(teacher.getTechLabel())
 				||StringUtils.isBlank(teacher.getTechIntro())||StringUtils.isBlank(teacher.getTechMechanism())
 				||StringUtils.isBlank(teacher.getTchCertificate())
-				|| teacher.getTechIntro().length() < 100 || teacher.getTechIntro().length() > 200 
+				|| teacher.getTechIntro().length() > 200 
 			){
 					throw new BussinessException("参数错误");	
 		}

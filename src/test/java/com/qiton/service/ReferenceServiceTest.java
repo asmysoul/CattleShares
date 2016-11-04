@@ -1,5 +1,10 @@
 package com.qiton.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Test;
@@ -29,8 +34,8 @@ public class ReferenceServiceTest {
 	private IReferenceService service;
 	
 	@Test
-	public void pubReference(){
-		Reference reference=new Reference((long) 123123, "测试3");
+	public void pubReference() throws ParseException{
+		Reference reference=new Reference((long) 123123, "测试3",new Date());
 		try{
 			service.pubReference(reference);
 		}catch(BussinessException e){
@@ -51,7 +56,7 @@ public class ReferenceServiceTest {
 	
 	@Test
 	public void updateReference(){
-		Reference reference=new Reference((long) 123456, "测试");
+		Reference reference=new Reference((long) 123456, "测试",new Date());
 		Long rerId=(long) 2;
 		try{
 			service.updateReference(reference, rerId);

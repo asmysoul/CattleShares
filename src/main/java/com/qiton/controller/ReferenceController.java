@@ -1,5 +1,9 @@
 package com.qiton.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
@@ -7,12 +11,14 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.qiton.exception.BussinessException;
 import com.qiton.model.Admin;
 import com.qiton.model.Reference;
 import com.qiton.service.IReferenceService;
+import com.qiton.utils.Config;
 
 /**
  * 
@@ -31,7 +37,8 @@ public class ReferenceController extends BaseController{
 	@Autowired
 	private IReferenceService rerService;
 	
-	/**\
+	/**
+	 * @throws ParseException \
 	 * 
 	* @Title: pubReference 
 	* @Description: 发布内参
@@ -44,9 +51,16 @@ public class ReferenceController extends BaseController{
 	* @throws
 	 */
 	@RequestMapping("/pubReference")
-	public Object pubReference(Reference reference,HttpServletRequest request){
+	@ResponseBody
+	public Object pubReference(Reference reference,HttpServletRequest request) throws ParseException{
 		try{
+			/*SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd H:m:s");
+			String date=format.format(new Date());
+			Date date2=format.parse(date);
+			reference.setRerPubtime(date2);*/
+			reference.setRerPubtime(new Date());
 			rerService.pubReference(reference);
+			
 		}catch(BussinessException e){
 			e.printStackTrace();
 			log.info("--发布失败--"+e.getLocalizedMessage());
@@ -69,6 +83,7 @@ public class ReferenceController extends BaseController{
 	* @throws
 	 */
 	@RequestMapping("/deleteReference")
+	@ResponseBody
 	public Object deleteReference(Long rerId,HttpServletRequest request){
 		try{
 			rerService.deleteReference(rerId);
@@ -95,8 +110,10 @@ public class ReferenceController extends BaseController{
 	* @throws
 	 */
 	@RequestMapping("/updateReference")
+	@ResponseBody
 	public Object updateReference(Reference reference,Long rerId,HttpServletRequest request){
 		try{
+			reference.setRerPubtime(new Date());
 			rerService.updateReference(reference, rerId);
 		}catch(BussinessException e){
 			e.printStackTrace();
@@ -120,15 +137,19 @@ public class ReferenceController extends BaseController{
 	* @throws
 	 */
 	@RequestMapping("/getAllReference")
+	@ResponseBody
 	public Object getAllReference(Page<Reference> page,HttpServletRequest request){
+		
+		Page<Reference> pageResult = new Page<Reference>(page.getCurrent(),Config.PAGENUM);
+		
 		try{
-			rerService.getAllReference(page);
+			rerService.getAllReference(pageResult);
 		}catch(BussinessException e){
 			e.printStackTrace();
 			log.info("--获取失败--"+e.getLocalizedMessage());
 			return renderError(e.getLocalizedMessage());
 		}
-		return renderSuccess(page);
+		return renderSuccess(pageResult);
 	}
 	
 }
