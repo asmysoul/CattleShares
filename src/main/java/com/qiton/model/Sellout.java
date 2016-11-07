@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotations.IdType;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  *
@@ -25,6 +26,10 @@ public class Sellout implements Serializable {
 	/**  */
 	@TableId(value = "sell_id", type = IdType.AUTO)
 	private Long sellId;
+
+	/**  */
+	@TableField(value = "sell_stockname")
+	private String sellStockname;
 
 	/** 股票代码 */
 	@TableField(value = "sell_stockcode")
@@ -49,7 +54,30 @@ public class Sellout implements Serializable {
 	/** 买入价格 */
 	@TableField(value = "pur_purprice")
 	private Double purPurprice;
+	
+	@TableField(exist = false)
+	private double profit;
 
+	/**  */
+	@TableField(value = "create_time")
+	private Date createTime;
+	
+	
+
+
+	/**
+	 * @return the profit
+	 */
+	public double getProfit() {
+		return profit;
+	}
+
+	/**
+	 * @param profit the profit to set
+	 */
+	public void setProfit(double profit) {
+		this.profit = profit;
+	}
 
 	public Integer getSellType() {
 		return this.sellType;
@@ -65,6 +93,14 @@ public class Sellout implements Serializable {
 
 	public void setSellId(Long sellId) {
 		this.sellId = sellId;
+	}
+
+	public String getSellStockname() {
+		return this.sellStockname;
+	}
+
+	public void setSellStockname(String sellStockname) {
+		this.sellStockname = sellStockname;
 	}
 
 	public Long getSellStockcode() {
@@ -99,6 +135,7 @@ public class Sellout implements Serializable {
 		this.sellTechnick = sellTechnick;
 	}
 
+	@JsonFormat(pattern="HH:mm:ss",timezone = "GMT+8")
 	public Date getPurPurtime() {
 		return this.purPurtime;
 	}
@@ -114,5 +151,27 @@ public class Sellout implements Serializable {
 	public void setPurPurprice(Double purPurprice) {
 		this.purPurprice = purPurprice;
 	}
+
+	public Date getCreateTime() {
+		return this.createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	/* (非 Javadoc)
+	 * Description:
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Sellout [sellType=" + sellType + ", sellId=" + sellId + ", sellStockname=" + sellStockname
+				+ ", sellStockcode=" + sellStockcode + ", sellSelltime=" + sellSelltime + ", sellSellprice="
+				+ sellSellprice + ", sellTechnick=" + sellTechnick + ", purPurtime=" + purPurtime + ", purPurprice="
+				+ purPurprice + ", profit=" + profit + ", createTime=" + createTime + "]";
+	}
+	
+	
 
 }

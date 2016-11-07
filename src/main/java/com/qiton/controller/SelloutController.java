@@ -7,7 +7,7 @@
  *
  *    Package:     com.qiton.controller
  *
- *    Filename:    PurchaseController.java
+ *    Filename:    SelloutController.java
  *
  *    Description: TODO(用一句话描述该文件做什么)
  *
@@ -19,16 +19,18 @@
  *
  *    @version:    1.0.0
  *
- *    Create at:   2016年10月31日 下午4:58:42
+ *    Create at:   2016年11月4日 下午3:19:46
  *
  *    Revision:
  *
- *    2016年10月31日 下午4:58:42
+ *    2016年11月4日 下午3:19:46
  *        - first revision
  *
  *****************************************************************/
 package com.qiton.controller;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -43,44 +45,41 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.qiton.exception.BussinessException;
 import com.qiton.model.Purchase;
+import com.qiton.model.Sellout;
 import com.qiton.model.User;
 import com.qiton.model.vo.SharesVo;
 import com.qiton.service.IPurchaseService;
+import com.qiton.service.ISelloutService;
 import com.qiton.service.ISharesApiService;
 
 /**
- * @ClassName PurchaseController
- * @Description 买入控制层
+ * @ClassName SelloutController
+ * @Description TODO(这里用一句话描述这个类的作用)
  * @author 抽离
- * @Date 2016年10月31日 下午4:58:42
+ * @Date 2016年11月4日 下午3:19:46
  * @version 1.0.0
  */
-@RequestMapping("/purchase")
 @Controller
-public class PurchaseController extends BaseController {
-
-	 private static final Logger LOGGER = LogManager.getLogger(PurchaseController.class);
+@RequestMapping("/sellout")
+public class SelloutController extends BaseController {
 	
+	 private static final Logger LOGGER = LogManager.getLogger(SelloutController.class);
+		
 	@Autowired
 	private ISharesApiService iSharesApiService;
 	
 	@Autowired
 	private IPurchaseService iPurchaseService;
 	
-	
-	/**
-	 * 
-	 * @Description 添加买入前调用api返回对应数据
-	 * @param purId
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping("addPurchaseBefore")
-	public Object addPurchaseBefore(Long purId){
+	@Autowired
+	private ISelloutService iSelloutService;
+
+	@RequestMapping("addSelloutBefore")
+	public Object addSelloutBefore(Long code){
 		SharesVo sharesVo = null;
 		try {
-			 sharesVo = iSharesApiService.getSharesBySharesCode(purId);
-		}catch (BussinessException e) {
+			sharesVo  = iSelloutService.addSelloutBefore(code);
+		} catch (BussinessException e) {
 			LOGGER.info(e.getLocalizedMessage());
 			return renderError(e.getLocalizedMessage());
 		} catch (Exception e) {
@@ -90,92 +89,94 @@ public class PurchaseController extends BaseController {
 		return renderSuccess(sharesVo);
 	}
 	
+	
+	
 	@ResponseBody
-	@RequestMapping("addPurchase")
-	public Object addPurchase(Purchase purchase, HttpSession session){
+	@RequestMapping("addSellout")
+	public Object addSellout(Sellout sellout){
 		try {
-			iPurchaseService.addPurchase(purchase);
+			iSelloutService.addSellout(sellout);
 		}catch(BussinessException e){
 			LOGGER.info(e.getLocalizedMessage());
 			return renderError(e.getLocalizedMessage());
 		}catch (Exception e) {
 			LOGGER.info(e.getLocalizedMessage());
-			return renderError("添加买入股票出错，请重试");
+			return renderError("添加股票出错，请重试");
 		}
-		return renderSuccess(purchase);
+		return renderSuccess(sellout);
 	}
 	
 	
+	
 	@ResponseBody
-	@RequestMapping("deletePurchase")
-	public Object deletePurchase(Purchase purchase){
+	@RequestMapping("deleteSellout")
+	public Object deleteSellout(Sellout sellout) {
 		try {
-			iPurchaseService.deletePurchase(purchase);
+			iSelloutService.deleteSellout(sellout);
 		}catch(BussinessException e){
 			LOGGER.info(e.getLocalizedMessage());
 			return renderError(e.getLocalizedMessage());
 		}catch (Exception e) {
 			LOGGER.info(e.getLocalizedMessage());
-			return renderError("删除买入股票出错，请重试");
+			return renderError("删除股票出错，请重试");
+		}
+		return renderSuccess();
+	}
+	
+	@ResponseBody
+	@RequestMapping("upSellout")
+	public Object upSellout(Sellout sellout) {
+		try {
+			iSelloutService.upSellout(sellout);
+		}catch(BussinessException e){
+			LOGGER.info(e.getLocalizedMessage());
+			return renderError(e.getLocalizedMessage());
+		}catch (Exception e) {
+			LOGGER.info(e.getLocalizedMessage());
+			return renderError("推荐卖出股票出错，请重试");
+		}
+		return renderSuccess();
+	}
+	
+	@ResponseBody
+	@RequestMapping("downSellout")
+	public Object downSellout(Sellout sellout) {
+		try {
+			iSelloutService.downSellout(sellout);
+		}catch(BussinessException e){
+			LOGGER.info(e.getLocalizedMessage());
+			return renderError(e.getLocalizedMessage());
+		}catch (Exception e) {
+			LOGGER.info(e.getLocalizedMessage());
+			return renderError("撤荐卖出股票出错，请重试");
 		}
 		return renderSuccess();
 	}
 	
 	
 	@ResponseBody
-	@RequestMapping("upPurchase")
-	public Object upPurchase(Purchase purchase){
-		try {
-			iPurchaseService.upPurchase(purchase);
+	@RequestMapping("getSellouts")
+	public Object getSellouts(Page<Sellout> page) {
+		Page<Sellout> pageResult = new Page<Sellout>(page.getCurrent(), 10);
+		try{
+			iSelloutService.findSelloutByPage(pageResult);
 		}catch(BussinessException e){
 			LOGGER.info(e.getLocalizedMessage());
 			return renderError(e.getLocalizedMessage());
 		}catch (Exception e) {
 			LOGGER.info(e.getLocalizedMessage());
-			return renderError("推荐买入股票出错，请重试");
+			return renderError("撤荐卖出股票出错，请重试");
 		}
-		return renderSuccess();
-	}
+			return renderSuccess(page);
+		}
 	
 	@ResponseBody
-	@RequestMapping("downPurchase")
-	public Object downPurchase(Purchase purchase){
-		try {
-			iPurchaseService.downPurchase(purchase);
-		}catch(BussinessException e){
-			LOGGER.info(e.getLocalizedMessage());
-			return renderError(e.getLocalizedMessage());
-		}catch (Exception e) {
-			LOGGER.info(e.getLocalizedMessage());
-			return renderError("撤荐买入股票出错，请重试");
-		}
-		return renderSuccess();
-	}
-	
-	
-	@ResponseBody
-	@RequestMapping("getPurchases")
-	public Object getPurchases(Page<Purchase> page, HttpSession session){
-		try {
-			Page<Purchase> pageResult = new Page<Purchase>(page.getCurrent(), 10);
-			iPurchaseService.findPurchasesByPage(pageResult);
-		}catch(BussinessException e){
-			LOGGER.info(e.getLocalizedMessage());
-			return renderError(e.getLocalizedMessage());
-		}catch (Exception e) {
-			LOGGER.info(e.getLocalizedMessage());
-			return renderError("获取股票出错，请重试");
-		}
-		return renderSuccess(page);
-	}
-	
-	@ResponseBody
-	@RequestMapping("getPurchaseList")
-	public Object getPurchaseList(HttpSession session){
+	@RequestMapping("getSelloutList")
+	public Object getSelloutList(HttpSession session){
 		User user = (User) session.getAttribute("current_user");
-		List<Purchase> list = null;
+		List<Sellout> list = null;
 		try {
-			list = iPurchaseService.findPurchases();
+			list = iSelloutService.findSellout();
 		}catch(BussinessException e){
 			LOGGER.info(e.getLocalizedMessage());
 			return renderError(e.getLocalizedMessage());
@@ -191,18 +192,17 @@ public class PurchaseController extends BaseController {
 		}
 	}
 	
-	
 	@ResponseBody
 	@RequestMapping("deleteAll")
 	public Object deleteAll(Long[] ids){
-		try {
-			iPurchaseService.deleteAll(ids);
+		try{
+			iSelloutService.deleteAll(ids);
 		}catch(BussinessException e){
 			LOGGER.info(e.getLocalizedMessage());
 			return renderError(e.getLocalizedMessage());
 		}catch (Exception e) {
 			LOGGER.info(e.getLocalizedMessage());
-			return renderError("批量删除买入股票出错，请重试");
+			return renderError("批量删除卖出股票出错，请重试");
 		}
 		return renderSuccess();
 	}

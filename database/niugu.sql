@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v11.33 (64 bit)
-MySQL - 5.5.40 : Database - niugu
+MySQL - 5.7.15-log : Database - niugu
 *********************************************************************
 */
 
@@ -122,10 +122,13 @@ CREATE TABLE `purchase` (
   `pur_purchasetime` datetime NOT NULL,
   `pur_stockprice` double NOT NULL,
   `pur_technick` varchar(10) CHARACTER SET utf8 NOT NULL,
+  `create_time` date NOT NULL,
   PRIMARY KEY (`pur_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=ucs2;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=ucs2;
 
 /*Data for the table `purchase` */
+
+insert  into `purchase`(`pur_type`,`pur_id`,`pur_stockcode`,`pur_stockname`,`pur_purchasetime`,`pur_stockprice`,`pur_technick`,`create_time`) values (1,1,10000,'伊利股份','2016-11-07 15:15:23',10.55,'张老师','2016-11-07'),(0,2,600887,'伊利股份','2016-11-07 16:16:43',10.55,'张老师','2016-11-07');
 
 /*Table structure for table `reference` */
 
@@ -167,12 +170,14 @@ DROP TABLE IF EXISTS `sellout`;
 CREATE TABLE `sellout` (
   `sell_type` int(1) NOT NULL DEFAULT '0' COMMENT '0:普通用户，1：会员',
   `sell_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `sell_stockname` varchar(20) NOT NULL,
   `sell_stockcode` bigint(20) NOT NULL COMMENT '股票代码',
   `sell_selltime` datetime NOT NULL COMMENT '卖出时间',
   `sell_sellprice` float NOT NULL COMMENT '卖出价格',
   `sell_technick` varchar(20) NOT NULL COMMENT '推荐老师',
   `pur_purtime` datetime NOT NULL COMMENT '买入时间',
   `pur_purprice` double NOT NULL COMMENT '买入价格',
+  `create_time` date NOT NULL,
   PRIMARY KEY (`sell_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

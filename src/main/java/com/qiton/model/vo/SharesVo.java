@@ -57,6 +57,57 @@ public class SharesVo {
 	private double nowPrice;      //当前价格
 
 	private Date curDate;         //当前日期
+	
+	private double purchasePrice;
+	
+	private double selloutPrice;
+	
+	private double profit;
+	
+	
+	
+
+	/**
+	 * @return the profit
+	 */
+	public double getProfit() {
+		return profit;
+	}
+
+	/**
+	 * @param profit the profit to set
+	 */
+	public void setProfit(double profit) {
+		this.profit = profit;
+	}
+
+	/**
+	 * @return the purchasePrice
+	 */
+	public double getPurchasePrice() {
+		return purchasePrice;
+	}
+
+	/**
+	 * @param purchasePrice the purchasePrice to set
+	 */
+	public void setPurchasePrice(double purchasePrice) {
+		this.purchasePrice = purchasePrice;
+	}
+
+	/**
+	 * @return the selloutPrice
+	 */
+	public double getSelloutPrice() {
+		return selloutPrice;
+	}
+
+	/**
+	 * @param selloutPrice the selloutPrice to set
+	 */
+	public void setSelloutPrice(double selloutPrice) {
+		this.selloutPrice = selloutPrice;
+	}
 
 	/**
 	 * @return the name

@@ -44,4 +44,6 @@ public interface ISharesApiService {
 
 	public SharesVo getSharesBySharesCode(Long code)throws BussinessException;
 
+	
+	public double getCurrentPrice(Long code)throws BussinessException;
 }

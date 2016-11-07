@@ -110,4 +110,15 @@ public class SharesApiServiceImpl implements ISharesApiService {
 		return sharesVo;
 	}
 
+	/* (非 Javadoc)
+	 * Description:
+	 * @see com.qiton.service.ISharesApiService#getCurrentPrice(java.lang.Long)
+	 */
+	@Override
+	public double getCurrentPrice(Long code) throws BussinessException {
+		return getSharesBySharesCode(code).getNowPrice();
+	}
+	
+	
+
 }

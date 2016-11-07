@@ -46,6 +46,8 @@ public class Result implements Serializable {
     private static final long serialVersionUID = 5576237395711742681L;
 
     private boolean success = false;
+    
+    private boolean vip = false;
 
     private String msg = "";
 
@@ -74,5 +76,21 @@ public class Result implements Serializable {
     public void setObj(Object obj) {
         this.obj = obj;
     }
+
+	/**
+	 * @return the vip
+	 */
+	public boolean isVip() {
+		return vip;
+	}
+
+	/**
+	 * @param vip the vip to set
+	 */
+	public void setVip(boolean vip) {
+		this.vip = vip;
+	}
+    
+    
 
 }

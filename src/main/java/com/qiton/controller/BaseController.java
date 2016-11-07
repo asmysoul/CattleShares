@@ -85,4 +85,18 @@ public class BaseController {
         result.setObj(obj);
         return result;
     }
+    
+    /**
+     * ajax成功
+     * @param obj 成功时的对象
+     * @return {Object}
+     */
+    public Object renderVipSuccess(Object obj) {
+        Result result = new Result();
+        result.setSuccess(true);
+        result.setVip(true);
+        result.setObj(obj);
+        return result;
+    }
+    
 }
