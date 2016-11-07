@@ -1,5 +1,6 @@
 package com.qiton.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -53,7 +54,7 @@ public class TeacherServiceTest {
 		try{
 			Teacher teacher=new Teacher("a老师", "a.jpg", "分析师", "股神", "简介", "所属机构", "分析师资格证", 5, "特长");
 			Teacher teacher3=new Teacher();
-			teacher3.setTechId((long) 1);;
+			teacher3.setTechId((long) 3);;
 			int b=iTeacherService.updateTeacher(teacher, teacher3);
 			System.out.println("------------"+b);
 		}catch(BussinessException e){
@@ -78,15 +79,25 @@ public class TeacherServiceTest {
 		Page<Teacher> page=new Page<Teacher>(0, 2);
 		try{
 			Page<Teacher> pages=iTeacherService.selectPage(page, null);
-			List<Teacher> list=pages.getRecords();
+			/*List<Teacher> list=pages.getRecords();
 			for(Teacher teacher:list){
 				System.out.println("-----------"+teacher.toString());
-			}
+			}*/
 		}catch(BussinessException e){
 			e.printStackTrace();
 		}
 	}
 	
-	
+	@Test
+	public void deleteAllTech(){
+		List<Long> idList2=new ArrayList<Long>();
+		idList2.add((long) 1);
+		idList2.add((long) 3);
+		try{
+			iTeacherService.deleteBatchIds(idList2);
+		}catch(BussinessException e){
+			e.printStackTrace();
+		}
+	}
 	
 }

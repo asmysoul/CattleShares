@@ -4,7 +4,7 @@
 
 	<!-- 通用查询结果列-->
 	<sql id="Base_Column_List">
-		rer_id AS rerId, rer_shareCode AS rerSharecode, rer_rerInfo AS rerRerinfo
+		rer_id AS rerId, rer_shareCode AS rerSharecode, rer_rerInfo AS rerRerinfo, rer_pubtime AS rerPubtime
 	</sql>
 
 </mapper>
