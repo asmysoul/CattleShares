@@ -170,7 +170,7 @@ CREATE TABLE `sellout` (
   `sell_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `sell_stockcode` bigint(20) NOT NULL COMMENT '股票代码',
   `sell_selltime` datetime NOT NULL COMMENT '卖出时间',
-  `sell_sellprice` float NOT NULL COMMENT '卖出价格',
+  `sell_sellprice` double NOT NULL COMMENT '卖出价格',
   `sell_technick` varchar(20) NOT NULL COMMENT '推荐老师',
   `pur_purtime` datetime NOT NULL COMMENT '买入时间',
   `pur_purprice` double NOT NULL COMMENT '买入价格',
@@ -223,7 +223,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`user_id`,`user_name`,`password`,`grade`,`register_time`,`end_vip_time`,`vip_status`,`phone`,`gold`,`mark`,`account_type`,`reflect_account`) values (2,'maimai','123123',0,'2016-10-25','2016-10-25',0,'2147483647',10,10,0,'422149196@qq.com'),(3,'lisi','123123',0,'2016-10-25','2016-10-25',0,'2147483647',0,11,11,'422149193@qq.com'),(5,'mmmmmm','111111',0,'2016-11-01','2016-11-01',0,'18060191114',0,100,NULL,NULL),(6,'corn12','123123',0,'2016-11-01','2016-11-01',0,'18650809183',0,100,NULL,NULL);
+insert  into `user`(`user_id`,`user_name`,`password`,`grade`,`register_time`,`end_vip_time`,`vip_status`,`phone`,`gold`,`mark`,`account_type`,`reflect_account`) values (2,'maimai','123123',0,'2016-10-25','2016-10-25',0,'2147483647',10,10,0,'422149196@qq.com'),(3,'lisi','123123',0,'2016-10-25','2016-10-25',0,'2147483647',0,11,1,'422149193@qq.com'),(4,'zhangsan','123123',0,'2016-11-07','2016-11-07',0,'18159801679',0,100,1,'422149193@qq.com');
 
 /*Table structure for table `vip_record` */
 

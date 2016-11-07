@@ -50,7 +50,7 @@ public class UserManagerController extends BaseController {
 	 * 上午10:37:35 @param @param current @param @param request @param @return
 	 * 设定文件 @return Object 返回类型 @throws
 	 */
-	@RequestMapping("/getallUser")
+	@RequestMapping("/getAllUser")
 	@ResponseBody
 	public Object getAllUser(Page<Reference> page, HttpServletRequest request) {
 		Page<Invite> page2 = new Page<>(page.getCurrent(), Config.PAGENUM);
