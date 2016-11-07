@@ -156,4 +156,7 @@ public class UserManagerTest {
 		//userService.updateUserCaptical(user, "1", "1", "20", "备注");//扣积分
 	}
 	
+	
+	
+	
 }

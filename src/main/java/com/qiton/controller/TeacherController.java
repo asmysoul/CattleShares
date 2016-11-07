@@ -105,7 +105,6 @@ public class TeacherController extends BaseController{
 	@ResponseBody
 	public Object updateTeacherInfo(Long id,Teacher teacher,HttpServletRequest request){
 		try{
-			System.out.println("-----id--"+id);
 			Teacher selectteacher=teacherService.selectById(id);
 			Teacher whTeacher=new Teacher();
 			whTeacher.setTechId(id);
@@ -162,10 +161,6 @@ public class TeacherController extends BaseController{
 		Page<Teacher> pages = null;
 		try{
 			 pages=teacherService.selectPage(page2, null);
-			/*List<Teacher> list=pages.getRecords();
-			for(Teacher teacher:list){
-				System.out.println("-----------"+teacher.toString());
-			}*/
 		}catch(BussinessException e){
 			LOGGER.info("获取老师列表出错" + e.getLocalizedMessage());
 			return renderError("获取老师列表出错---");

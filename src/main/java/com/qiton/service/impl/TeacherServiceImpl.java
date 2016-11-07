@@ -29,27 +29,6 @@ public class TeacherServiceImpl extends SuperServiceImpl<TeacherMapper, Teacher>
 	private TeacherMapper teacherMapper;
 	
 	
-	
-	
-	/** 昵称 */
-	private String techNick;
-	/** 头像 */
-	private String techHead;
-	/** 职称 */
-	private String techTitle;
-	/** 标签 */
-	private String techLabel;
-	/** 简介 */
-	private String techIntro;
-	/** 所属机构 */
-	private String techMechanism;
-	/** 从业资格证 */
-	private String tchCertificate;
-	/** 从业年限 */
-	private Integer techWorkage;
-	/** 特长 */
-	private String techSpecialty;
-	
 	@Override
 	public int addTeacher(Teacher teacher) {
 		if(teacher == null || StringUtils.isBlank(teacher.getTechNick())||StringUtils.isBlank(teacher.getTechHead())
@@ -69,9 +48,7 @@ public class TeacherServiceImpl extends SuperServiceImpl<TeacherMapper, Teacher>
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.qiton.service.ITeacherService#getTeacher(java.lang.Long)
-	 */
+	
 	@Override
 	public Teacher getTeacher(Long id) {
 		// TODO Auto-generated method stub

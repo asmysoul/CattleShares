@@ -26,11 +26,11 @@ CREATE TABLE `admin` (
   `admin_password` varchar(64) NOT NULL COMMENT '密码',
   `admin_type` int(1) NOT NULL DEFAULT '0' COMMENT '管理员类型：0.客服，1.管理员',
   PRIMARY KEY (`admin_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `admin` */
 
-insert  into `admin`(`admin_id`,`admin_username`,`admin_password`,`admin_type`) values (1,'admin','1111',1);
+insert  into `admin`(`admin_id`,`admin_username`,`admin_password`,`admin_type`) values (1,'admin','123123',1),(4,'123123','123123',0);
 
 /*Table structure for table `gold_record` */
 
@@ -42,9 +42,9 @@ CREATE TABLE `gold_record` (
   `grd_username` varchar(20) NOT NULL COMMENT '账户名称',
   `grd_profittype` int(2) NOT NULL DEFAULT '0' COMMENT '收益类型：0.邀请，1：充值 2:支出',
   `grd_time` datetime NOT NULL COMMENT '时间',
-  `grd_income` float DEFAULT NULL COMMENT '收入',
-  `grd_pay` float DEFAULT NULL COMMENT '支出',
-  `grd_spare` float NOT NULL COMMENT '余钱',
+  `grd_income` double DEFAULT NULL COMMENT '收入',
+  `grd_pay` double DEFAULT NULL COMMENT '支出',
+  `grd_spare` double NOT NULL COMMENT '余钱',
   `grd_remark` varchar(100) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`grid_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
@@ -83,9 +83,9 @@ CREATE TABLE `mark_recode` (
   `mrd_username` varchar(20) NOT NULL COMMENT '账号昵称',
   `mrd_profittype` int(2) NOT NULL DEFAULT '0' COMMENT '收支类型：0：邀请，1：充值 2:支出',
   `mrd_time` datetime NOT NULL COMMENT '时间',
-  `mrd_income` float DEFAULT NULL COMMENT '收入',
-  `mrd_pay` float DEFAULT NULL COMMENT '支出',
-  `mrd_share` float NOT NULL COMMENT '余钱',
+  `mrd_income` double DEFAULT NULL COMMENT '收入',
+  `mrd_pay` double DEFAULT NULL COMMENT '支出',
+  `mrd_share` double NOT NULL COMMENT '余钱',
   `mrd_remark` varchar(100) NOT NULL COMMENT '备注',
   PRIMARY KEY (`mrd_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
@@ -135,12 +135,13 @@ CREATE TABLE `reference` (
   `rer_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '内参id',
   `rer_shareCode` bigint(20) NOT NULL COMMENT '股票代码',
   `rer_rerInfo` varchar(200) NOT NULL COMMENT '内参消息',
+  `rer_pubtime` datetime NOT NULL,
   PRIMARY KEY (`rer_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 /*Data for the table `reference` */
 
-insert  into `reference`(`rer_id`,`rer_shareCode`,`rer_rerInfo`) values (2,123456,'测试'),(3,123123,'测试1'),(4,123123,'测试3');
+insert  into `reference`(`rer_id`,`rer_shareCode`,`rer_rerInfo`,`rer_pubtime`) values (6,123123,'测试3','2016-11-03 10:42:14');
 
 /*Table structure for table `reflect_recode` */
 
@@ -151,7 +152,7 @@ CREATE TABLE `reflect_recode` (
   `rrd_userid` bigint(20) NOT NULL COMMENT '体现用户账号id',
   `rrd_username` varchar(20) NOT NULL COMMENT '体现用户昵称',
   `rrd_serialnum` bigint(20) NOT NULL COMMENT '体现流水号',
-  `rrd_price` float NOT NULL COMMENT '体现金额',
+  `rrd_price` double NOT NULL COMMENT '体现金额',
   `rrd_applytime` datetime NOT NULL COMMENT '申请时间',
   `rrd_state` int(2) NOT NULL COMMENT '状态：0.未处理1，已处理',
   `rrd_managetime` datetime NOT NULL COMMENT '处理时间',
@@ -185,7 +186,7 @@ DROP TABLE IF EXISTS `teacher`;
 CREATE TABLE `teacher` (
   `tech_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `tech_nick` varchar(10) NOT NULL COMMENT '昵称',
-  `tech_head` varchar(50) DEFAULT NULL COMMENT '头像',
+  `tech_head` varchar(200) DEFAULT NULL COMMENT '头像',
   `tech_title` varchar(20) DEFAULT NULL COMMENT '职称',
   `tech_label` varchar(10) DEFAULT NULL COMMENT '标签',
   `tech_intro` varchar(200) DEFAULT NULL COMMENT '简介',
@@ -194,11 +195,11 @@ CREATE TABLE `teacher` (
   `tech_workage` int(2) DEFAULT NULL COMMENT '从业年限',
   `tech_specialty` varchar(30) DEFAULT NULL COMMENT '特长',
   PRIMARY KEY (`tech_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 /*Data for the table `teacher` */
 
-insert  into `teacher`(`tech_id`,`tech_nick`,`tech_head`,`tech_title`,`tech_label`,`tech_intro`,`tech_mechanism`,`tch_certificate`,`tech_workage`,`tech_specialty`) values (1,'a老师','a.jpg','分析师','股神','简介','所属机构','分析师资格证',5,'特长'),(3,'张老师','a.jpg','分析师','股神','简介','所属机构 ','分析师资格证',5,'特长'),(4,'张老师','a.jpg','分析师','股神','简介','所属机构 ','分析师资格证',5,'特长');
+insert  into `teacher`(`tech_id`,`tech_nick`,`tech_head`,`tech_title`,`tech_label`,`tech_intro`,`tech_mechanism`,`tch_certificate`,`tech_workage`,`tech_specialty`) values (9,'1','http://jzniu-test.jzniu.cn/o_1b0n97p4i1tjli0fkrhc81sdhj.jpg','1','股神','1','1','1',1,'1');
 
 /*Table structure for table `user` */
 

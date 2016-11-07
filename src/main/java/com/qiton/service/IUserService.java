@@ -6,6 +6,7 @@ import com.qiton.model.User;
 import java.text.ParseException;
 
 import com.baomidou.framework.service.ISuperService;
+import com.baomidou.mybatisplus.plugins.Page;
 
 /**
  *
@@ -85,4 +86,35 @@ public interface IUserService extends ISuperService<User> {
 	* @throws
 	 */
 	public void updateUser_Info(User user)throws BussinessException;
+	
+	/**
+	 * 条件查询
+	* @Title: selectByCommand 
+	* @Description: TODO
+	* @author 尤
+	* @date 2016年11月7日 上午10:59:23  
+	* @param @param user
+	* @param @throws BussinessException    设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	public void selectByCommand(User user, Page<User> page) throws BussinessException;
+	
+	/**
+	 * 获取用户列表
+	* @Title: getUserList 
+	* @Description: TODO
+	* @author 尤
+	* @date 2016年11月7日 上午11:16:41  
+	* @param @param page
+	* @param @throws BussinessException    设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	public void getUserList(Page<User> page)throws BussinessException;
+	
+	
+	
+	
+	
 }
