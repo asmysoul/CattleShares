@@ -169,6 +169,7 @@ CREATE TABLE `sellout` (
   `sell_type` int(1) NOT NULL DEFAULT '0' COMMENT '0:普通用户，1：会员',
   `sell_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `sell_stockcode` bigint(20) NOT NULL COMMENT '股票代码',
+  `sell_stockname` varchar(20) NOT NULL COMMENT '股票名称',
   `sell_selltime` datetime NOT NULL COMMENT '卖出时间',
   `sell_sellprice` double NOT NULL COMMENT '卖出价格',
   `sell_technick` varchar(20) NOT NULL COMMENT '推荐老师',
