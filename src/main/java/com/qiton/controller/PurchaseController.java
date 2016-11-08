@@ -76,10 +76,10 @@ public class PurchaseController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping("addPurchaseBefore")
-	public Object addPurchaseBefore(Long purId){
+	public Object addPurchaseBefore(Long code){
 		SharesVo sharesVo = null;
 		try {
-			 sharesVo = iSharesApiService.getSharesBySharesCode(purId);
+			 sharesVo = iSharesApiService.getSharesBySharesCode(code);
 		}catch (BussinessException e) {
 			LOGGER.info(e.getLocalizedMessage());
 			return renderError(e.getLocalizedMessage());
