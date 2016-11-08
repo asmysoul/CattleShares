@@ -327,7 +327,7 @@ public class HttpUtils {
 	    headers.put("Authorization", "APPCODE 4ea787c71bb247f5a8b2499fb6eaf508");
 	    Map<String, String> querys = new HashMap<String, String>();
 	    querys.put("code", "600887");
-	    querys.put("needIndex", "0");
+	    querys.put("needIndex", "1");
 	    querys.put("need_k_pic", "1");
 
 

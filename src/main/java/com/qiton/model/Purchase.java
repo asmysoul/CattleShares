@@ -104,7 +104,7 @@ public class Purchase implements Serializable {
 		this.purStockname = purStockname;
 	}
 	
-	@JsonFormat(pattern="HH:mm:ss",timezone = "GMT+8")
+	@JsonFormat(pattern="HH:mm",timezone = "GMT+8")
 	public Date getPurPurchasetime() {
 		return this.purPurchasetime;
 	}

@@ -94,7 +94,7 @@ public class GenerateCode {
         cg.setMapperPackage(PACKAGE_NAME + ".mapper"); //mapper 映射文件路径
         cg.setServicePackage(PACKAGE_NAME + ".service"); //service 层路径
         cg.setXmlPackage("sqlMapperXml"); //xml层路径
-        
+   
         
         /* 生成代码 */
         AutoGenerator.run(cg);
