@@ -56,7 +56,7 @@ public class AdminServiceImpl extends SuperServiceImpl<AdminMapper, Admin> imple
 	 * @see com.qiton.service.IAdminService#addAdmin(com.qiton.model.Admin)
 	 */
 	@Override
-	public void addAdmin(Admin admin) throws BussinessException {
+	public Admin addAdmin(Admin admin) throws BussinessException {
 		if(StringUtils.isBlank(admin.getAdminUsername()) || StringUtils.isBlank(admin.getAdminPassword())
 				|| admin.getAdminUsername().length() < 6 || admin.getAdminUsername().length() > 20 
 				|| admin.getAdminPassword().length() < 6 || admin.getAdminPassword().length() > 20 
@@ -73,6 +73,8 @@ public class AdminServiceImpl extends SuperServiceImpl<AdminMapper, Admin> imple
 		admin.setAdminType(0);
 		
 		adminmapper.insert(admin);
+		
+		return admin;
 		
 	}
 

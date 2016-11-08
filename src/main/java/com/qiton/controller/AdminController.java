@@ -81,7 +81,7 @@ public class AdminController extends BaseController{
 			LOGGER.info("添加客服出错" +admin + "----:" + e.getLocalizedMessage());
 			return renderError("添加出错请重试");
 		}
-		return renderSuccess("添加成功");
+		return renderSuccess(admin);
 	}
 	
 	

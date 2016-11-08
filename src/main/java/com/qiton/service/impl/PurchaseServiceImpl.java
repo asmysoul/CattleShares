@@ -103,7 +103,14 @@ public class PurchaseServiceImpl extends SuperServiceImpl<PurchaseMapper, Purcha
 		if(list == null){
 			throw new BussinessException("获取买入股票代码失败，请重试");
 		}
-		return list;
+		List<Purchase> resultList = new ArrayList<>();
+		for(Purchase pur : list){
+			double currentPrice = iSharesApiService.getCurrentPrice(pur.getPurStockcode());
+			double profit = ((currentPrice - pur.getPurStockprice()) / pur.getPurStockprice()) * 100;
+			pur.setProfit(profit);
+			resultList.add(pur);
+		}
+		return resultList;
 	}
 
 	/* (非 Javadoc)

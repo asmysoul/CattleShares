@@ -223,8 +223,14 @@ public class SelloutServiceImpl extends SuperServiceImpl<SelloutMapper, Sellout>
 		entityWrapper.where("create_time = DATE_FORMAT(NOW(),'%Y-%m-%d')");
 		
 		List<Sellout> selloutResult = selloutMapper.selectList(entityWrapper);
-		
-		return selloutResult;
+		List<Sellout> resultList = new ArrayList<>();
+		for(Sellout sellout : selloutResult){
+			double currentPrice = iSharesApiService.getCurrentPrice(sellout.getSellStockcode());
+			double profit = ((currentPrice - sellout.getPurPurprice()) / sellout.getPurPurprice()) * 100;
+			sellout.setProfit(profit);
+			resultList.add(sellout);
+		}
+		return resultList;
 	}
 
 }

@@ -22,7 +22,7 @@ public interface IAdminService extends ISuperService<Admin> {
 	public Admin login(Admin admin)throws BussinessException;
 	
 	
-	public void addAdmin(Admin admin) throws BussinessException;
+	public Admin addAdmin(Admin admin) throws BussinessException;
 	
 	
 	public void deleteAdmin(Long id)throws BussinessException;
