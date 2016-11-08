@@ -3,6 +3,7 @@ package com.qiton.service.impl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -15,12 +16,15 @@ import com.qiton.mapper.GoldRecordMapper;
 import com.qiton.mapper.MarkRecodeMapper;
 
 import com.qiton.mapper.UserMapper;
+import com.qiton.model.Admin;
 import com.qiton.model.GoldRecord;
 import com.qiton.model.MarkRecode;
 import com.qiton.model.User;
 import com.qiton.service.IUserService;
 import com.qiton.utils.StringUtils;
 import com.baomidou.framework.service.impl.SuperServiceImpl;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.plugins.Page;
 
 /**
  *
@@ -147,8 +151,8 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 					}
 					// 存入金币记录表
 					GoldRecord goldRecord = new GoldRecord(user.getUserId(), user.getUserName(), 2, new Date(),
-							(user.getGold() - Float.parseFloat(money)), remark);// 金币记录
-					goldRecord.setGrdPay(Float.parseFloat(money));
+							(user.getGold() - Double.parseDouble(money)), remark);// 金币记录
+					goldRecord.setGrdPay(Double.parseDouble(money));
 					 result=goldRecordMapper.insert(goldRecord);
 					 if(result!=1){
 						 throw new BussinessException("存入金币记录表出错");
@@ -169,8 +173,8 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 					}
 					// 存入积分记录表
 					MarkRecode markRecode  = new MarkRecode(user.getUserId(), user.getUserName(), 2, new Date(),
-							(user.getMark() - Float.parseFloat(money)), remark);// 金币记录
-					markRecode.setMrdPay(Float.parseFloat(money));
+							(user.getMark() - Double.parseDouble(money)), remark);// 金币记录
+					markRecode.setMrdPay(Double.parseDouble(money));
 					result=markRecordMapper.insert(markRecode);
 					if(result!=1){
 						throw new BussinessException("存入积分记录表出错");
@@ -191,8 +195,8 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 					 }
 					// 存入金币记录表
 					GoldRecord goldRecord = new GoldRecord(user.getUserId(), user.getUserName(), 2, new Date(),
-							(user.getGold() + Float.parseFloat(money)), remark);// 金币记录
-					goldRecord.setGrdIncome(Float.parseFloat(money));
+							(user.getGold() + Double.parseDouble(money)), remark);// 金币记录
+					goldRecord.setGrdIncome(Double.parseDouble(money));
 					result=goldRecordMapper.insert(goldRecord);
 					if(result!=1){
 						 throw new BussinessException(" 存入金币记录出错");
@@ -209,8 +213,8 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 					 }
 					// 存入积分记录表
 					MarkRecode markRecode  = new MarkRecode(user.getUserId(), user.getUserName(), 2, new Date(),
-							(user.getMark() + Float.parseFloat(money)), remark);// 金币记录
-					markRecode.setMrdIncome(Float.parseFloat(money));
+							(user.getMark() + Double.parseDouble(money)), remark);// 金币记录
+					markRecode.setMrdIncome(Double.parseDouble(money));
 					result=markRecordMapper.insert(markRecode);
 					if(result!=1){
 						 throw new BussinessException("存入积分记录出错");
@@ -265,8 +269,41 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 			throw new BussinessException("修改用户信息失败");
 		}
 	}
+
 	
 	
-	
+	/**
+	 * 条件查询
+	 */
+	@Override
+	public void selectByCommand(User user,Page<User> page) throws BussinessException {
+		// TODO Auto-generated method stub
+		if(user==null){
+			throw new BussinessException("参数错误");
+		}
+		EntityWrapper<User> entityWrapper = new EntityWrapper<User>();
+		entityWrapper.setEntity(user);
+		List<User> admins = userMapper.selectPage(page, entityWrapper);
+		page.setRecords(admins);
+	}
+
+	/**
+	 * 
+	* @Title: getUserList 
+	* @Description: 获取用户列表
+	* @author 尤
+	* @date 2016年11月7日 上午11:23:22  
+	* @param @param page
+	* @param @throws BussinessException    设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	@Override
+	public void getUserList(Page<User> page) throws BussinessException {
+		// TODO Auto-generated method stub
+		List<User> admins = userMapper.selectPage(page, null);
+		page.setRecords(admins);
+	}
+
 
 }

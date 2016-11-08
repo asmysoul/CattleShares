@@ -38,7 +38,7 @@ public class ReflectRecode implements Serializable {
 
 	/** 体现金额 */
 	@TableField(value = "rrd_price")
-	private Float rrdPrice;
+	private Double rrdPrice;
 
 	/** 申请时间 */
 	@TableField(value = "rrd_applytime")
@@ -85,11 +85,11 @@ public class ReflectRecode implements Serializable {
 		this.rrdSerialnum = rrdSerialnum;
 	}
 
-	public Float getRrdPrice() {
+	public Double getRrdPrice() {
 		return this.rrdPrice;
 	}
 
-	public void setRrdPrice(Float rrdPrice) {
+	public void setRrdPrice(Double rrdPrice) {
 		this.rrdPrice = rrdPrice;
 	}
 

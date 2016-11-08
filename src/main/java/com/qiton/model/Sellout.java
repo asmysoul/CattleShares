@@ -41,7 +41,7 @@ public class Sellout implements Serializable {
 
 	/** 卖出价格 */
 	@TableField(value = "sell_sellprice")
-	private Float sellSellprice;
+	private Double sellSellprice;
 
 	/** 推荐老师 */
 	@TableField(value = "sell_technick")
@@ -119,11 +119,11 @@ public class Sellout implements Serializable {
 		this.sellSelltime = sellSelltime;
 	}
 
-	public Float getSellSellprice() {
+	public Double getSellSellprice() {
 		return this.sellSellprice;
 	}
 
-	public void setSellSellprice(Float sellSellprice) {
+	public void setSellSellprice(Double sellSellprice) {
 		this.sellSellprice = sellSellprice;
 	}
 

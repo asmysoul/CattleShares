@@ -42,15 +42,15 @@ public class GoldRecord implements Serializable {
 
 	/** 收入 */
 	@TableField(value = "grd_income")
-	private Float grdIncome;
+	private Double grdIncome;
 
 	/** 支出 */
 	@TableField(value = "grd_pay")
-	private Float grdPay;
+	private Double grdPay;
 
 	/** 余钱 */
 	@TableField(value = "grd_spare")
-	private Float grdSpare;
+	private Double grdSpare;
 
 	/** 备注 */
 	@TableField(value = "grd_remark")
@@ -65,7 +65,7 @@ public class GoldRecord implements Serializable {
 		super();
 	}
 
-	public GoldRecord(Long grdUserid, String grdUsername, Integer grdProfittype, Date grdTime, Float grdSpare, String grdRemark) {
+	public GoldRecord(Long grdUserid, String grdUsername, Integer grdProfittype, Date grdTime, Double grdSpare, String grdRemark) {
 		super();
 		this.grdUserid = grdUserid;
 		this.grdUsername = grdUsername;
@@ -126,27 +126,27 @@ public class GoldRecord implements Serializable {
 		this.grdTime = grdTime;
 	}
 
-	public Float getGrdIncome() {
+	public Double getGrdIncome() {
 		return this.grdIncome;
 	}
 
-	public void setGrdIncome(Float grdIncome) {
+	public void setGrdIncome(Double grdIncome) {
 		this.grdIncome = grdIncome;
 	}
 
-	public Float getGrdPay() {
+	public Double getGrdPay() {
 		return this.grdPay;
 	}
 
-	public void setGrdPay(Float grdPay) {
+	public void setGrdPay(Double grdPay) {
 		this.grdPay = grdPay;
 	}
 
-	public Float getGrdSpare() {
+	public Double getGrdSpare() {
 		return this.grdSpare;
 	}
 
-	public void setGrdSpare(Float grdSpare) {
+	public void setGrdSpare(Double grdSpare) {
 		this.grdSpare = grdSpare;
 	}
 

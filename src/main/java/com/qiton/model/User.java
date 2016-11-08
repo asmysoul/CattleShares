@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotations.IdType;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  *
@@ -97,6 +98,7 @@ public class User implements Serializable {
 		this.grade = grade;
 	}
 
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	public Date getRegisterTime() {
 		return this.registerTime;
 	}
@@ -104,7 +106,7 @@ public class User implements Serializable {
 	public void setRegisterTime(Date registerTime) {
 		this.registerTime = registerTime;
 	}
-
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	public Date getEndVipTime() {
 		return this.endVipTime;
 	}

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -32,6 +33,7 @@ import com.sun.xml.internal.xsom.impl.scd.Iterators.Map;
  *
  */
 @RequestMapping("/userManager")
+@Controller
 public class UserManagerController extends BaseController {
 
 	private static final Logger log = LogManager.getLogger(UserManagerController.class);
@@ -48,7 +50,7 @@ public class UserManagerController extends BaseController {
 	 * 上午10:37:35 @param @param current @param @param request @param @return
 	 * 设定文件 @return Object 返回类型 @throws
 	 */
-	@RequestMapping("/getallUser")
+	@RequestMapping("/getAllUser")
 	@ResponseBody
 	public Object getAllUser(Page<Reference> page, HttpServletRequest request) {
 		Page<Invite> page2 = new Page<>(page.getCurrent(), Config.PAGENUM);
@@ -171,6 +173,18 @@ public class UserManagerController extends BaseController {
 		return renderSuccess("延期成功");
 	}
 	
+	/**
+	 * 
+	* @Title: Update_UserInfo 
+	* @Description: 修改用户信息
+	* @author 尤
+	* @date 2016年11月7日 上午11:13:48  
+	* @param @param user
+	* @param @param request
+	* @param @return    设定文件 
+	* @return Object    返回类型 
+	* @throws
+	 */
 	@RequestMapping("/update_UserInfo")
 	@ResponseBody
 	public Object Update_UserInfo(User user,HttpServletRequest request){
@@ -189,5 +203,93 @@ public class UserManagerController extends BaseController {
 	}
 	
 	
-
+	/**
+	 * 
+	* @Title: selectByCommand 
+	* @Description: 条件查询
+	* @author 尤
+	* @date 2016年11月7日 上午11:13:20  
+	* @param @param user
+	* @param @param page
+	* @param @param request
+	* @param @return    设定文件 
+	* @return Object    返回类型 
+	* @throws
+	 */
+	@RequestMapping("/selectById")
+	@ResponseBody
+	public Object selectByCommand(User user,Page<User> page,HttpServletRequest request){
+		Page<User> page2=new Page<User>(page.getCurrent(), Config.PAGENUM);
+		try{
+			userService.selectByCommand(user, page2);
+		}catch(BussinessException e){
+			log.info("查询错误");
+			return renderError(e.getLocalizedMessage());
+		}catch (Exception e) {
+			log.info("查询错误");
+			return renderError(e.getLocalizedMessage());
+		}
+		return renderSuccess(page2);
+	}
+	
+	/**
+	 * 
+	* @Title: getUserList 
+	* @Description: 查询列表
+	* @author 尤
+	* @date 2016年11月7日 上午11:19:13  
+	* @param @param page
+	* @param @param request
+	* @param @return    设定文件 
+	* @return Object    返回类型 
+	* @throws
+	 */
+	@RequestMapping("/getUserList")
+	@ResponseBody
+	public Object getUserList(Page<User> page,HttpServletRequest request){
+		Page<User> page2=new Page<User>(page.getCurrent(), Config.PAGENUM);
+		try{
+			userService.getUserList(page2);
+		}catch(BussinessException e){
+			log.info("查询错误");
+			return renderError(e.getLocalizedMessage());
+		}catch (Exception e) {
+			log.info("查询错误");
+			return renderError(e.getLocalizedMessage());
+			}
+		return renderSuccess(page2);
+	}
+	
+	
+	/**
+	 * 
+	* @Title: deleteAllUser 
+	* @Description: 批量删除
+	* @author 尤
+	* @date 2016年11月7日 下午1:44:26  
+	* @param @param idList
+	* @param @param request
+	* @param @return    设定文件 
+	* @return Object    返回类型 
+	* @throws
+	 */
+    @RequestMapping("/deleteAllUser")
+    @ResponseBody
+    public Object deleteAllUser(String idList,HttpServletRequest request){
+    	String[] list=idList.split(",");
+    	List<Long> idLists=new ArrayList<Long>();
+    	for(String i:list){
+    		idLists.add((long) Integer.parseInt(i));
+    	}
+		try{
+			userService.deleteBatchIds(idLists);
+		}catch(BussinessException e){
+			log.info(e.getLocalizedMessage());
+			return renderError(e.getLocalizedMessage());
+		}catch (Exception e) {
+			log.info(e.getLocalizedMessage());
+			return renderError(e.getLocalizedMessage());
+		}
+		return renderSuccess();
+    }
 }
