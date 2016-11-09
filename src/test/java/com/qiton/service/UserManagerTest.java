@@ -1,6 +1,7 @@
 package com.qiton.service;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.qiton.exception.BussinessException;
 import com.qiton.model.Invite;
+import com.qiton.model.SelectOptionTime;
 import com.qiton.model.User;
 import com.qiton.utils.Config;
 
@@ -156,7 +159,20 @@ public class UserManagerTest {
 		//userService.updateUserCaptical(user, "1", "1", "20", "备注");//扣积分
 	}
 	
-	
-	
+
+
+	@Test
+	public void getSelectTime() {
+		//new DateTime(date).plusDays(delayday).toDate();
+		SelectOptionTime optionTime=new SelectOptionTime("2016-11-06","2016-11-10");
+		Page<User> page2 = new Page<User>(1, Config.PAGENUM);
+		try {
+			userService.getSelectTime(page2, optionTime);
+		} catch (BussinessException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 }

@@ -17,6 +17,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.qiton.exception.BussinessException;
 import com.qiton.model.Invite;
 import com.qiton.model.Reference;
+import com.qiton.model.SelectOptionTime;
 import com.qiton.model.Teacher;
 import com.qiton.model.User;
 import com.qiton.service.IInviteService;
@@ -220,8 +221,42 @@ public class UserManagerController extends BaseController {
 	@ResponseBody
 	public Object selectByCommand(User user,Page<User> page,HttpServletRequest request){
 		Page<User> page2=new Page<User>(page.getCurrent(), Config.PAGENUM);
+		List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		User acceptinviteInfo = null;
 		try{
+			HashMap<String, Object> map = null;
+			//接受邀请的用户
 			userService.selectByCommand(user, page2);
+			for(User user2:page2.getRecords()){
+				 acceptinviteInfo=user2;
+				System.out.println("----acceptinviteInfo-------" + acceptinviteInfo.toString());
+			}
+			
+			//通过接受的邀请人获得邀请记录
+			Invite entity = new Invite();
+			entity.setInviAcceptuser(acceptinviteInfo.getUserName());
+			Invite inviteuser=inviteService.selectOne(entity);        //获得邀请记录
+			
+			//邀请人
+			Invite whInvite=new Invite();
+			whInvite.setInviUsername(inviteuser.getInviUsername());
+			
+			int count = inviteService.selectCount(whInvite);   //获得邀请数量
+			System.out.println("-----count----" + count);
+			
+			User inviteuser2 = new User();
+			inviteuser2.setUserName(inviteuser.getInviUsername());
+			
+			User inviteUserInfo = userService.selectOne(inviteuser2);   //获得邀请人信息
+			System.out.println("-----inviteUserInfo------" + inviteUserInfo.toString());
+			map = new HashMap<String, Object>();
+			
+			map.put("inviteCount", count);
+			map.put("acceptinviteUser", acceptinviteInfo);
+			map.put("inviteUser", inviteUserInfo);
+			list.add(map);
+			System.out.println("-----------------" + list.toString());
+			
 		}catch(BussinessException e){
 			log.info("查询错误");
 			return renderError(e.getLocalizedMessage());
@@ -229,7 +264,7 @@ public class UserManagerController extends BaseController {
 			log.info("查询错误");
 			return renderError(e.getLocalizedMessage());
 		}
-		return renderSuccess(page2);
+		return renderSuccess(list);
 	}
 	
 	/**
@@ -243,7 +278,7 @@ public class UserManagerController extends BaseController {
 	* @param @return    设定文件 
 	* @return Object    返回类型 
 	* @throws
-	 */
+	 *//*
 	@RequestMapping("/getUserList")
 	@ResponseBody
 	public Object getUserList(Page<User> page,HttpServletRequest request){
@@ -258,7 +293,7 @@ public class UserManagerController extends BaseController {
 			return renderError(e.getLocalizedMessage());
 			}
 		return renderSuccess(page2);
-	}
+	}*/
 	
 	
 	/**
@@ -292,4 +327,49 @@ public class UserManagerController extends BaseController {
 		}
 		return renderSuccess();
     }
+    
+    
+    /**
+	 * 
+	 * @Title: getAllUser @Description:根据时间区间获得用户列表 @author 尤 @date 2016年10月26日
+	 * 上午10:37:35 @param @param current @param @param request @param @return
+	 * 设定文件 @return Object 返回类型 @throws
+	 */
+	@RequestMapping("/getSelectTime")
+	@ResponseBody
+	public Object getSelectTime(Page<User> page,SelectOptionTime optionTime, HttpServletRequest request) {
+		Page<User> page2 = new Page<User>(page.getCurrent(), Config.PAGENUM);
+		try {
+			userService.getSelectTime(page2, optionTime);
+		} catch (BussinessException e) {
+			e.printStackTrace();
+			return renderError(e.getLocalizedMessage());
+		} catch (Exception e) {
+			return  renderError("访问失败请重试-"+e.getLocalizedMessage());
+		}
+		return renderSuccess(page2);
+	}
+
+    
+	 /**
+		 * 
+		 * @Title: getAllUser @Description:根据用户状态获得用户列表 @author 尤 @date 2016年10月26日
+		 * 上午10:37:35 @param @param current @param @param request @param @return
+		 * 设定文件 @return Object 返回类型 @throws
+		 */
+		@RequestMapping("/getSelectUserSatate")
+		@ResponseBody
+		public Object getSelectUserSatate(Page<User> page,String userState, HttpServletRequest request) {
+			Page<User> page2 = new Page<User>(page.getCurrent(), Config.PAGENUM);
+			try {
+				userService.getSelectUserSatate(page2, userState);
+			} catch (BussinessException e) {
+				e.printStackTrace();
+				return renderError(e.getLocalizedMessage());
+			} catch (Exception e) {
+				return  renderError("访问失败请重试-"+e.getLocalizedMessage());
+			}
+			return renderSuccess(page2);
+		}
+    
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.session.RowBounds;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import com.qiton.mapper.UserMapper;
 import com.qiton.model.Admin;
 import com.qiton.model.GoldRecord;
 import com.qiton.model.MarkRecode;
+import com.qiton.model.SelectOptionTime;
 import com.qiton.model.User;
 import com.qiton.service.IUserService;
 import com.qiton.utils.StringUtils;
@@ -283,20 +285,38 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 		}
 		EntityWrapper<User> entityWrapper = new EntityWrapper<User>();
 		entityWrapper.setEntity(user);
-		List<User> admins = userMapper.selectPage(page, entityWrapper);
-		page.setRecords(admins);
+		List<User> users = userMapper.selectPage(page, entityWrapper);
+		if(users==null){
+			throw new BussinessException("查询用户不存在");
+		}
+		page.setRecords(users);
+	}
+
+	
+	
+	/**
+	 * 
+	 * 根据时间获取用户列表
+	 */
+	@Override
+	public void getSelectTime(Page<User> page, SelectOptionTime optionTime) throws BussinessException {
+		// TODO Auto-generated method stub
+		EntityWrapper<User> entityWrapper = new EntityWrapper<User>();
+		entityWrapper.between("register_time", optionTime.getFirstTime().toString(), optionTime.getLastTime().toString());
+		List<User> users = userMapper.selectPage(page, entityWrapper);
+		page.setRecords(users);
 	}
 
 	/**
 	 * 
-	* @Title: getUserList 
-	* @Description: 获取用户列表
-	* @author 尤
-	* @date 2016年11月7日 上午11:23:22  
-	* @param @param page
-	* @param @throws BussinessException    设定文件 
-	* @return void    返回类型 
-	* @throws
+	 * @Title: getUserList 
+	 * @Description: 获取用户列表
+	 * @author 尤
+	 * @date 2016年11月7日 上午11:23:22  
+	 * @param @param page
+	 * @param @throws BussinessException    设定文件 
+	 * @return void    返回类型 
+	 * @throws
 	 */
 	@Override
 	public void getUserList(Page<User> page) throws BussinessException {
@@ -305,5 +325,25 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 		page.setRecords(admins);
 	}
 
+	/**
+	 * 
+	* @Title: getSelectUserSatate 
+	* @Description: 根据用户状态获取用户列表
+	* @author 尤
+	* @date 2016年11月9日 上午10:06:17  
+	* @param @param page
+	* @param @param userState
+	* @param @throws BussinessException    设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	@Override
+	public void getSelectUserSatate(Page<User> page, String userState) throws BussinessException {
+		// TODO Auto-generated method stub
+		EntityWrapper<User> entityWrapper = new EntityWrapper<User>();
+		entityWrapper.where("grade={0}",Integer.parseInt(userState));
+		List<User> users = userMapper.selectPage(page, entityWrapper);
+		page.setRecords(users);
+	}
 
 }

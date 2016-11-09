@@ -1,6 +1,7 @@
 package com.qiton.service;
 
 import com.qiton.exception.BussinessException;
+import com.qiton.model.SelectOptionTime;
 import com.qiton.model.User;
 
 import java.text.ParseException;
@@ -101,9 +102,9 @@ public interface IUserService extends ISuperService<User> {
 	public void selectByCommand(User user, Page<User> page) throws BussinessException;
 	
 	/**
-	 * 获取用户列表
+	 * 
 	* @Title: getUserList 
-	* @Description: TODO
+	* @Description: 获取用户列表
 	* @author 尤
 	* @date 2016年11月7日 上午11:16:41  
 	* @param @param page
@@ -114,7 +115,31 @@ public interface IUserService extends ISuperService<User> {
 	public void getUserList(Page<User> page)throws BussinessException;
 	
 	
+	/**
+	 * 
+	* @Title: getSelectTime 
+	* @Description:根据时间查询出对象
+	* @author 尤
+	* @date 2016年11月9日 上午9:14:43  
+	* @param @param page
+	* @param @throws BussinessException    设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	public void getSelectTime(Page<User> page,SelectOptionTime optionTime)throws BussinessException;
 	
-	
+	/**
+	 * 
+	* @Title: getSelectUserSatate 
+	* @Description: 根据用户状态查询出用户列表
+	* @author 尤
+	* @date 2016年11月9日 上午10:01:39  
+	* @param @param page
+	* @param @param userState
+	* @param @throws BussinessException    设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	public void getSelectUserSatate(Page<User> page,String userState)throws BussinessException;
 	
 }

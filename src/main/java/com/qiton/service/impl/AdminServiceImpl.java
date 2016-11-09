@@ -145,7 +145,7 @@ public class AdminServiceImpl extends SuperServiceImpl<AdminMapper, Admin> imple
 	@Override
 	public void getAdmins(Page<Admin> page) {
 		EntityWrapper<Admin> entityWrapper = new EntityWrapper<Admin>();
-		entityWrapper.where("admin_type", 0);
+		entityWrapper.where("admin_type={0}", 0);
 		List<Admin> admins = adminmapper.selectPage(page, entityWrapper);
 		page.setRecords(admins);
 	}
