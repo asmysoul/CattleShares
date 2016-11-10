@@ -54,13 +54,8 @@ public class ReferenceController extends BaseController{
 	@ResponseBody
 	public Object pubReference(Reference reference,HttpServletRequest request) throws ParseException{
 		try{
-			/*SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd H:m:s");
-			String date=format.format(new Date());
-			Date date2=format.parse(date);
-			reference.setRerPubtime(date2);*/
 			reference.setRerPubtime(new Date());
 			rerService.pubReference(reference);
-			
 		}catch(BussinessException e){
 			e.printStackTrace();
 			log.info("--发布失败--"+e.getLocalizedMessage());
@@ -141,7 +136,6 @@ public class ReferenceController extends BaseController{
 	public Object getAllReference(Page<Reference> page,HttpServletRequest request){
 		
 		Page<Reference> pageResult = new Page<Reference>(page.getCurrent(),Config.PAGENUM);
-		
 		try{
 			rerService.getAllReference(pageResult);
 		}catch(BussinessException e){

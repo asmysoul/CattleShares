@@ -5,5 +5,5 @@ package com.qiton.utils;
  *
  */
 public class Config {
-	public  static final int PAGENUM=10;          //分页显示数量
+	public  static final int PAGENUM=2;          //分页显示数量
 }

@@ -14,14 +14,17 @@ import org.springframework.stereotype.Service;
 
 import com.qiton.exception.BussinessException;
 import com.qiton.mapper.GoldRecordMapper;
+import com.qiton.mapper.InviteMapper;
 import com.qiton.mapper.MarkRecodeMapper;
 
 import com.qiton.mapper.UserMapper;
 import com.qiton.model.Admin;
 import com.qiton.model.GoldRecord;
+import com.qiton.model.Invite;
 import com.qiton.model.MarkRecode;
 import com.qiton.model.SelectOptionTime;
 import com.qiton.model.User;
+import com.qiton.model.VipManage;
 import com.qiton.service.IUserService;
 import com.qiton.utils.StringUtils;
 import com.baomidou.framework.service.impl.SuperServiceImpl;
@@ -45,7 +48,10 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 	@Resource
 	private MarkRecodeMapper markRecordMapper;
 	
-
+	@Resource
+	private InviteMapper InviteMapper;
+	
+	
 	/*
 	 * Description: 注册用户
 	 * 
@@ -126,13 +132,18 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 	@Override
 	public void updateUserCaptical(User user, String operId, String capiId, String money,
 			String remark) throws BussinessException {
-		if (user.getMark() == null || user.getGold() == null || operId == null || capiId == null || money == null
-				|| remark == null || user.getUserId() == null || user.getUserName() == null || StringUtils.isBlank(user.getMark().toString())
-				|| StringUtils.isBlank(user.getUserId().toString()) || StringUtils.isBlank(operId) || StringUtils.isBlank(capiId)
-				|| StringUtils.isBlank(money) || StringUtils.isBlank(user.getUserId().toString())
-				|| StringUtils.isBlank(user.getUserName().toString())) {
+		
+		if (user==null|| operId == null || capiId == null || money == null
+				|| remark == null || StringUtils.isBlank(user.getUserId().toString()) || StringUtils.isBlank(operId) || StringUtils.isBlank(capiId)
+				|| StringUtils.isBlank(money)) {
 			throw new BussinessException("参数错误");
 		}
+		
+		user=userMapper.selectById(user.getUserId());
+		if(user==null){
+			throw new BussinessException("查询用户不存在");
+		}
+		
 		int result;
 		User whereEntity = new User();
 		whereEntity.setUserId(user.getUserId());
@@ -236,14 +247,18 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 		if(user.getUserId()==null||delay_time==null||StringUtils.isBlank(user.getUserId().toString())||StringUtils.isBlank(delay_time)){
 			throw new BussinessException("参数出错");
 		}
+		
+		User selectuser=userMapper.selectById(user.getUserId());
+		
+		
 		User whereEntity=new User();
 		whereEntity.setUserId(user.getUserId());
-		User user2=new User();
+		
 		int delayday=Integer.parseInt(delay_time);
-	     Date date = user.getEndVipTime();
+	     Date date = selectuser.getEndVipTime();
 		Date endVipTime=new DateTime(date).plusDays(delayday).toDate();
-		user.setEndVipTime(endVipTime);
-		int result=userMapper.update(user, whereEntity);
+		selectuser.setEndVipTime(endVipTime);
+		int result=userMapper.update(selectuser, whereEntity);
 		if(result!=1){
 			throw new BussinessException("会员延期失败");
 		}
@@ -256,17 +271,29 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 	@Override
 	public void updateUser_Info(User user)
 			throws BussinessException {
+		
+		System.out.println("----------"+user.toString());
+		
 		// TODO Auto-generated method stub
 		if(user.getUserId()==null||user.getPhone()==null||user.getGrade()==null||user.getVipStatus()==null
 				||StringUtils.isBlank(""+user.getUserId())||StringUtils.isBlank(user.getPhone())||StringUtils.isBlank(""+user.getGrade())||StringUtils.isBlank(""+user.getVipStatus())
 				||user.getPhone().length()!=11){
 			throw new BussinessException("参数错误");
 		}
+		User selectuser=userMapper.selectById(user.getUserId());
+		selectuser.setPhone(user.getPhone());
+		selectuser.setGrade(user.getGrade());
+		selectuser.setVipStatus(user.getVipStatus());
+		//修改邀请表信息
+		Invite entity=new Invite();entity.setInviAcceptuser(selectuser.getUserName());
+		Invite invite=InviteMapper.selectOne(entity);
+		invite.setInviAcceptmobile(user.getPhone());
+		InviteMapper.update(invite, entity);
+		
 		User whereEntity=new User();
 		whereEntity.setUserId(user.getUserId());
 		User user2=new User();
-		user.setPhone(user.getPhone());user.setGrade(user.getGrade());user.setVipStatus(user.getVipStatus());
-		int result= userMapper.update(user, whereEntity);
+		int result= userMapper.update(selectuser, whereEntity);
 		if(result!=1){
 			throw new BussinessException("修改用户信息失败");
 		}
@@ -278,32 +305,37 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 	 * 条件查询
 	 */
 	@Override
-	public void selectByCommand(User user,Page<User> page) throws BussinessException {
+	public void selectByCommand(VipManage vipManage,Page<VipManage> page) throws BussinessException {
 		// TODO Auto-generated method stub
-		if(user==null){
+		if(vipManage==null){
 			throw new BussinessException("参数错误");
 		}
-		EntityWrapper<User> entityWrapper = new EntityWrapper<User>();
-		entityWrapper.setEntity(user);
-		List<User> users = userMapper.selectPage(page, entityWrapper);
+		if(vipManage.getInviAcceptmobile()=="") vipManage.setInviAcceptmobile(null);
+		if(vipManage.getInviAcceptuserid()==0) vipManage.setInviAcceptuserid(null);
+		if(vipManage.getInviAcceptuser()=="") vipManage.setInviAcceptuser(null);
+		
+		System.out.println("-------"+vipManage.toString());
+		
+		List<VipManage> users = userMapper.selectUserListByTime(page, vipManage);
+		System.out.println("------"+users.size());
+		
 		if(users==null){
 			throw new BussinessException("查询用户不存在");
 		}
 		page.setRecords(users);
+		
 	}
 
-	
-	
 	/**
 	 * 
 	 * 根据时间获取用户列表
 	 */
 	@Override
-	public void getSelectTime(Page<User> page, SelectOptionTime optionTime) throws BussinessException {
+	public void getSelectTime(Page<VipManage> page, SelectOptionTime optionTime) throws BussinessException {
 		// TODO Auto-generated method stub
-		EntityWrapper<User> entityWrapper = new EntityWrapper<User>();
-		entityWrapper.between("register_time", optionTime.getFirstTime().toString(), optionTime.getLastTime().toString());
-		List<User> users = userMapper.selectPage(page, entityWrapper);
+		//EntityWrapper<VipManage> entityWrapper = new EntityWrapper<VipManage>();
+		//entityWrapper.between("register_time", optionTime.getFirstTime().toString(), optionTime.getLastTime().toString());
+		List<VipManage> users = userMapper.getSelectTime(page, optionTime);
 		page.setRecords(users);
 	}
 
@@ -338,12 +370,33 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 	* @throws
 	 */
 	@Override
-	public void getSelectUserSatate(Page<User> page, String userState) throws BussinessException {
+	public void getSelectUserSatate(Page<VipManage> page, String userState) throws BussinessException {
 		// TODO Auto-generated method stub
-		EntityWrapper<User> entityWrapper = new EntityWrapper<User>();
-		entityWrapper.where("grade={0}",Integer.parseInt(userState));
-		List<User> users = userMapper.selectPage(page, entityWrapper);
+		//EntityWrapper<VipManage> entityWrapper = new EntityWrapper<VipManage>();
+		//entityWrapper.where("grade={0}",Integer.parseInt(userState));
+		List<VipManage> users = userMapper.getSelectUserSatate(page, userState);
 		page.setRecords(users);
 	}
+	
+	
+	/**
+	 * 
+	* @Title: selectUserPage 
+	* @Description: TODO
+	* @author 尤
+	* @date 2016年11月10日 上午9:27:55  
+	* @param @param page
+	* @param @return    设定文件 
+	* @return Page<VipManage>    返回类型 
+	* @throws
+	 */
+	public void selectUserPage(Page<VipManage> page) {
+		List<VipManage> users =userMapper.selectUserList(page);
+		Invite entity=new Invite();
+		int count=InviteMapper.selectCount(entity);
+		page.setTotal(count);
+		page.setRecords(users);//page
+	}
+	
 
 }

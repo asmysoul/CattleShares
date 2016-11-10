@@ -21,6 +21,7 @@ import com.qiton.exception.BussinessException;
 import com.qiton.model.Invite;
 import com.qiton.model.SelectOptionTime;
 import com.qiton.model.User;
+import com.qiton.model.VipManage;
 import com.qiton.utils.Config;
 
 /**
@@ -165,7 +166,7 @@ public class UserManagerTest {
 	public void getSelectTime() {
 		//new DateTime(date).plusDays(delayday).toDate();
 		SelectOptionTime optionTime=new SelectOptionTime("2016-11-06","2016-11-10");
-		Page<User> page2 = new Page<User>(1, Config.PAGENUM);
+		Page<VipManage> page2 = new Page<VipManage>(1, Config.PAGENUM);
 		try {
 			userService.getSelectTime(page2, optionTime);
 		} catch (BussinessException e) {

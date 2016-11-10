@@ -20,6 +20,7 @@ import com.qiton.model.Reference;
 import com.qiton.model.SelectOptionTime;
 import com.qiton.model.Teacher;
 import com.qiton.model.User;
+import com.qiton.model.VipManage;
 import com.qiton.service.IInviteService;
 import com.qiton.service.IUserService;
 import com.qiton.utils.Config;
@@ -50,10 +51,10 @@ public class UserManagerController extends BaseController {
 	 * @Title: getAllUser @Description:获得用户列表 @author 尤 @date 2016年10月26日
 	 * 上午10:37:35 @param @param current @param @param request @param @return
 	 * 设定文件 @return Object 返回类型 @throws
-	 */
+	 *//*
 	@RequestMapping("/getAllUser")
 	@ResponseBody
-	public Object getAllUser(Page<Reference> page, HttpServletRequest request) {
+	public Object getAllUser(Page<Invite> page, HttpServletRequest request) {
 		Page<Invite> page2 = new Page<>(page.getCurrent(), Config.PAGENUM);
 		List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		Page<Invite> pages ;
@@ -64,6 +65,7 @@ public class UserManagerController extends BaseController {
 			HashMap<String, Object> map = null;
 			for (Invite invite : invitelist) {
 				map = new HashMap<String, Object>();
+				
 				Invite entity = new Invite();
 				entity.setInviUsername(invite.getInviUsername());
 				// 通过邀请人取得邀请数量
@@ -79,9 +81,10 @@ public class UserManagerController extends BaseController {
 				inviteuser.setUserName(invite.getInviUsername());
 				User inviteUserInfo = userService.selectOne(inviteuser);
 				System.out.println("-----inviteUserInfo------" + inviteUserInfo.toString());
+				
 				map.put("inviteCount", count);
 				map.put("acceptinviteUser", acceptinviteInfo);
-				map.put("inviteUser", inviteUserInfo);
+				//map.put("inviteUser", inviteUserInfo);
 				list.add(map);
 			}
 			System.out.println("-----------------" + list.toString());
@@ -93,7 +96,10 @@ public class UserManagerController extends BaseController {
 		}
 		return renderSuccess(list);
 	}
-
+*/
+	
+	
+	
 	/**
 	 * @Title: getCurrentUserCapital @Description: 取得用户资金 @author 尤 @date
 	 * 2016年10月26日 上午10:37:54 @param @param acceptId @param @param
@@ -204,68 +210,7 @@ public class UserManagerController extends BaseController {
 	}
 	
 	
-	/**
-	 * 
-	* @Title: selectByCommand 
-	* @Description: 条件查询
-	* @author 尤
-	* @date 2016年11月7日 上午11:13:20  
-	* @param @param user
-	* @param @param page
-	* @param @param request
-	* @param @return    设定文件 
-	* @return Object    返回类型 
-	* @throws
-	 */
-	@RequestMapping("/selectById")
-	@ResponseBody
-	public Object selectByCommand(User user,Page<User> page,HttpServletRequest request){
-		Page<User> page2=new Page<User>(page.getCurrent(), Config.PAGENUM);
-		List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		User acceptinviteInfo = null;
-		try{
-			HashMap<String, Object> map = null;
-			//接受邀请的用户
-			userService.selectByCommand(user, page2);
-			for(User user2:page2.getRecords()){
-				 acceptinviteInfo=user2;
-				System.out.println("----acceptinviteInfo-------" + acceptinviteInfo.toString());
-			}
-			
-			//通过接受的邀请人获得邀请记录
-			Invite entity = new Invite();
-			entity.setInviAcceptuser(acceptinviteInfo.getUserName());
-			Invite inviteuser=inviteService.selectOne(entity);        //获得邀请记录
-			
-			//邀请人
-			Invite whInvite=new Invite();
-			whInvite.setInviUsername(inviteuser.getInviUsername());
-			
-			int count = inviteService.selectCount(whInvite);   //获得邀请数量
-			System.out.println("-----count----" + count);
-			
-			User inviteuser2 = new User();
-			inviteuser2.setUserName(inviteuser.getInviUsername());
-			
-			User inviteUserInfo = userService.selectOne(inviteuser2);   //获得邀请人信息
-			System.out.println("-----inviteUserInfo------" + inviteUserInfo.toString());
-			map = new HashMap<String, Object>();
-			
-			map.put("inviteCount", count);
-			map.put("acceptinviteUser", acceptinviteInfo);
-			map.put("inviteUser", inviteUserInfo);
-			list.add(map);
-			System.out.println("-----------------" + list.toString());
-			
-		}catch(BussinessException e){
-			log.info("查询错误");
-			return renderError(e.getLocalizedMessage());
-		}catch (Exception e) {
-			log.info("查询错误");
-			return renderError(e.getLocalizedMessage());
-		}
-		return renderSuccess(list);
-	}
+	
 	
 	/**
 	 * 
@@ -317,7 +262,12 @@ public class UserManagerController extends BaseController {
     		idLists.add((long) Integer.parseInt(i));
     	}
 		try{
-			userService.deleteBatchIds(idLists);
+			for(int i=0;i<idLists.size();i++){
+				User user=userService.selectById(list[i]);
+				Invite entity=new Invite();
+				entity.setInviAcceptuser(user.getUserName());
+				inviteService.deleteSelective(entity);
+			}
 		}catch(BussinessException e){
 			log.info(e.getLocalizedMessage());
 			return renderError(e.getLocalizedMessage());
@@ -337,8 +287,8 @@ public class UserManagerController extends BaseController {
 	 */
 	@RequestMapping("/getSelectTime")
 	@ResponseBody
-	public Object getSelectTime(Page<User> page,SelectOptionTime optionTime, HttpServletRequest request) {
-		Page<User> page2 = new Page<User>(page.getCurrent(), Config.PAGENUM);
+	public Object getSelectTime(Page<VipManage> page,SelectOptionTime optionTime, HttpServletRequest request) {
+		Page<VipManage> page2 = new Page<VipManage>(page.getCurrent(), Config.PAGENUM);
 		try {
 			userService.getSelectTime(page2, optionTime);
 		} catch (BussinessException e) {
@@ -359,8 +309,8 @@ public class UserManagerController extends BaseController {
 		 */
 		@RequestMapping("/getSelectUserSatate")
 		@ResponseBody
-		public Object getSelectUserSatate(Page<User> page,String userState, HttpServletRequest request) {
-			Page<User> page2 = new Page<User>(page.getCurrent(), Config.PAGENUM);
+		public Object getSelectUserSatate(Page<VipManage> page,String userState, HttpServletRequest request) {
+			Page<VipManage> page2 = new Page<VipManage>(page.getCurrent(), Config.PAGENUM);
 			try {
 				userService.getSelectUserSatate(page2, userState);
 			} catch (BussinessException e) {
@@ -372,4 +322,79 @@ public class UserManagerController extends BaseController {
 			return renderSuccess(page2);
 		}
     
+		
+		/**
+		 * 
+		* @Title: selectByCommand 
+		* @Description: 条件查询
+		* @author 尤
+		* @date 2016年11月7日 上午11:13:20  
+		* @param @param user
+		* @param @param page
+		* @param @param request
+		* @param @return    设定文件 
+		* @return Object    返回类型 
+		* @throws
+		 */
+		@RequestMapping("/selectByCommand")
+		@ResponseBody
+		public Object selectByCommand(VipManage vipManage,String current,HttpServletRequest request){
+			Page<VipManage> page2=new Page<VipManage>(Integer.parseInt(current), Config.PAGENUM);
+			try{
+				/*VipManage vipManage=new VipManage();
+				vipManage.setInviAcceptmobile(inviAcceptmobile);*/
+				System.out.println("-----"+vipManage.toString());
+				userService.selectByCommand(vipManage,page2);
+			}catch(BussinessException e){
+				log.info("查询错误");
+				return renderError(e.getLocalizedMessage());
+			}catch (Exception e) {
+				log.info("查询错误");
+				return renderError(e.getLocalizedMessage());
+			}
+			
+			return renderSuccess(page2);
+		}
+		
+		
+		
+		/**
+		 * 
+		* @Title: gotMember_Manage 
+		* @Description: 
+		* @author 尤
+		* @date 2016年11月9日 上午10:55:11  
+		* @param @param request
+		* @param @return    设定文件 
+		* @return String    返回类型 
+		* @throws
+		 */
+		@RequestMapping("/gotMember_Manage")
+		public String gotMember_Manage(HttpServletRequest request){
+			return "/member-manage";
+		}
+		
+		
+		/**
+		 * 
+		 * @Title: getAllUser @Description:获得用户列表 @author 尤 @date 2016年10月26日
+		 * 上午10:37:35 @param @param current @param @param request @param @return
+		 * 设定文件 @return Object 返回类型 @throws
+		 */
+		@RequestMapping("/getUserList")
+		@ResponseBody
+		public Object getUserList(String current, HttpServletRequest request) {
+			Page<VipManage> page2 = new Page<VipManage>(Integer.parseInt(current), Config.PAGENUM);
+			try{
+				userService.selectUserPage(page2);
+			} catch (BussinessException e) {
+				e.printStackTrace();
+				return renderError(e.getLocalizedMessage());
+			} catch (Exception e) {
+				return  renderError("访问失败请重试");
+			}
+			System.out.println("--------"+page2.toString());
+			return renderSuccess(page2);
+		}
+		
 }

@@ -4,7 +4,7 @@
 
 	<!-- 通用查询结果列-->
 	<sql id="Base_Column_List">
-		invi_id AS inviId, invi_username AS inviUsername, invi_acceptuser AS inviAcceptuser, invi_acceptmobile AS inviAcceptmobile, invi_registtime AS inviRegisttime, invi_userstate AS inviUserstate, invi_gold AS inviGold, invi_mark AS inviMark
+		invi_id AS inviId, invi_username AS inviUsername, invi_acceptuserId AS inviAcceptuserid, invi_acceptuser AS inviAcceptuser, invi_acceptmobile AS inviAcceptmobile, invi_registtime AS inviRegisttime, invi_userstate AS inviUserstate, invi_gold AS inviGold, invi_mark AS inviMark
 	</sql>
 
 </mapper>

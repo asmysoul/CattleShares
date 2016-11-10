@@ -26,6 +26,10 @@ public class Invite implements Serializable {
 	@TableField(value = "invi_username")
 	private String inviUsername;
 
+	/** 受邀请人id */
+	@TableField(value = "invi_acceptuserId")
+	private Long inviAcceptuserid;
+
 	/** 接受邀请用户 */
 	@TableField(value = "invi_acceptuser")
 	private String inviAcceptuser;
@@ -65,6 +69,14 @@ public class Invite implements Serializable {
 
 	public void setInviUsername(String inviUsername) {
 		this.inviUsername = inviUsername;
+	}
+
+	public Long getInviAcceptuserid() {
+		return this.inviAcceptuserid;
+	}
+
+	public void setInviAcceptuserid(Long inviAcceptuserid) {
+		this.inviAcceptuserid = inviAcceptuserid;
 	}
 
 	public String getInviAcceptuser() {

@@ -3,6 +3,7 @@ package com.qiton.service;
 import com.qiton.exception.BussinessException;
 import com.qiton.model.SelectOptionTime;
 import com.qiton.model.User;
+import com.qiton.model.VipManage;
 
 import java.text.ParseException;
 
@@ -99,7 +100,7 @@ public interface IUserService extends ISuperService<User> {
 	* @return void    返回类型 
 	* @throws
 	 */
-	public void selectByCommand(User user, Page<User> page) throws BussinessException;
+	public void selectByCommand(VipManage vipManage, Page<VipManage> page) throws BussinessException;
 	
 	/**
 	 * 
@@ -126,7 +127,7 @@ public interface IUserService extends ISuperService<User> {
 	* @return void    返回类型 
 	* @throws
 	 */
-	public void getSelectTime(Page<User> page,SelectOptionTime optionTime)throws BussinessException;
+	public void getSelectTime(Page<VipManage> page,SelectOptionTime optionTime)throws BussinessException;
 	
 	/**
 	 * 
@@ -140,6 +141,18 @@ public interface IUserService extends ISuperService<User> {
 	* @return void    返回类型 
 	* @throws
 	 */
-	public void getSelectUserSatate(Page<User> page,String userState)throws BussinessException;
+	public void getSelectUserSatate(Page<VipManage> page,String userState)throws BussinessException;
 	
+	/**
+	 * 
+	* @Title: selectUserPage 
+	* @Description: 
+	* @author 尤
+	* @date 2016年11月10日 上午9:29:30  
+	* @param @param page
+	* @param @throws BussinessException    设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	public void selectUserPage(Page<VipManage> page)throws BussinessException;
 }

@@ -106,7 +106,7 @@ public class User implements Serializable {
 	public void setRegisterTime(Date registerTime) {
 		this.registerTime = registerTime;
 	}
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+	@JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
 	public Date getEndVipTime() {
 		return this.endVipTime;
 	}
