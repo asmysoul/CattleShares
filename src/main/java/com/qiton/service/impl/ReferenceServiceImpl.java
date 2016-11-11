@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qiton.exception.BussinessException;
@@ -14,7 +15,9 @@ import com.qiton.model.Admin;
 import com.qiton.model.Invite;
 import com.qiton.model.Reference;
 import com.qiton.model.User;
+import com.qiton.model.vo.SharesVo;
 import com.qiton.service.IReferenceService;
+import com.qiton.service.ISharesApiService;
 import com.qiton.utils.Config;
 import com.qiton.utils.StringUtils;
 import com.baomidou.framework.service.impl.SuperServiceImpl;
@@ -32,6 +35,9 @@ public class ReferenceServiceImpl extends SuperServiceImpl<ReferenceMapper, Refe
 	@Resource
 	private ReferenceMapper referenceMapper;
 	
+	@Autowired
+	private ISharesApiService iSharesApiService;
+	
 	/**
 	 * 发布内参
 	 */
@@ -44,6 +50,8 @@ public class ReferenceServiceImpl extends SuperServiceImpl<ReferenceMapper, Refe
 				){
 			throw new BussinessException("参数错误");
 		}
+		SharesVo sharesVo =  iSharesApiService.getSharesBySharesCode(reference.getRerSharecode());
+		reference.setRerStockname(sharesVo.getName());
 		int b=referenceMapper.insert(reference);
 		if(b!=1){
 			throw new BussinessException("发布失败");
