@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.qiton.exception.BussinessException;
 import com.qiton.mapper.PurchaseMapper;
@@ -73,6 +75,7 @@ public class SelloutServiceImpl extends SuperServiceImpl<SelloutMapper, Sellout>
 	 * @see com.qiton.service.ISelloutService#addSellout(com.qiton.model.Sellout)
 	 */
 	@Override
+	@Transactional(propagation=Propagation.REQUIRES_NEW, rollbackFor=BussinessException.class)
 	public Sellout addSellout(Sellout sellout) throws BussinessException {
 		if(StringUtils.isBlank(sellout.getSellStockname()) || StringUtils.isBlank(sellout.getSellTechnick())){
 			throw new BussinessException("参数错误");
@@ -96,13 +99,18 @@ public class SelloutServiceImpl extends SuperServiceImpl<SelloutMapper, Sellout>
 			throw new BussinessException("该卖出股票已存在，请勿重复添加");                     
 		}
 		
-		int result = selloutMapper.insert(sellout);
-		if(result != 1){
-			throw new BussinessException("卖出股票添加失败，请重试");
+		int selloutresult = selloutMapper.insert(sellout);
+		if(selloutresult != 1){
+			throw new BussinessException("添加卖出股票添加失败，请重试");
 		}
 		
+		Purchase purchase = iPurchaseService.findLastPurchase(sellout.getSellStockcode());
+		purchase.setPurIssellout(1);
+		int purchaseresult = purchaseMapper.updateById(purchase);
+		if(purchaseresult != 1){
+			throw new BussinessException("添加卖出股票添加失败，请重试");
+		}
 		return sellout;
-		
 	}
 
 	/* (非 Javadoc)

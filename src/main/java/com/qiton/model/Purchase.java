@@ -52,11 +52,28 @@ public class Purchase implements Serializable {
 	@TableField(value = "create_time")
 	private Date createTime;
 	
+	/** 0是未卖出 ， 1是卖出 */
+	@TableField(value = "pur_issellout")
+	private Integer purIssellout;
+	
 	@TableField(exist = false)
 	private double profit;
 	
 	
 
+	/**
+	 * @return the purIssellout
+	 */
+	public Integer getPurIssellout() {
+		return purIssellout;
+	}
+
+	/**
+	 * @param purIssellout the purIssellout to set
+	 */
+	public void setPurIssellout(Integer purIssellout) {
+		this.purIssellout = purIssellout;
+	}
 
 	/**
 	 * @return the profit
@@ -128,7 +145,7 @@ public class Purchase implements Serializable {
 	public void setPurTechnick(String purTechnick) {
 		this.purTechnick = purTechnick;
 	}
-
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
 	public Date getCreateTime() {
 		return this.createTime;
 	}

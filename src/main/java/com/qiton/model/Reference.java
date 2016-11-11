@@ -35,7 +35,28 @@ public class Reference implements Serializable {
 
 	@TableField(value = "rer_pubtime")
 	private Date rerPubtime;
+	
+	
+	/** 股票公司名称 */
+	@TableField(value = "rer_stockname")
+	private String rerStockname;
+	
+	
 
+
+	/**
+	 * @return the rerStockname
+	 */
+	public String getRerStockname() {
+		return rerStockname;
+	}
+
+	/**
+	 * @param rerStockname the rerStockname to set
+	 */
+	public void setRerStockname(String rerStockname) {
+		this.rerStockname = rerStockname;
+	}
 
 	public Long getRerId() {
 		return this.rerId;

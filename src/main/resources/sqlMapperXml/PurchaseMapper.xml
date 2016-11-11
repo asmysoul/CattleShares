@@ -4,7 +4,7 @@
 
 	<!-- 通用查询结果列-->
 	<sql id="Base_Column_List">
-		 pur_type AS purType,pur_id AS purId, pur_stockcode AS purStockcode, pur_stockname AS purStockname, pur_purchasetime AS purPurchasetime, pur_stockprice AS purStockprice, pur_technick AS purTechnick, create_time AS createTime
+		 pur_type AS purType,pur_id AS purId, pur_stockcode AS purStockcode, pur_stockname AS purStockname, pur_purchasetime AS purPurchasetime, pur_stockprice AS purStockprice, pur_technick AS purTechnick, create_time AS createTime, pur_issellout AS purIssellout
 	</sql>
 
 </mapper>

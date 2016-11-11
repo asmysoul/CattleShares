@@ -77,4 +77,9 @@ public class PurchaseServiceTest {
 		purchase.setPurId(2L);
 		iPurchaseService.upPurchase(purchase);
 	}
+	
+	@Test
+	public void findLastPurchases(){
+		System.out.println();
+	}
 }

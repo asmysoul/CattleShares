@@ -156,8 +156,9 @@ public class PurchaseController extends BaseController {
 	@ResponseBody
 	@RequestMapping("getPurchases")
 	public Object getPurchases(Page<Purchase> page, HttpSession session){
+		Page<Purchase> pageResult = new Page<Purchase>(page.getCurrent(), 10);
 		try {
-			Page<Purchase> pageResult = new Page<Purchase>(page.getCurrent(), 10);
+			
 			iPurchaseService.findPurchasesByPage(pageResult);
 		}catch(BussinessException e){
 			LOGGER.info(e.getLocalizedMessage());
@@ -166,7 +167,7 @@ public class PurchaseController extends BaseController {
 			LOGGER.info(e.getLocalizedMessage());
 			return renderError("获取股票出错，请重试");
 		}
-		return renderSuccess(page);
+		return renderSuccess(pageResult);
 	}
 	
 	@ResponseBody
@@ -183,7 +184,7 @@ public class PurchaseController extends BaseController {
 			LOGGER.info(e.getLocalizedMessage());
 			return renderError("获取股票出错，请重试");
 		}
-		if(user.getGrade() == 0 || user == null){
+		if(user == null ||user.getGrade() == 0){
 			return renderSuccess(list);
 		}
 		else{
@@ -205,6 +206,23 @@ public class PurchaseController extends BaseController {
 			return renderError("批量删除买入股票出错，请重试");
 		}
 		return renderSuccess();
+	}
+	
+	@ResponseBody
+	@RequestMapping("getLastPurchase")
+	public Object getLastPurchase(Page<Purchase> page){
+		Page<Purchase> pageResult = new Page<Purchase>(page.getCurrent(), 10);
+		try {
+			
+			iPurchaseService.findPurchasesByPage(pageResult);
+		}catch(BussinessException e){
+			LOGGER.info(e.getLocalizedMessage());
+			return renderError(e.getLocalizedMessage());
+		}catch (Exception e) {
+			LOGGER.info(e.getLocalizedMessage());
+			return renderError("获取股票出错，请重试");
+		}
+		return renderSuccess(pageResult);
 	}
 	
 }

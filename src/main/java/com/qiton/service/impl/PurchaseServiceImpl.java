@@ -55,6 +55,7 @@ public class PurchaseServiceImpl extends SuperServiceImpl<PurchaseMapper, Purcha
 		EntityWrapper<Purchase> entityWrapper = new EntityWrapper<>();
 		entityWrapper.where("pur_stockcode={0}", purchase.getPurStockcode());
 		entityWrapper.andNew("create_time = DATE_FORMAT(NOW(),'%Y-%m-%d')");
+		entityWrapper.andNew("pur_issellout = 0");
 		List<Purchase> purchaseResult = purchaseMapper.selectList(entityWrapper);
 		
 		if(!purchaseResult.isEmpty()){
@@ -220,6 +221,43 @@ public class PurchaseServiceImpl extends SuperServiceImpl<PurchaseMapper, Purcha
 			throw new BussinessException("批量删除推荐买入股票失败，请重试");
 		}
 		
+	}
+
+
+
+	/* (非 Javadoc)
+	 * Description:
+	 * @see com.qiton.service.IPurchaseService#findLastPurchase()
+	 */
+	@Override
+	public void findLastPurchase(Page<Purchase> page) throws BussinessException {
+		EntityWrapper<Purchase> entityWrapper = new EntityWrapper<>();
+		entityWrapper.where("pur_issellout = 0");
+		List<Purchase> list = purchaseMapper.selectPage(page, entityWrapper);
+		if(list == null){
+			throw new BussinessException("获取买入股票代码失败，请重试");
+		}
+		List<Purchase> resultList = new ArrayList<>();
+		for(Purchase pur : list){
+			double currentPrice = iSharesApiService.getCurrentPrice(pur.getPurStockcode());
+			double profit = ((currentPrice - pur.getPurStockprice()) / pur.getPurStockprice()) * 100;
+			pur.setProfit(profit);
+			resultList.add(pur);
+		}
+		page.setRecords(resultList);
+	}
+	
+	/* (非 Javadoc)
+	 * Description:
+	 * @see com.qiton.service.IPurchaseService#findLastPurchase(java.lang.Long)
+	 */
+	@Override
+	public Purchase findLastPurchase(Long code) throws BussinessException {
+		Purchase purchaseQuery = new Purchase();
+		purchaseQuery.setPurStockcode(code);
+		purchaseQuery.setPurIssellout(0);
+		Purchase purchaseResult = purchaseMapper.selectOne(purchaseQuery);
+		return purchaseResult;
 	}
 
 

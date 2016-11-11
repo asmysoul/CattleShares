@@ -111,6 +111,7 @@ public class Sellout implements Serializable {
 		this.sellStockcode = sellStockcode;
 	}
 
+	@JsonFormat(pattern="HH:mm",timezone = "GMT+8")
 	public Date getSellSelltime() {
 		return this.sellSelltime;
 	}

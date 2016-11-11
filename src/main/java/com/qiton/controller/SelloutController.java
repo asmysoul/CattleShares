@@ -167,7 +167,7 @@ public class SelloutController extends BaseController {
 			LOGGER.info(e.getLocalizedMessage());
 			return renderError("撤荐卖出股票出错，请重试");
 		}
-			return renderSuccess(page);
+			return renderSuccess(pageResult);
 		}
 	
 	@ResponseBody
@@ -184,7 +184,7 @@ public class SelloutController extends BaseController {
 			LOGGER.info(e.getLocalizedMessage());
 			return renderError("获取股票出错，请重试");
 		}
-		if(user.getGrade() == 0 || user == null){
+		if(user == null || user.getGrade() == 0){
 			return renderSuccess(list);
 		}
 		else{
