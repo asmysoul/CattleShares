@@ -1,7 +1,12 @@
 package com.qiton.model;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat.Style;
 
 import com.baomidou.mybatisplus.annotations.IdType;
 
@@ -38,6 +43,7 @@ public class Purchase implements Serializable {
 
 	/**  */
 	@TableField(value = "pur_purchasetime")
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
 	private Date purPurchasetime;
 
 	/**  */
@@ -57,6 +63,7 @@ public class Purchase implements Serializable {
 	private Integer purIssellout;
 	
 	@TableField(exist = false)
+	
 	private double profit;
 	
 	
@@ -78,8 +85,11 @@ public class Purchase implements Serializable {
 	/**
 	 * @return the profit
 	 */
+
 	public double getProfit() {
-		return profit;
+		DecimalFormat df=(DecimalFormat)NumberFormat.getInstance(); 
+		 df.setMaximumFractionDigits(2); 
+		return Double.parseDouble(df.format(profit));
 	}
 
 	/**
@@ -145,7 +155,7 @@ public class Purchase implements Serializable {
 	public void setPurTechnick(String purTechnick) {
 		this.purTechnick = purTechnick;
 	}
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
+	@JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
 	public Date getCreateTime() {
 		return this.createTime;
 	}

@@ -1,7 +1,10 @@
 package com.qiton.model;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Date;
+
 
 import com.baomidou.mybatisplus.annotations.IdType;
 
@@ -69,7 +72,9 @@ public class Sellout implements Serializable {
 	 * @return the profit
 	 */
 	public double getProfit() {
-		return profit;
+		DecimalFormat df=(DecimalFormat)NumberFormat.getInstance(); 
+		 df.setMaximumFractionDigits(2); 
+		return Double.parseDouble(df.format(profit));
 	}
 
 	/**

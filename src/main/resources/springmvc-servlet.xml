@@ -14,8 +14,18 @@
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
     <context:component-scan base-package="com.qiton.controller"/>
+    
    
-	<mvc:annotation-driven></mvc:annotation-driven>
+	<mvc:annotation-driven conversion-service="conversionService"/>
+	
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<!-- <bean class="com.ll.model.StringToPersonConverter" /> -->
+			</list>
+		</property>
+	</bean>
 	
 	<mvc:default-servlet-handler/>
 

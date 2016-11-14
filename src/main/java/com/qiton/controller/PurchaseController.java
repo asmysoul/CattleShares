@@ -37,6 +37,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -55,6 +56,7 @@ import com.qiton.service.ISharesApiService;
  * @Date 2016年10月31日 下午4:58:42
  * @version 1.0.0
  */
+
 @RequestMapping("/purchase")
 @Controller
 public class PurchaseController extends BaseController {
@@ -214,7 +216,7 @@ public class PurchaseController extends BaseController {
 		Page<Purchase> pageResult = new Page<Purchase>(page.getCurrent(), 10);
 		try {
 			
-			iPurchaseService.findPurchasesByPage(pageResult);
+			iPurchaseService.findLastPurchase(pageResult);
 		}catch(BussinessException e){
 			LOGGER.info(e.getLocalizedMessage());
 			return renderError(e.getLocalizedMessage());

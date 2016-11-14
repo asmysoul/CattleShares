@@ -37,6 +37,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.qiton.model.Purchase;
 
 /**
@@ -80,6 +81,7 @@ public class PurchaseServiceTest {
 	
 	@Test
 	public void findLastPurchases(){
-		System.out.println();
+		Page<Purchase> pageResult = new Page<Purchase>(1, 10);
+		iPurchaseService.findLastPurchase(pageResult);
 	}
 }

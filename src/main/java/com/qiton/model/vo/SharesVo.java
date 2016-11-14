@@ -29,7 +29,14 @@
  *****************************************************************/
 package com.qiton.model.vo;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Date;
+
+
+import org.springframework.format.annotation.NumberFormat.Style;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * @ClassName SharesVo
@@ -62,6 +69,7 @@ public class SharesVo {
 	
 	private double selloutPrice;
 	
+	
 	private double profit;
 	
 	
@@ -71,7 +79,9 @@ public class SharesVo {
 	 * @return the profit
 	 */
 	public double getProfit() {
-		return profit;
+		 DecimalFormat df=(DecimalFormat)NumberFormat.getInstance(); 
+		 df.setMaximumFractionDigits(2); 
+		return Double.parseDouble(df.format(profit));
 	}
 
 	/**
@@ -232,6 +242,7 @@ public class SharesVo {
 	/**
 	 * @return the curDate
 	 */
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
 	public Date getCurDate() {
 		return curDate;
 	}

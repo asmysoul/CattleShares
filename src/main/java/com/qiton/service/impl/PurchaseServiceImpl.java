@@ -55,12 +55,15 @@ public class PurchaseServiceImpl extends SuperServiceImpl<PurchaseMapper, Purcha
 		EntityWrapper<Purchase> entityWrapper = new EntityWrapper<>();
 		entityWrapper.where("pur_stockcode={0}", purchase.getPurStockcode());
 		entityWrapper.andNew("create_time = DATE_FORMAT(NOW(),'%Y-%m-%d')");
-		entityWrapper.andNew("pur_issellout = 0");
+		entityWrapper.andNew("pur_issellout = {0}", 0);
 		List<Purchase> purchaseResult = purchaseMapper.selectList(entityWrapper);
 		
 		if(!purchaseResult.isEmpty()){
 			throw new BussinessException("该股票已存在，请勿重复添加");                     
 		}
+		
+		purchase.setCreateTime(new Date());
+		purchase.setPurIssellout(0);
 		
 		int result = purchaseMapper.insert(purchase);
 		if(result != 1){
@@ -232,7 +235,7 @@ public class PurchaseServiceImpl extends SuperServiceImpl<PurchaseMapper, Purcha
 	@Override
 	public void findLastPurchase(Page<Purchase> page) throws BussinessException {
 		EntityWrapper<Purchase> entityWrapper = new EntityWrapper<>();
-		entityWrapper.where("pur_issellout = 0");
+		entityWrapper.where("pur_issellout = {0}", 0);
 		List<Purchase> list = purchaseMapper.selectPage(page, entityWrapper);
 		if(list == null){
 			throw new BussinessException("获取买入股票代码失败，请重试");
