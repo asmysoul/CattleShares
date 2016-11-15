@@ -1,7 +1,11 @@
 package com.qiton.mapper;
 
 import com.qiton.model.Invite;
+
+import java.util.List;
+
 import com.baomidou.mybatisplus.mapper.AutoMapper;
+import com.baomidou.mybatisplus.plugins.Page;
 
 /**
  *

@@ -31,7 +31,6 @@
 		BY i.`invi_username`
 	</select>
 
-	<!-- parameterType="SelectOptionTime" -->
 
 	<select id="selectUserListByTime" resultType="VipManage" parameterType="VipManage">
 		SELECT invi_acceptuserId AS inviAcceptuserid,
@@ -49,7 +48,6 @@
 		count(*) AS
 		count FROM invite i,USER u WHERE i.invi_username=u.`user_name`
 
-		<!-- AND i.invi_acceptmobile = #{inviAcceptmobile} -->
 		 <if test="inviAcceptuser != null">
 			AND i.invi_acceptuser = #{inviAcceptuser}
 		</if>

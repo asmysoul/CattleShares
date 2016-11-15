@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotations.IdType;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  *
@@ -42,9 +43,9 @@ public class Invite implements Serializable {
 	@TableField(value = "invi_registtime")
 	private Date inviRegisttime;
 
-	/** 邀请人用户状态 */
-	@TableField(value = "invi_userstate")
-	private String inviUserstate;
+	/** 被邀请人用户状态：0:未开通，1:已开通，2:已过期 */
+	@TableField(value = "invi_acceptuserstate")
+	private String inviAcceptuserstate;
 
 	/** 邀请金币 */
 	@TableField(value = "invi_gold")
@@ -98,7 +99,7 @@ public class Invite implements Serializable {
 	public void setInviAcceptmobile(String inviAcceptmobile) {
 		this.inviAcceptmobile = inviAcceptmobile;
 	}
-
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	public Date getInviRegisttime() {
 		return this.inviRegisttime;
 	}
@@ -107,12 +108,14 @@ public class Invite implements Serializable {
 		this.inviRegisttime = inviRegisttime;
 	}
 
-	public String getInviUserstate() {
-		return this.inviUserstate;
+	
+
+	public String getInviAcceptuserstate() {
+		return inviAcceptuserstate;
 	}
 
-	public void setInviUserstate(String inviUserstate) {
-		this.inviUserstate = inviUserstate;
+	public void setInviAcceptuserstate(String inviAcceptuserstate) {
+		this.inviAcceptuserstate = inviAcceptuserstate;
 	}
 
 	public Integer getInviGold() {
@@ -130,7 +133,7 @@ public class Invite implements Serializable {
 	public void setInviMark(Integer inviMark) {
 		this.inviMark = inviMark;
 	}
-
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	public Date getInviRecharge() {
 		return this.inviRecharge;
 	}
@@ -147,7 +150,7 @@ public class Invite implements Serializable {
 	public String toString() {
 		return "Invite [inviId=" + inviId + ", inviUsername=" + inviUsername + ", inviAcceptuserid=" + inviAcceptuserid
 				+ ", inviAcceptuser=" + inviAcceptuser + ", inviAcceptmobile=" + inviAcceptmobile + ", inviRegisttime="
-				+ inviRegisttime + ", inviUserstate=" + inviUserstate + ", inviGold=" + inviGold + ", inviMark="
+				+ inviRegisttime + ", inviAcceptuserstate=" + inviAcceptuserstate + ", inviGold=" + inviGold + ", inviMark="
 				+ inviMark + ", inviRecharge=" + inviRecharge + "]";
 	}
 

@@ -64,7 +64,7 @@ CREATE TABLE `invite` (
   `invi_acceptuser` varchar(20) NOT NULL COMMENT '接受邀请用户',
   `invi_acceptmobile` varchar(11) NOT NULL COMMENT '接受人电话',
   `invi_registtime` date NOT NULL COMMENT '接受人注册时间',
-  `invi_userstate` varchar(20) NOT NULL COMMENT '邀请人用户状态',
+  `invi_acceptuserstate` bigint(2) NOT NULL COMMENT '被邀请人用户状态：0:未开通，1:已开通，2:已过期',
   `invi_gold` int(4) NOT NULL COMMENT '邀请金币',
   `invi_mark` int(4) NOT NULL COMMENT '邀请积分',
   `invi_recharge` date DEFAULT NULL COMMENT '充值时间',
@@ -73,7 +73,7 @@ CREATE TABLE `invite` (
 
 /*Data for the table `invite` */
 
-insert  into `invite`(`invi_id`,`invi_username`,`invi_acceptuserId`,`invi_acceptuser`,`invi_acceptmobile`,`invi_registtime`,`invi_userstate`,`invi_gold`,`invi_mark`,`invi_recharge`) values (1,'zhangsan',0,'maimai','2147483647','2016-10-25','0',10,10,NULL),(2,'maimai',0,'lisi','2147483647','2016-10-25','0',10,10,NULL);
+insert  into `invite`(`invi_id`,`invi_username`,`invi_acceptuserId`,`invi_acceptuser`,`invi_acceptmobile`,`invi_registtime`,`invi_acceptuserstate`,`invi_gold`,`invi_mark`,`invi_recharge`) values (1,'zhangsan',0,'maimai','2147483647','2016-10-25',0,10,10,'2016-11-15'),(2,'maimai',0,'lisi','2147483647','2016-10-25',0,10,10,'2016-11-15');
 
 /*Table structure for table `mark_recode` */
 
