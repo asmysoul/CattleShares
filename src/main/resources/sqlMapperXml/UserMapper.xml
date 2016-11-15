@@ -120,5 +120,63 @@
 		GROUP BY i.`invi_username`
 	</select>
 		
+		
+	<sql id="selectByCommandWhere">
+		 <if test="userId != null">
+			and user_id = #{userId} 
+		</if>  
+		 <if test="userName != null ">
+			and user_name = #{userName}
+		</if>
+		<if test="accountType != null">
+			and  account_type = #{accountType}
+		</if>
+		<if test="registerTime != null">
+			and  register_time = #{registerTime}
+		</if>  
+	</sql>
+		
+	<select id="selectByCommandUser" resultType="User" parameterType="User">
+		
+		SELECT 
+		user_id AS userId, user_name AS userName,  grade,
+		register_time AS registerTime, end_vip_time AS endVipTime, vip_status
+		AS vipStatus, phone, gold, mark, account_type AS accountType,
+		reflect_account AS reflectAccount
+		 FROM USER 
+		 <where>
+		 	<include refid="selectByCommandWhere"></include>
+		 </where>
+		 
+	</select>
+	
+	
+	<select id="getSelectUserByType" resultType="User" parameterType="java.lang.String">
+		SELECT 
+		user_id AS userId, user_name AS userName,  grade,
+		register_time AS registerTime, end_vip_time AS endVipTime, vip_status
+		AS vipStatus, phone, gold, mark, account_type AS accountType,
+		reflect_account AS reflectAccount
+		 FROM USER 
+		where account_type=#{accountType}
+	</select>
+	
+	<select id="getSelectVIPUserByTime" resultType="User" parameterType="SelectOptionTime">
+		SELECT 
+		user_id AS userId, user_name AS userName,  grade,
+		register_time AS registerTime, end_vip_time AS endVipTime, vip_status
+		AS vipStatus, phone, gold, mark, account_type AS accountType,
+		reflect_account AS reflectAccount
+		 FROM USER 
+		 
+		 where
 
+		 <if test="firstTime != null">
+			 register_time >= #{firstTime}
+		</if>
+		<if test="lastTime != null">
+			AND register_time <![CDATA[<=]]>  #{lastTime}
+		</if>
+	</select>
+	
 </mapper>

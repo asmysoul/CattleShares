@@ -51,6 +51,7 @@ public class ReferenceServiceImpl extends SuperServiceImpl<ReferenceMapper, Refe
 			throw new BussinessException("参数错误");
 		}
 		SharesVo sharesVo =  iSharesApiService.getSharesBySharesCode(reference.getRerSharecode());
+
 		reference.setRerStockname(sharesVo.getName());
 		int b=referenceMapper.insert(reference);
 		if(b!=1){
@@ -96,8 +97,10 @@ public class ReferenceServiceImpl extends SuperServiceImpl<ReferenceMapper, Refe
 	 */
 	@Override
 	public void getAllReference(Page<Reference> page) {
-		EntityWrapper<Reference> entityWrapper = new EntityWrapper<Reference>();
 		List<Reference> rers = referenceMapper.selectPage(page, null);
+		
+		System.out.println("-------"+rers.size());
+		
 		page.setRecords(rers);
 	}
 

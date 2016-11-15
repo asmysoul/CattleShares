@@ -46,58 +46,6 @@ public class UserManagerController extends BaseController {
 	@Autowired
 	private IUserService userService;// 用户
 
-	/**
-	 * 
-	 * @Title: getAllUser @Description:获得用户列表 @author 尤 @date 2016年10月26日
-	 * 上午10:37:35 @param @param current @param @param request @param @return
-	 * 设定文件 @return Object 返回类型 @throws
-	 *//*
-	@RequestMapping("/getAllUser")
-	@ResponseBody
-	public Object getAllUser(Page<Invite> page, HttpServletRequest request) {
-		Page<Invite> page2 = new Page<>(page.getCurrent(), Config.PAGENUM);
-		List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-		Page<Invite> pages ;
-		try {
-			pages = inviteService.selectPage(page2, null);
-			List<Invite> invitelist = pages.getRecords();
-			System.out.println("--------" + invitelist.size());
-			HashMap<String, Object> map = null;
-			for (Invite invite : invitelist) {
-				map = new HashMap<String, Object>();
-				
-				Invite entity = new Invite();
-				entity.setInviUsername(invite.getInviUsername());
-				// 通过邀请人取得邀请数量
-				int count = inviteService.selectCount(entity);
-				System.out.println("-----count----" + count);
-
-				User accinviteuser = new User();
-				accinviteuser.setUserName(invite.getInviAcceptuser());
-				User acceptinviteInfo = userService.selectOne(accinviteuser);
-				System.out.println("----acceptinviteInfo-------" + acceptinviteInfo.toString());
-
-				User inviteuser = new User();
-				inviteuser.setUserName(invite.getInviUsername());
-				User inviteUserInfo = userService.selectOne(inviteuser);
-				System.out.println("-----inviteUserInfo------" + inviteUserInfo.toString());
-				
-				map.put("inviteCount", count);
-				map.put("acceptinviteUser", acceptinviteInfo);
-				//map.put("inviteUser", inviteUserInfo);
-				list.add(map);
-			}
-			System.out.println("-----------------" + list.toString());
-		} catch (BussinessException e) {
-			e.printStackTrace();
-			return renderError(e.getLocalizedMessage());
-		} catch (Exception e) {
-			return  renderError("访问失败请重试");
-		}
-		return renderSuccess(list);
-	}
-*/
-	
 	
 	
 	/**
@@ -212,33 +160,6 @@ public class UserManagerController extends BaseController {
 	
 	
 	
-	/**
-	 * 
-	* @Title: getUserList 
-	* @Description: 查询列表
-	* @author 尤
-	* @date 2016年11月7日 上午11:19:13  
-	* @param @param page
-	* @param @param request
-	* @param @return    设定文件 
-	* @return Object    返回类型 
-	* @throws
-	 *//*
-	@RequestMapping("/getUserList")
-	@ResponseBody
-	public Object getUserList(Page<User> page,HttpServletRequest request){
-		Page<User> page2=new Page<User>(page.getCurrent(), Config.PAGENUM);
-		try{
-			userService.getUserList(page2);
-		}catch(BussinessException e){
-			log.info("查询错误");
-			return renderError(e.getLocalizedMessage());
-		}catch (Exception e) {
-			log.info("查询错误");
-			return renderError(e.getLocalizedMessage());
-			}
-		return renderSuccess(page2);
-	}*/
 	
 	
 	/**
@@ -341,9 +262,6 @@ public class UserManagerController extends BaseController {
 		public Object selectByCommand(VipManage vipManage,String current,HttpServletRequest request){
 			Page<VipManage> page2=new Page<VipManage>(Integer.parseInt(current), Config.PAGENUM);
 			try{
-				/*VipManage vipManage=new VipManage();
-				vipManage.setInviAcceptmobile(inviAcceptmobile);*/
-				System.out.println("-----"+vipManage.toString());
 				userService.selectByCommand(vipManage,page2);
 			}catch(BussinessException e){
 				log.info("查询错误");
@@ -361,7 +279,7 @@ public class UserManagerController extends BaseController {
 		/**
 		 * 
 		* @Title: gotMember_Manage 
-		* @Description: 
+		* @Description: 资金管理页面
 		* @author 尤
 		* @date 2016年11月9日 上午10:55:11  
 		* @param @param request
@@ -396,5 +314,8 @@ public class UserManagerController extends BaseController {
 			System.out.println("--------"+page2.toString());
 			return renderSuccess(page2);
 		}
+		
+		
+		
 		
 }

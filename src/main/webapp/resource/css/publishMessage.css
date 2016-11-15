@@ -11,3 +11,9 @@ h5{font-weight: bolder;border-bottom: 1px solid #ebebeb;padding: 5px 20px ;}
 .company{font-size: 14px;}
 .number{text-align: center;}
 .publish:hover{color: #fff;} .publish:focus{outline:none;color: #fff;}
+.show-content{display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;height: 43px;}
+.fade-content{padding: 20px 15px 10px 30px;}
+.fade-content div{margin:5px;}
+.fade-content div p{display: inline-block;width: 70px;vertical-align: top;}
+.change-neican{resize: none;outline: none;}
+.btn-addconfirm{margin-bottom: 15px;}

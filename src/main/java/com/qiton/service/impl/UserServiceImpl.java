@@ -271,9 +271,6 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 	@Override
 	public void updateUser_Info(User user)
 			throws BussinessException {
-		
-		System.out.println("----------"+user.toString());
-		
 		// TODO Auto-generated method stub
 		if(user.getUserId()==null||user.getPhone()==null||user.getGrade()==null||user.getVipStatus()==null
 				||StringUtils.isBlank(""+user.getUserId())||StringUtils.isBlank(user.getPhone())||StringUtils.isBlank(""+user.getGrade())||StringUtils.isBlank(""+user.getVipStatus())
@@ -313,11 +310,7 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 		if(vipManage.getInviAcceptmobile()=="") vipManage.setInviAcceptmobile(null);
 		if(vipManage.getInviAcceptuserid()==0) vipManage.setInviAcceptuserid(null);
 		if(vipManage.getInviAcceptuser()=="") vipManage.setInviAcceptuser(null);
-		
-		System.out.println("-------"+vipManage.toString());
-		
 		List<VipManage> users = userMapper.selectUserListByTime(page, vipManage);
-		System.out.println("------"+users.size());
 		
 		if(users==null){
 			throw new BussinessException("查询用户不存在");
@@ -333,8 +326,6 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 	@Override
 	public void getSelectTime(Page<VipManage> page, SelectOptionTime optionTime) throws BussinessException {
 		// TODO Auto-generated method stub
-		//EntityWrapper<VipManage> entityWrapper = new EntityWrapper<VipManage>();
-		//entityWrapper.between("register_time", optionTime.getFirstTime().toString(), optionTime.getLastTime().toString());
 		List<VipManage> users = userMapper.getSelectTime(page, optionTime);
 		page.setRecords(users);
 	}
@@ -372,8 +363,6 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 	@Override
 	public void getSelectUserSatate(Page<VipManage> page, String userState) throws BussinessException {
 		// TODO Auto-generated method stub
-		//EntityWrapper<VipManage> entityWrapper = new EntityWrapper<VipManage>();
-		//entityWrapper.where("grade={0}",Integer.parseInt(userState));
 		List<VipManage> users = userMapper.getSelectUserSatate(page, userState);
 		page.setRecords(users);
 	}
@@ -397,6 +386,73 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 		page.setTotal(count);
 		page.setRecords(users);//page
 	}
-	
 
+	@Override
+	public void selectVipList(Page<User> page) throws BussinessException {
+		// TODO Auto-generated method stub
+		List<User> users = userMapper.selectPage(page, null);
+		page.setRecords(users);
+	}
+
+	/**
+	 * 根据条件获取会员用户
+	 */
+	@Override
+	public void selectByCommandUser(User user, Page<User> page) throws BussinessException {
+		// TODO Auto-generated method stub
+		if(user==null){
+			throw new BussinessException("参数错误");
+		}
+		
+		List<User> users = userMapper.selectByCommandUser(page, user);
+			System.out.println("---------"+users.get(0).toString());
+		if(users==null){
+			throw new BussinessException("查询用户不存在");
+		}
+		page.setRecords(users);
+	}
+
+	/**
+	 * 根据账户类型获取会员用户
+	 */
+	@Override
+	public void getSelectUserByType(Page<User> page, String accountType) throws BussinessException {
+		// TODO Auto-generated method stub
+		List<User> users = userMapper.getSelectUserByType(page, accountType);
+		page.setRecords(users);
+	}
+	
+	/**
+	 * 
+	 * 根据时间获取会员用户列表
+	 */
+	@Override
+	public void getSelectVIPUserByTime(Page<User> page, SelectOptionTime optionTime) throws BussinessException {
+		// TODO Auto-generated method stub
+		List<User> users = userMapper.getSelectVIPUserByTime(page, optionTime);
+		page.setRecords(users);
+	}
+	
+	/**
+	 * 修改会员信息
+	 */
+	@Override
+	public void updateVIPUser_Info(User user) throws BussinessException {
+		// TODO Auto-generated method stub
+		if(user.getUserId()==null||user.getAccountType()==null||user.getReflectAccount()==null
+				||StringUtils.isBlank(""+user.getUserId())||StringUtils.isBlank(user.getAccountType().toString())||StringUtils.isBlank(""+user.getReflectAccount())
+				){
+			throw new BussinessException("参数错误");
+		}
+		User selectuser=userMapper.selectById(user.getUserId());
+		selectuser.setAccountType(user.getAccountType());
+		selectuser.setReflectAccount(user.getReflectAccount());
+		
+		User whereEntity=new User();
+		whereEntity.setUserId(user.getUserId());
+		int result= userMapper.update(selectuser, whereEntity);
+		if(result!=1){
+			throw new BussinessException("修改体现账户信息失败");
+		}
+	}
 }

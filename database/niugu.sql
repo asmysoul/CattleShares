@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v11.33 (64 bit)
-MySQL - 5.7.15-log : Database - niugu
+MySQL - 5.5.40 : Database - niugu
 *********************************************************************
 */
 
@@ -60,6 +60,7 @@ DROP TABLE IF EXISTS `invite`;
 CREATE TABLE `invite` (
   `invi_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `invi_username` varchar(20) NOT NULL COMMENT '发起邀请用户',
+  `invi_acceptuserId` bigint(20) NOT NULL,
   `invi_acceptuser` varchar(20) NOT NULL COMMENT '接受邀请用户',
   `invi_acceptmobile` varchar(11) NOT NULL COMMENT '接受人电话',
   `invi_registtime` date NOT NULL COMMENT '接受人注册时间',
@@ -71,7 +72,7 @@ CREATE TABLE `invite` (
 
 /*Data for the table `invite` */
 
-insert  into `invite`(`invi_id`,`invi_username`,`invi_acceptuser`,`invi_acceptmobile`,`invi_registtime`,`invi_userstate`,`invi_gold`,`invi_mark`) values (1,'zhangsan','maimai','2147483647','2016-10-25','0',10,10),(2,'maimai','lisi','2147483647','2016-10-25','0',10,10);
+insert  into `invite`(`invi_id`,`invi_username`,`invi_acceptuserId`,`invi_acceptuser`,`invi_acceptmobile`,`invi_registtime`,`invi_userstate`,`invi_gold`,`invi_mark`) values (1,'zhangsan',0,'maimai','2147483647','2016-10-25','0',10,10),(2,'maimai',0,'lisi','2147483647','2016-10-25','0',10,10);
 
 /*Table structure for table `mark_recode` */
 
@@ -93,6 +94,20 @@ CREATE TABLE `mark_recode` (
 /*Data for the table `mark_recode` */
 
 insert  into `mark_recode`(`mrd_id`,`mrd_userid`,`mrd_username`,`mrd_profittype`,`mrd_time`,`mrd_income`,`mrd_pay`,`mrd_share`,`mrd_remark`) values (1,1,'aa',2,'2016-10-27 09:33:39',100,NULL,300,'备注'),(2,1,'aa',2,'2016-10-27 09:37:11',100,NULL,300,'备注'),(3,1,'aa',2,'2016-10-27 09:38:19',100,NULL,200,'备注'),(4,1,'aa',2,'2016-10-27 09:39:20',NULL,20,60,'备注');
+
+/*Table structure for table `optional_stock` */
+
+DROP TABLE IF EXISTS `optional_stock`;
+
+CREATE TABLE `optional_stock` (
+  `os_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `os_stockcode` bigint(20) NOT NULL COMMENT '股票代码',
+  `os_stockname` varchar(20) NOT NULL COMMENT '股票名称',
+  `os_userId` bigint(20) NOT NULL COMMENT '记录哪个用户选择',
+  PRIMARY KEY (`os_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+/*Data for the table `optional_stock` */
 
 /*Table structure for table `problem` */
 
@@ -142,9 +157,11 @@ CREATE TABLE `reference` (
   `rer_pubtime` datetime NOT NULL COMMENT '发布时间',
   `rer_stockname` varchar(20) NOT NULL COMMENT '股票公司名称',
   PRIMARY KEY (`rer_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 /*Data for the table `reference` */
+
+insert  into `reference`(`rer_id`,`rer_shareCode`,`rer_rerInfo`,`rer_pubtime`,`rer_stockname`) values (5,601006,'789789','2016-11-14 10:52:15','大秦铁路'),(6,601006,'123123','2016-11-14 10:11:15','大秦铁路'),(7,601006,'3232113123','2016-11-14 10:53:13','大秦铁路');
 
 /*Table structure for table `reflect_recode` */
 
@@ -228,7 +245,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`user_id`,`user_name`,`password`,`grade`,`register_time`,`end_vip_time`,`vip_status`,`phone`,`gold`,`mark`,`account_type`,`reflect_account`) values (2,'maimai','123123',0,'2016-10-25','2016-10-25',0,'2147483647',10,10,0,'422149196@qq.com'),(3,'lisi','123123',0,'2016-10-25','2016-10-25',0,'2147483647',0,11,11,'422149193@qq.com'),(5,'mmmmmm','111111',0,'2016-11-01','2016-11-01',0,'18060191114',0,100,NULL,NULL),(6,'corn12','123123',0,'2016-11-01','2016-11-01',0,'18650809183',0,100,NULL,NULL);
+insert  into `user`(`user_id`,`user_name`,`password`,`grade`,`register_time`,`end_vip_time`,`vip_status`,`phone`,`gold`,`mark`,`account_type`,`reflect_account`) values (2,'maimai','123123',0,'2016-10-25','2016-10-25',0,'2147483647',10,10,0,'422149196@qq.com'),(3,'lisi','123123',1,'2016-10-25','2016-10-25',0,'2147483647',0,11,1,'1234156'),(5,'mmmmmm','111111',1,'2016-11-01','2016-11-01',0,'18060191114',0,100,0,'123456456'),(6,'corn12','123123',0,'2016-11-01','2016-11-01',0,'18650809183',0,100,0,'123123123');
 
 /*Table structure for table `vip_record` */
 

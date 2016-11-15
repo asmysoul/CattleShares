@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="js/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="js/bootstrap/css/bootstrap-theme.min.css" />
+		<link rel="stylesheet" href="fonts/font-awesome.min.css" />
+		<link rel="stylesheet" href="css/my.css" />
+		<link rel="stylesheet" href="js/bootstrap/js/My97DatePickerBeta/My97DatePicker/skin/WdatePicker.css" />
+		<link rel="stylesheet" href="css/member-account.css" />
+		<title>会员账户</title>
+	</head>
+	<body>
+		<div class="manage-content">
+			<div class="search-top">
+				账号ID：<input class="usermessage" type="" name="" id="" value="" />
+				昵称：<input class="usermessage" type="" name="" id="" value="" />
+				姓名：<input class="usermessage" type="" name="" id="" value="" />
+				账户类型：<select class="member-select select">
+					<option>财付通</option>
+					<option>支付宝</option>
+				</select>
+				创建时间：
+				<!--<input id="txtBeginDate" type="" name="" value="" readonly />—
+				<input id="txtEndDate" type="" name="" value="" />-->
+				<input class="Wdate" type="text" name="" id="" value="" onclick="WdatePicker()"/>&nbsp;-
+				<input class="Wdate" type="text" name="" id="" value="" onclick="WdatePicker()"/>
+				<button id="search" class="btn btn-color">
+								<i class="small-icon small-search"></i>
+								查询</button>
+			</div>
+			<table class="table border">
+				<tr class="firstline">
+					<th>账号ID</th>
+					<th>昵称</th>
+					<th>账户姓名</th>
+					<th>账户类型</th>
+					<th>提现账户</th>
+					<th>操作</th>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>gy</td>
+					<td>gy</td>
+					<td>zfb</td>
+					<td>123456789</td>
+					<td>
+						<i class="small-icon small-change"></i>
+					</td>
+				</tr>
+				<tr>
+					<td class="seperate" colspan="6">
+						<nav>
+						  <ul class="pagination">
+						    <li><a href="#">&laquo;</a></li>
+						    <li class="active"><a href="#">1 <span class="sr-only"></span></a></li>
+						  	<li><a href="#">2 <span class="sr-only"></span></a></li>
+						  	<li><a href="#">&raquo;</a></li>
+						  </ul>
+						</nav>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div class="content-fade change-umessage">
+			<div class="fade-top">
+				<p>修改信息</p>
+				<i class="small-icon small-close close"></i>
+			</div>
+			<div class="fade-content">
+				<div>
+					<p>姓名：</p>
+					<span>sldf</span>
+				</div>
+				<div>
+					<p>账户类型：</p>
+					<select class="account-type select">
+						<option>支付宝</option>
+						<option>财付通</option>
+						<option id="bank">银行卡</option>
+					</select>
+				</div>
+				<div>
+					<p>提现账户：</p>
+					<input class="input-style" type="text" name="" id="" value="" />
+				</div>
+				<div class="bank">
+				<div>
+					<p>银行：</p>
+					<select class="select">
+						<option>工商</option>
+						<option>招商</option>
+						<option>邮政储蓄</option>
+					</select>
+				</div>
+				<div>
+					<p>银行卡号：</p>
+					<input class="input-style" type="text" name="" id="" value="" />
+				</div>
+				</div>
+				<button class="btn btn-color btn-addconfirm">
+					<i class="small-icon small-ok"></i>
+				确定</button>
+			</div>
+		</div>
+		<div class="back"></div>
+		<script src="js/bootstrap/js/bootstrap.min.js"></script>
+		<script src="js/jquery/jquery-3.0.0.min.js"></script>
+		<script src="js/bootstrap/js/My97DatePickerBeta/My97DatePicker/WdatePicker.js"></script>
+		<script src="js/member-account.js"></script>
+	</body>
+</html>

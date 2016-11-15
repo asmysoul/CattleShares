@@ -44,8 +44,72 @@ public interface UserMapper extends AutoMapper<User> {
 	 */
 	List<VipManage> selectUserListByTime(Pagination page,VipManage vipManage);
 	
-	
+	/**
+	 * 
+	* @Title: getSelectTime 
+	* @Description: 根据时间区间获取列表
+	* @author 尤
+	* @date 2016年11月14日 上午11:17:06  
+	* @param @param page
+	* @param @param selectOptionTime
+	* @param @return    设定文件 
+	* @return List<VipManage>    返回类型 
+	* @throws
+	 */
 	List<VipManage> getSelectTime(Pagination page,SelectOptionTime selectOptionTime);
-	
+	/**
+	 * 
+	* @Title: getSelectUserSatate 
+	* @Description: 根据用户状态获得列表
+	* @author 尤
+	* @date 2016年11月14日 上午11:17:41  
+	* @param @param page
+	* @param @param userState
+	* @param @return    设定文件 
+	* @return List<VipManage>    返回类型 
+	* @throws
+	 */
 	List<VipManage> getSelectUserSatate(Pagination page,String userState);
+	
+	/**
+	 * 
+	* @Title: selectByCommandUser 
+	* @Description: 条件查询获取用户列表
+	* @author 尤
+	* @date 2016年11月14日 上午11:20:08  
+	* @param @param page
+	* @param @param user
+	* @param @return    设定文件 
+	* @return List<User>    返回类型 
+	* @throws
+	 */
+	List<User> selectByCommandUser(Page<User> page, User user);
+	
+	/**
+	 * 
+	* @Title: getSelectUserByType 
+	* @Description: 根据账户类型获取用户列表
+	* @author 尤
+	* @date 2016年11月14日 下午2:12:39  
+	* @param @param page
+	* @param @param accountType
+	* @param @return    设定文件 
+	* @return List<User>    返回类型 
+	* @throws
+	 */
+	List<User> getSelectUserByType(Pagination page,String accountType);
+	
+	/**
+	 * 
+	* @Title: getSelectVIPUserByTime 
+	* @Description: 根据注册时间获取
+	* @author 尤
+	* @date 2016年11月14日 下午2:21:07  
+	* @param @param page
+	* @param @param selectOptionTime
+	* @param @return    设定文件 
+	* @return List<User>    返回类型 
+	* @throws
+	 */
+	List<User> getSelectVIPUserByTime(Pagination page,SelectOptionTime selectOptionTime);
 }

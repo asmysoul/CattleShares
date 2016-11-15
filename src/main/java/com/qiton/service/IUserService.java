@@ -155,4 +155,72 @@ public interface IUserService extends ISuperService<User> {
 	* @throws
 	 */
 	public void selectUserPage(Page<VipManage> page)throws BussinessException;
+	
+	/**
+	 * 
+	* @Title: selectVipList 
+	* @Description: 获得会员用户列表
+	* @author 尤
+	* @date 2016年11月14日 上午11:13:17  
+	* @param @param page
+	* @param @throws BussinessException    设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	public void selectVipList(Page<User> page)throws BussinessException;
+
+	/**
+	 * 
+	* @Title: selectByCommandUser 
+	* @Description: 条件查询用户
+	* @author 尤
+	* @date 2016年11月14日 上午11:14:02  
+	* @param @param page
+	* @param @throws BussinessException    设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	public void selectByCommandUser(User user,Page<User> page)throws BussinessException;
+	
+	/**
+	 * 
+	* @Title: getSelectUserBySatate 
+	* @Description: 财户状态查询用户
+	* @author 尤
+	* @date 2016年11月14日 上午11:31:20  
+	* @param @param page
+	* @param @param userState
+	* @param @throws BussinessException    设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	public void getSelectUserByType(Page<User> page,String accountType)throws BussinessException;
+	
+	/**
+	 * 
+	* @Title: getSelectVIPUserByTime 
+	* @Description: 根据注册时间区间获取用户列表
+	* @author 尤
+	* @date 2016年11月14日 下午2:18:14  
+	* @param @param page
+	* @param @param optionTime
+	* @param @throws BussinessException    设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	public void getSelectVIPUserByTime(Page<User> page,SelectOptionTime optionTime)throws BussinessException;
+	
+	/**
+	 * 
+	* @Title: updateVIPUser_Info 
+	* @Description: 修改会员信息
+	* @author 尤
+	* @date 2016年11月14日 下午3:06:36  
+	* @param @param user
+	* @param @throws BussinessException    设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	public void updateVIPUser_Info(User user)throws BussinessException;
+	
 }

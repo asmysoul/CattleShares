@@ -90,9 +90,14 @@ public class SharesApiServiceImpl implements ISharesApiService {
 	    if(StringUtils.isNotBlank(error)){
 	    	throw new BussinessException(error);
 	    }
+	   
+	    
+	    if(shares.getShowapiResBody().getkPic()==null){
+	    	throw new BussinessException("这只股票不存在");
+	    }
 	    
 	    String remark = shares.getShowapiResBody().getkPic().getRemark();
-	   
+	    
 	    if(StringUtils.isNotBlank(remark)){
 	    	throw new BussinessException(remark);
 	    }

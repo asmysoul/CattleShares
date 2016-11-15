@@ -108,8 +108,10 @@ public class ReferenceController extends BaseController{
 	@ResponseBody
 	public Object updateReference(Reference reference,Long rerId,HttpServletRequest request){
 		try{
-			reference.setRerPubtime(new Date());
-			rerService.updateReference(reference, rerId);
+			Reference selectreference=rerService.selectById(reference.getRerId());
+			selectreference.setRerRerinfo(reference.getRerRerinfo());
+			selectreference.setRerPubtime(new Date());
+			rerService.updateReference(selectreference, rerId);
 		}catch(BussinessException e){
 			e.printStackTrace();
 			log.info("--更新失败--"+e.getLocalizedMessage());
@@ -133,9 +135,9 @@ public class ReferenceController extends BaseController{
 	 */
 	@RequestMapping("/getAllReference")
 	@ResponseBody
-	public Object getAllReference(Page<Reference> page,HttpServletRequest request){
+	public Object getAllReference(String current,HttpServletRequest request){
 		
-		Page<Reference> pageResult = new Page<Reference>(page.getCurrent(),Config.PAGENUM);
+		Page<Reference> pageResult = new Page<Reference>(Integer.parseInt(current),Config.PAGENUM);
 		try{
 			rerService.getAllReference(pageResult);
 		}catch(BussinessException e){
@@ -146,4 +148,8 @@ public class ReferenceController extends BaseController{
 		return renderSuccess(pageResult);
 	}
 	
+	@RequestMapping("/reference")
+	public String gotReference(HttpServletRequest request){
+		return "publishMessage";
+	}
 }
