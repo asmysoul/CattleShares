@@ -43,7 +43,9 @@ import com.qiton.model.vo.SharesVo;
 public interface ISharesApiService {
 
 	public SharesVo getSharesBySharesCode(Long code)throws BussinessException;
-
+	
+	public Shares getSharesByShareCode(Long code)throws BussinessException;
+	
 	
 	public double getCurrentPrice(Long code)throws BussinessException;
 }

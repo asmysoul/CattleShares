@@ -39,6 +39,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qiton.exception.BussinessException;
+import com.qiton.model.Shares;
 import com.qiton.model.User;
 import com.qiton.model.vo.SharesVo;
 import com.qiton.service.ISharesApiService;
@@ -59,8 +60,8 @@ public class SharesApiController extends BaseController{
 	private ISharesApiService iSharesApiService;
 	
 	@ResponseBody
-	@RequestMapping("getShareInfo")
-	public Object getShareInfo(Long code, HttpSession session){
+	@RequestMapping("getShareVoInfo")
+	public Object getSharesInfo(Long code, HttpSession session){
 		User user = (User) session.getAttribute("current_user");
 		SharesVo sharesVo = null;
 		try{
@@ -70,13 +71,27 @@ public class SharesApiController extends BaseController{
 			return renderError(e.getLocalizedMessage());
 		}catch (Exception e) {
 			LOGGER.info(e.getLocalizedMessage());
-			return renderError("批量删除卖出股票出错，请重试");
+			return renderError("获取股票出错，请重试");
 		}
-		if(user.getGrade() == 0 || user == null){
-			return renderError("参数异常");
-		}
-		else{
 			return renderSuccess(sharesVo);
-		}
 	}
+	
+	
+	@ResponseBody
+	@RequestMapping("getShareInfo")
+	public Object getShareInfo(Long code, HttpSession session){
+		User user = (User) session.getAttribute("current_user");
+		Shares shares = null;
+		try{
+			shares = iSharesApiService.getSharesByShareCode(code);
+		}catch(BussinessException e){
+			LOGGER.info(e.getLocalizedMessage());
+			return renderError(e.getLocalizedMessage());
+		}catch (Exception e) {
+			LOGGER.info(e.getLocalizedMessage());
+			return renderError("获取股票出错，请重试");
+		}
+			return renderSuccess(shares);	
+	}
+	
 }

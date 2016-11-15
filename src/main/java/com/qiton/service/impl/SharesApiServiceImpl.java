@@ -123,6 +123,56 @@ public class SharesApiServiceImpl implements ISharesApiService {
 	public double getCurrentPrice(Long code) throws BussinessException {
 		return getSharesBySharesCode(code).getNowPrice();
 	}
+
+	/* (非 Javadoc)
+	 * Description:
+	 * @see com.qiton.service.ISharesApiService#getSharesByShareCode(java.lang.Long)
+	 */
+	@Override
+	public Shares getSharesByShareCode(Long code) throws BussinessException {
+		if(code == null){
+			throw new BussinessException("股票代码不可为空");
+		}
+		String host = "http://ali-stock.showapi.com";
+	    String path = "/real-stockinfo";
+	    String method = "GET";
+	    Map<String, String> headers = new HashMap<String, String>();
+	    //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
+	    headers.put("Authorization", "APPCODE 4ea787c71bb247f5a8b2499fb6eaf508");
+	    Map<String, String> querys = new HashMap<String, String>();
+	    querys.put("code", code.toString());
+	    querys.put("needIndex", "0");
+	    querys.put("need_k_pic", "1");
+
+	    Shares shares = null;
+	    try {
+	    	HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
+	    	//获取response的body
+	    	String str = EntityUtils.toString(response.getEntity());
+	    	shares = JSON.parseObject(str, Shares.class);
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+	    
+	    String error = shares.getShowapiResError();
+	    
+	    if(StringUtils.isNotBlank(error)){
+	    	throw new BussinessException(error);
+	    }
+	   
+	    
+	    if(shares.getShowapiResBody().getkPic()==null){
+	    	throw new BussinessException("这只股票不存在");
+	    }
+	    
+	    String remark = shares.getShowapiResBody().getkPic().getRemark();
+	    
+	    if(StringUtils.isNotBlank(remark)){
+	    	throw new BussinessException(remark);
+	    }
+	    
+	    return shares;
+	}
 	
 	
 

@@ -127,8 +127,9 @@ public class PurchaseController extends BaseController {
 	@ResponseBody
 	@RequestMapping("upPurchase")
 	public Object upPurchase(Purchase purchase){
+		Purchase purchaseResult = null;
 		try {
-			iPurchaseService.upPurchase(purchase);
+			purchaseResult = iPurchaseService.upPurchase(purchase);
 		}catch(BussinessException e){
 			LOGGER.info(e.getLocalizedMessage());
 			return renderError(e.getLocalizedMessage());
@@ -136,7 +137,7 @@ public class PurchaseController extends BaseController {
 			LOGGER.info(e.getLocalizedMessage());
 			return renderError("推荐买入股票出错，请重试");
 		}
-		return renderSuccess();
+		return renderSuccess(purchaseResult);
 	}
 	
 	@ResponseBody

@@ -126,8 +126,9 @@ public class SelloutController extends BaseController {
 	@ResponseBody
 	@RequestMapping("upSellout")
 	public Object upSellout(Sellout sellout) {
+		Sellout selloutResult = null;
 		try {
-			iSelloutService.upSellout(sellout);
+			selloutResult = iSelloutService.upSellout(sellout);
 		}catch(BussinessException e){
 			LOGGER.info(e.getLocalizedMessage());
 			return renderError(e.getLocalizedMessage());
@@ -135,7 +136,7 @@ public class SelloutController extends BaseController {
 			LOGGER.info(e.getLocalizedMessage());
 			return renderError("推荐卖出股票出错，请重试");
 		}
-		return renderSuccess();
+		return renderSuccess(selloutResult);
 	}
 	
 	@ResponseBody
