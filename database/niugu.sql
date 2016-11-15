@@ -67,12 +67,13 @@ CREATE TABLE `invite` (
   `invi_userstate` varchar(20) NOT NULL COMMENT '邀请人用户状态',
   `invi_gold` int(4) NOT NULL COMMENT '邀请金币',
   `invi_mark` int(4) NOT NULL COMMENT '邀请积分',
+  `invi_recharge` date DEFAULT NULL COMMENT '充值时间',
   PRIMARY KEY (`invi_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `invite` */
 
-insert  into `invite`(`invi_id`,`invi_username`,`invi_acceptuserId`,`invi_acceptuser`,`invi_acceptmobile`,`invi_registtime`,`invi_userstate`,`invi_gold`,`invi_mark`) values (1,'zhangsan',0,'maimai','2147483647','2016-10-25','0',10,10),(2,'maimai',0,'lisi','2147483647','2016-10-25','0',10,10);
+insert  into `invite`(`invi_id`,`invi_username`,`invi_acceptuserId`,`invi_acceptuser`,`invi_acceptmobile`,`invi_registtime`,`invi_userstate`,`invi_gold`,`invi_mark`,`invi_recharge`) values (1,'zhangsan',0,'maimai','2147483647','2016-10-25','0',10,10,NULL),(2,'maimai',0,'lisi','2147483647','2016-10-25','0',10,10,NULL);
 
 /*Table structure for table `mark_recode` */
 

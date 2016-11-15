@@ -26,7 +26,7 @@ public class Invite implements Serializable {
 	@TableField(value = "invi_username")
 	private String inviUsername;
 
-	/** 受邀请人id */
+	/**  */
 	@TableField(value = "invi_acceptuserId")
 	private Long inviAcceptuserid;
 
@@ -53,6 +53,10 @@ public class Invite implements Serializable {
 	/** 邀请积分 */
 	@TableField(value = "invi_mark")
 	private Integer inviMark;
+
+	/** 充值时间 */
+	@TableField(value = "invi_recharge")
+	private Date inviRecharge;
 
 
 	public Long getInviId() {
@@ -127,4 +131,26 @@ public class Invite implements Serializable {
 		this.inviMark = inviMark;
 	}
 
+	public Date getInviRecharge() {
+		return this.inviRecharge;
+	}
+
+	public void setInviRecharge(Date inviRecharge) {
+		this.inviRecharge = inviRecharge;
+	}
+
+	public Invite() {
+		super();
+	}
+
+	@Override
+	public String toString() {
+		return "Invite [inviId=" + inviId + ", inviUsername=" + inviUsername + ", inviAcceptuserid=" + inviAcceptuserid
+				+ ", inviAcceptuser=" + inviAcceptuser + ", inviAcceptmobile=" + inviAcceptmobile + ", inviRegisttime="
+				+ inviRegisttime + ", inviUserstate=" + inviUserstate + ", inviGold=" + inviGold + ", inviMark="
+				+ inviMark + ", inviRecharge=" + inviRecharge + "]";
+	}
+
+	
+	
 }
