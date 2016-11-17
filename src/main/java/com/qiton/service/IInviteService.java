@@ -53,7 +53,17 @@ public interface IInviteService extends ISuperService<Invite> {
 	 */
 	public void getInviteSatate(Page<Invite> page2, String acceptuserstate);
 
-
+	/**
+	 * 
+	* @Title: getInviteByCommand 
+	* @Description: 条件查询邀请列表
+	* @author 尤
+	* @date 2016年11月17日 上午8:50:21  
+	* @param @param invite
+	* @param @param page2    设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
 	public void getInviteByCommand(Invite invite, Page<Invite> page2);
 
 	

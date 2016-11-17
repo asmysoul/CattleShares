@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotations.IdType;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  *
@@ -56,7 +57,7 @@ public class VipRecord implements Serializable {
 	public void setVrdUsername(String vrdUsername) {
 		this.vrdUsername = vrdUsername;
 	}
-
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	public Date getVrdRechargetime() {
 		return this.vrdRechargetime;
 	}
@@ -81,4 +82,13 @@ public class VipRecord implements Serializable {
 		this.vrdRemark = vrdRemark;
 	}
 
+	@Override
+	public String toString() {
+		return "VipRecord [vrdUserid=" + vrdUserid + ", vrdUsername=" + vrdUsername + ", vrdRechargetime="
+				+ vrdRechargetime + ", vrdRechargeprice=" + vrdRechargeprice + ", vrdRemark=" + vrdRemark + "]";
+	}
+
+	
+	
+	
 }

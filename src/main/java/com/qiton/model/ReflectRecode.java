@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotations.IdType;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  *
@@ -92,7 +93,7 @@ public class ReflectRecode implements Serializable {
 	public void setRrdPrice(Double rrdPrice) {
 		this.rrdPrice = rrdPrice;
 	}
-
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	public Date getRrdApplytime() {
 		return this.rrdApplytime;
 	}
@@ -108,7 +109,7 @@ public class ReflectRecode implements Serializable {
 	public void setRrdState(Integer rrdState) {
 		this.rrdState = rrdState;
 	}
-
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	public Date getRrdManagetime() {
 		return this.rrdManagetime;
 	}

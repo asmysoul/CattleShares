@@ -11,49 +11,51 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.qiton.exception.BussinessException;
-import com.qiton.model.Invite;
+import com.qiton.model.GoldRecord;
+import com.qiton.model.GoldRecord;
 import com.qiton.model.SelectOptionTime;
 import com.qiton.model.VipManage;
-import com.qiton.service.IInviteService;
+import com.qiton.service.IGoldRecordService;
 import com.qiton.service.IUserService;
 import com.qiton.utils.Config;
 
 /**
  * 
-* @ClassName: InviteManagerController 
-* @Description: 邀请管理 
+* @ClassName: GoldRecordController 
+* @Description: 金币记录 
 * @author 尤
-* @date 2016年11月15日 上午11:11:38 
+* @date 2016年11月17日 上午8:58:23 
 *
  */
 @Controller
-@RequestMapping("/inviteManager")
-public class InviteManagerController extends BaseController {
+@RequestMapping("/goldRecord")
+public class GoldRecordController extends BaseController {
 	
-	private static final Logger log=LogManager.getLogger(InviteManagerController.class);
+	private static final Logger log=LogManager.getLogger(GoldRecordController.class);
 	
 	@Autowired
-	private IInviteService iInviteService;
+	private IGoldRecordService iGoldRecordService;
 	
 	
 	/**
 	 * 
-	* @Title: getInviteList 
-	* @Description: 获取邀请列表
+	* @Title: getGoldRecordList 
+	* @Description: 获得金币记录列表
 	* @author 尤
-	* @date 2016年11月15日 上午11:14:06  
+	* @date 2016年11月17日 上午8:59:12  
 	* @param @param current
 	* @param @param request
 	* @param @return    设定文件 
 	* @return Object    返回类型 
 	* @throws
+	* http://localhost:8080/CattleShares/goldRecord/getgoldRecordList?current=1  接口
 	 */
-	@RequestMapping("/getInviteList")
+	@RequestMapping("/getgoldRecordList")
 	@ResponseBody
-	public Object getInviteList(String current,HttpServletRequest request){
-		Page<Invite> page=new Page<>(Integer.parseInt(current), Config.PAGENUM);
+	public Object getgoldRecordList(String current,HttpServletRequest request){
+		Page<GoldRecord> page=new Page<>(Integer.parseInt(current), Config.PAGENUM);
 		try{
-			iInviteService.getInviteList(page);
+			iGoldRecordService.getgoldRecordList(page);
 		}catch(BussinessException e){
 			log.info(e.getLocalizedMessage());
 			return renderError("数据查询出错"+e.getLocalizedMessage());
@@ -67,10 +69,10 @@ public class InviteManagerController extends BaseController {
 	
 	/**
 	 * 
-	* @Title: getSelectTime 
-	* @Description: 根据时间区间获得邀请列表
+	* @Title: goldRecordByTime 
+	* @Description: 、根据时间区间获取金币记录
 	* @author 尤
-	* @date 2016年11月15日 上午11:28:20  
+	* @date 2016年11月17日 上午9:02:48  
 	* @param @param current
 	* @param @param optionTime
 	* @param @param request
@@ -78,12 +80,12 @@ public class InviteManagerController extends BaseController {
 	* @return Object    返回类型 
 	* @throws
 	 */
-	@RequestMapping("/getInviteByTime")
+	@RequestMapping("/goldRecordByTime")
 	@ResponseBody
-	public Object getInviteByTime(String current,SelectOptionTime optionTime, HttpServletRequest request) {
-		Page<Invite> page2 = new Page<Invite>(Integer.parseInt(current), Config.PAGENUM);
+	public Object goldRecordByTime(String current,SelectOptionTime optionTime, HttpServletRequest request) {
+		Page<GoldRecord> page2 = new Page<GoldRecord>(Integer.parseInt(current), Config.PAGENUM);
 		try {
-			iInviteService.getInviteByTime(page2, optionTime);
+			iGoldRecordService.goldRecordByTime(page2, optionTime);
 		} catch (BussinessException e) {
 			e.printStackTrace();
 			return renderError(e.getLocalizedMessage());
@@ -100,12 +102,12 @@ public class InviteManagerController extends BaseController {
 		 * 上午10:37:35 @param @param current @param @param request @param @return
 		 * 设定文件 @return Object 返回类型 @throws
 		 */
-		@RequestMapping("/getInviteSatate")
+		@RequestMapping("/getGoldRecordProfittype")
 		@ResponseBody
-		public Object getInviteSatate(String current,String acceptuserstate, HttpServletRequest request) {
-			Page<Invite> page2 = new Page<Invite>(Integer.parseInt(current), Config.PAGENUM);
+		public Object getGoldRecordProfittype(String current,String Profittype, HttpServletRequest request) {
+			Page<GoldRecord> page2 = new Page<GoldRecord>(Integer.parseInt(current), Config.PAGENUM);
 			try {
-				iInviteService.getInviteSatate(page2, acceptuserstate);
+				iGoldRecordService.getGoldRecordProfittype(page2, Profittype);
 			} catch (BussinessException e) {
 				e.printStackTrace();
 				return renderError(e.getLocalizedMessage());
@@ -118,23 +120,23 @@ public class InviteManagerController extends BaseController {
 		
 		/**
 		 * 
-		* @Title: selectByCommand 
+		* @Title: getGoldRecordByCommand 
 		* @Description: 条件查询
 		* @author 尤
-		* @date 2016年11月7日 上午11:13:20  
-		* @param @param user
-		* @param @param page
+		* @date 2016年11月17日 上午9:05:03  
+		* @param @param GoldRecord
+		* @param @param current
 		* @param @param request
 		* @param @return    设定文件 
 		* @return Object    返回类型 
 		* @throws
 		 */
-		@RequestMapping("/getInviteByCommand")
+		@RequestMapping("/getGoldRecordByCommand")
 		@ResponseBody
-		public Object getInviteByCommand(Invite invite,String current,HttpServletRequest request){
-			Page<Invite> page2=new Page<Invite>(Integer.parseInt(current), Config.PAGENUM);
+		public Object getGoldRecordByCommand(GoldRecord GoldRecord,String current,HttpServletRequest request){
+			Page<GoldRecord> page2=new Page<GoldRecord>(Integer.parseInt(current), Config.PAGENUM);
 			try{
-				iInviteService.getInviteByCommand(invite,page2);
+				iGoldRecordService.getGoldRecordByCommand(GoldRecord,page2);
 			}catch(BussinessException e){
 				log.info("查询错误");
 				return renderError(e.getLocalizedMessage());
@@ -148,7 +150,7 @@ public class InviteManagerController extends BaseController {
 	
 		/**
 		 * 
-		* @Title: gotInviteManageJsp 
+		* @Title: gotGoldRecordManageJsp 
 		* @Description: 跳转到邀请管理页面
 		* @author 尤
 		* @date 2016年11月16日 上午10:14:31  
@@ -157,8 +159,8 @@ public class InviteManagerController extends BaseController {
 		* @return String    返回类型 
 		* @throws
 		 */
-		@RequestMapping("/gotInviteManageJsp")
-		public String gotInviteManageJsp(HttpServletRequest request){
+		@RequestMapping("/gotGoldRecordManageJsp")
+		public String gotGoldRecordManageJsp(HttpServletRequest request){
 			return "invaite-manage";
 		}
 }

@@ -11,49 +11,50 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.qiton.exception.BussinessException;
-import com.qiton.model.Invite;
+import com.qiton.model.MarkRecode;
 import com.qiton.model.SelectOptionTime;
 import com.qiton.model.VipManage;
-import com.qiton.service.IInviteService;
+import com.qiton.service.IMarkRecodeService;
 import com.qiton.service.IUserService;
 import com.qiton.utils.Config;
 
 /**
  * 
-* @ClassName: InviteManagerController 
-* @Description: 邀请管理 
+* @ClassName: MarkRecordController 
+* @Description: 积分记录 
 * @author 尤
-* @date 2016年11月15日 上午11:11:38 
+* @date 2016年11月17日 上午9:17:41 
 *
  */
 @Controller
-@RequestMapping("/inviteManager")
-public class InviteManagerController extends BaseController {
+@RequestMapping("/markRecord")
+public class MarkRecordController extends BaseController {
 	
-	private static final Logger log=LogManager.getLogger(InviteManagerController.class);
+	private static final Logger log=LogManager.getLogger(MarkRecordController.class);
 	
 	@Autowired
-	private IInviteService iInviteService;
+	private IMarkRecodeService imarkRecodeService;
 	
 	
 	/**
 	 * 
-	* @Title: getInviteList 
-	* @Description: 获取邀请列表
+	* @Title: getmarkRecodeList 
+	* @Description: 获得积分记录列表
 	* @author 尤
-	* @date 2016年11月15日 上午11:14:06  
+	* @date 2016年11月17日 上午9:19:59  
 	* @param @param current
 	* @param @param request
 	* @param @return    设定文件 
 	* @return Object    返回类型 
 	* @throws
+	* http://localhost:8080/CattleShares/markRecord/getmarkRecodeList?current=1  接口
 	 */
-	@RequestMapping("/getInviteList")
+	@RequestMapping("/getmarkRecodeList")
 	@ResponseBody
-	public Object getInviteList(String current,HttpServletRequest request){
-		Page<Invite> page=new Page<>(Integer.parseInt(current), Config.PAGENUM);
+	public Object getmarkRecodeList(String current,HttpServletRequest request){
+		Page<MarkRecode> page=new Page<>(Integer.parseInt(current), Config.PAGENUM);
 		try{
-			iInviteService.getInviteList(page);
+			imarkRecodeService.getmarkRecodeList(page);
 		}catch(BussinessException e){
 			log.info(e.getLocalizedMessage());
 			return renderError("数据查询出错"+e.getLocalizedMessage());
@@ -67,10 +68,10 @@ public class InviteManagerController extends BaseController {
 	
 	/**
 	 * 
-	* @Title: getSelectTime 
-	* @Description: 根据时间区间获得邀请列表
+	* @Title: markRecodeByTime 
+	* @Description: 根据时间区间获取积分记录
 	* @author 尤
-	* @date 2016年11月15日 上午11:28:20  
+	* @date 2016年11月17日 上午9:20:53  
 	* @param @param current
 	* @param @param optionTime
 	* @param @param request
@@ -78,12 +79,12 @@ public class InviteManagerController extends BaseController {
 	* @return Object    返回类型 
 	* @throws
 	 */
-	@RequestMapping("/getInviteByTime")
+	@RequestMapping("/markRecodeByTime")
 	@ResponseBody
-	public Object getInviteByTime(String current,SelectOptionTime optionTime, HttpServletRequest request) {
-		Page<Invite> page2 = new Page<Invite>(Integer.parseInt(current), Config.PAGENUM);
+	public Object markRecodeByTime(String current,SelectOptionTime optionTime, HttpServletRequest request) {
+		Page<MarkRecode> page2 = new Page<MarkRecode>(Integer.parseInt(current), Config.PAGENUM);
 		try {
-			iInviteService.getInviteByTime(page2, optionTime);
+			imarkRecodeService.markRecodeByTime(page2, optionTime);
 		} catch (BussinessException e) {
 			e.printStackTrace();
 			return renderError(e.getLocalizedMessage());
@@ -95,17 +96,24 @@ public class InviteManagerController extends BaseController {
 
     
 	 /**
-		 * 
-		 * @Title: getAllUser @Description:根据用户状态获得用户列表 @author 尤 @date 2016年10月26日
-		 * 上午10:37:35 @param @param current @param @param request @param @return
-		 * 设定文件 @return Object 返回类型 @throws
-		 */
-		@RequestMapping("/getInviteSatate")
+	  * 
+	 * @Title: getmarkRecodeProfittype 
+	 * @Description: 根据收支类型获得积分列表
+	 * @author 尤
+	 * @date 2016年11月17日 上午9:21:26  
+	 * @param @param current
+	 * @param @param Profittype
+	 * @param @param request
+	 * @param @return    设定文件 
+	 * @return Object    返回类型 
+	 * @throws
+	  */
+		@RequestMapping("/getmarkRecodeProfittype")
 		@ResponseBody
-		public Object getInviteSatate(String current,String acceptuserstate, HttpServletRequest request) {
-			Page<Invite> page2 = new Page<Invite>(Integer.parseInt(current), Config.PAGENUM);
+		public Object getmarkRecodeProfittype(String current,String Profittype, HttpServletRequest request) {
+			Page<MarkRecode> page2 = new Page<MarkRecode>(Integer.parseInt(current), Config.PAGENUM);
 			try {
-				iInviteService.getInviteSatate(page2, acceptuserstate);
+				imarkRecodeService.getmarkRecodeProfittype(page2, Profittype);
 			} catch (BussinessException e) {
 				e.printStackTrace();
 				return renderError(e.getLocalizedMessage());
@@ -118,23 +126,23 @@ public class InviteManagerController extends BaseController {
 		
 		/**
 		 * 
-		* @Title: selectByCommand 
+		* @Title: getmarkRecodeByCommand 
 		* @Description: 条件查询
 		* @author 尤
-		* @date 2016年11月7日 上午11:13:20  
-		* @param @param user
-		* @param @param page
+		* @date 2016年11月17日 上午9:05:03  
+		* @param @param markRecode
+		* @param @param current
 		* @param @param request
 		* @param @return    设定文件 
 		* @return Object    返回类型 
 		* @throws
 		 */
-		@RequestMapping("/getInviteByCommand")
+		@RequestMapping("/getmarkRecodeByCommand")
 		@ResponseBody
-		public Object getInviteByCommand(Invite invite,String current,HttpServletRequest request){
-			Page<Invite> page2=new Page<Invite>(Integer.parseInt(current), Config.PAGENUM);
+		public Object getmarkRecodeByCommand(MarkRecode markRecode,String current,HttpServletRequest request){
+			Page<MarkRecode> page2=new Page<MarkRecode>(Integer.parseInt(current), Config.PAGENUM);
 			try{
-				iInviteService.getInviteByCommand(invite,page2);
+				imarkRecodeService.getmarkRecodeByCommand(markRecode,page2);
 			}catch(BussinessException e){
 				log.info("查询错误");
 				return renderError(e.getLocalizedMessage());
@@ -148,7 +156,7 @@ public class InviteManagerController extends BaseController {
 	
 		/**
 		 * 
-		* @Title: gotInviteManageJsp 
+		* @Title: gotmarkRecodeManageJsp 
 		* @Description: 跳转到邀请管理页面
 		* @author 尤
 		* @date 2016年11月16日 上午10:14:31  
@@ -157,8 +165,8 @@ public class InviteManagerController extends BaseController {
 		* @return String    返回类型 
 		* @throws
 		 */
-		@RequestMapping("/gotInviteManageJsp")
-		public String gotInviteManageJsp(HttpServletRequest request){
-			return "invaite-manage";
+		@RequestMapping("/gotmarkRecodeManageJsp")
+		public String gotmarkRecodeManageJsp(HttpServletRequest request){
+			return "";
 		}
 }

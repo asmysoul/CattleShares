@@ -45,7 +45,7 @@ CREATE TABLE `gold_record` (
   `grd_income` float DEFAULT NULL COMMENT '收入',
   `grd_pay` float DEFAULT NULL COMMENT '支出',
   `grd_spare` float NOT NULL COMMENT '余钱',
-  `grd_remark` varchar(100) DEFAULT NULL COMMENT '备注',
+  `grd_remark` varchar(100) NOT NULL COMMENT '备注',
   PRIMARY KEY (`grid_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
@@ -175,8 +175,8 @@ CREATE TABLE `reflect_recode` (
   `rrd_serialnum` bigint(20) NOT NULL COMMENT '体现流水号',
   `rrd_price` float NOT NULL COMMENT '体现金额',
   `rrd_applytime` datetime NOT NULL COMMENT '申请时间',
-  `rrd_state` int(2) NOT NULL COMMENT '状态：0.未处理1，已处理',
-  `rrd_managetime` datetime NOT NULL COMMENT '处理时间',
+  `rrd_state` int(2) NOT NULL DEFAULT '0' COMMENT '状态：0.未处理1，已处理',
+  `rrd_managetime` datetime DEFAULT NULL COMMENT '处理时间',
   PRIMARY KEY (`rrd_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -259,9 +259,11 @@ CREATE TABLE `vip_record` (
   `vrd_rechargeprice` int(11) NOT NULL COMMENT '充值金额',
   `vrd_remark` varchar(100) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`vrd_userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 /*Data for the table `vip_record` */
+
+insert  into `vip_record`(`vrd_userid`,`vrd_username`,`vrd_rechargetime`,`vrd_rechargeprice`,`vrd_remark`) values (1,'cece','2016-11-16',100,'会员延期20天，有效期至2019-11-17');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

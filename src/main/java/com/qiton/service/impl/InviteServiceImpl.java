@@ -68,6 +68,8 @@ public class InviteServiceImpl extends SuperServiceImpl<InviteMapper, Invite> im
 		if(invite==null){
 			throw new BussinessException("参数错误");
 		}
+		if(invite.getInviAcceptuser()=="") invite.setInviAcceptuser(null); 
+		if(invite.getInviUsername()=="") invite.setInviUsername(null); 
 		EntityWrapper<Invite> entityWrapper=new EntityWrapper<Invite>(invite);
 		List<Invite> invites = inviteMapper.selectPage(page, entityWrapper);
 		

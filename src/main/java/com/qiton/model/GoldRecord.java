@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotations.IdType;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  *
@@ -117,7 +118,7 @@ public class GoldRecord implements Serializable {
 	public void setGrdProfittype(Integer grdProfittype) {
 		this.grdProfittype = grdProfittype;
 	}
-
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	public Date getGrdTime() {
 		return this.grdTime;
 	}
