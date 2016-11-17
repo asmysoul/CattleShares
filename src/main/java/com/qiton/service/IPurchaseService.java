@@ -18,7 +18,7 @@ public interface IPurchaseService extends ISuperService<Purchase> {
 
 	public Purchase addPurchase(Purchase purchase) throws BussinessException;
 	
-	public void upPurchase(Purchase purchase)throws BussinessException;
+	public Purchase upPurchase(Purchase purchase)throws BussinessException;
 	
 	public void downPurchase(Purchase purchase)throws BussinessException;
 	

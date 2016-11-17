@@ -25,7 +25,7 @@ public interface ISelloutService extends ISuperService<Sellout> {
 	
 	public void deleteSellout(Sellout sellout) throws BussinessException;
 	
-	public void upSellout(Sellout sellout) throws BussinessException;
+	public Sellout upSellout(Sellout sellout) throws BussinessException;
 	
 	public void downSellout(Sellout sellout)throws BussinessException;
 	

@@ -54,7 +54,6 @@ public class PurchaseServiceImpl extends SuperServiceImpl<PurchaseMapper, Purcha
 		
 		EntityWrapper<Purchase> entityWrapper = new EntityWrapper<>();
 		entityWrapper.where("pur_stockcode={0}", purchase.getPurStockcode());
-		entityWrapper.andNew("create_time = DATE_FORMAT(NOW(),'%Y-%m-%d')");
 		entityWrapper.andNew("pur_issellout = {0}", 0);
 		List<Purchase> purchaseResult = purchaseMapper.selectList(entityWrapper);
 		
@@ -143,7 +142,7 @@ public class PurchaseServiceImpl extends SuperServiceImpl<PurchaseMapper, Purcha
 	 * @see com.qiton.service.IPurchaseService#updatePurType(com.qiton.model.Purchase)
 	 */
 	@Override
-	public void upPurchase(Purchase purchase) throws BussinessException {	
+	public Purchase upPurchase(Purchase purchase) throws BussinessException {	
 		
 		Purchase purchaseResult = purchaseMapper.selectById(purchase.getPurId());
 		
@@ -153,11 +152,12 @@ public class PurchaseServiceImpl extends SuperServiceImpl<PurchaseMapper, Purcha
 		
 			
 		purchaseResult.setPurType(0);
-		int result = purchaseMapper.updateById(purchaseResult	);
+		int result = purchaseMapper.insert(purchaseResult	);
 		
 		if(result != 1){
 			throw new BussinessException("推荐股票失败，请重试");
 		}
+		return purchaseResult;
 	}
 
 

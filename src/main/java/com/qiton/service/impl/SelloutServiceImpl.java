@@ -131,7 +131,7 @@ public class SelloutServiceImpl extends SuperServiceImpl<SelloutMapper, Sellout>
 	 * @see com.qiton.service.ISelloutService#upSellout(com.qiton.model.Sellout)
 	 */
 	@Override
-	public void upSellout(Sellout sellout) throws BussinessException {
+	public Sellout upSellout(Sellout sellout) throws BussinessException {
 		
 		Sellout selloutResult = selloutMapper.selectById(sellout.getSellId());
 		
@@ -145,6 +145,7 @@ public class SelloutServiceImpl extends SuperServiceImpl<SelloutMapper, Sellout>
 			throw new BussinessException("推荐卖出股票失败，请重试");
 		}
 		
+		return selloutResult;
 	}
 
 	/* (非 Javadoc)
