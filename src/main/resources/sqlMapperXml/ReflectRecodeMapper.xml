@@ -7,4 +7,83 @@
 		rrd_id AS rrdId, rrd_userid AS rrdUserid, rrd_username AS rrdUsername, rrd_serialnum AS rrdSerialnum, rrd_price AS rrdPrice, rrd_applytime AS rrdApplytime, rrd_state AS rrdState, rrd_managetime AS rrdManagetime
 	</sql>
 
+
+	<select id="getReflectManagerList" resultType="ReflectManager">
+		SELECT
+		rrd_id AS rrdId, 
+		rrd_applytime AS rrdApplytime,
+		rrd_userid AS rrdUserid, 
+		rrd_username AS rrdUsername, 
+		rrd_price AS rrdPrice, 
+		account_type AS accountType,
+		reflect_account AS reflectAccount,
+		rrd_state AS rrdState
+		 FROM reflect_recode,user  WHERE rrd_userid=user_id
+	</select>
+
+
+	<select id="getSelectTime" resultType="ReflectManager" parameterType="SelectOptionTime">
+		SELECT 
+		
+		rrd_id AS rrdId, 
+		rrd_applytime AS rrdApplytime,
+		rrd_userid AS rrdUserid, 
+		rrd_username AS rrdUsername, 
+		rrd_price AS rrdPrice, 
+		account_type AS accountType,
+		reflect_account AS reflectAccount,
+		rrd_state AS rrdState
+		FROM reflect_recode,user  WHERE rrd_userid=user_id
+		 <if test="firstTime != null">
+			AND rrd_applytime >= #{firstTime}
+		</if>
+		<if test="lastTime != null">
+			AND rrd_applytime <![CDATA[<=]]>  #{lastTime}
+		</if>
+	</select>
+	
+	
+	<select id="getSelectSatate" resultType="ReflectManager" parameterType="java.lang.String">
+		SELECT 
+		
+		rrd_id AS rrdId, 
+		rrd_applytime AS rrdApplytime,
+		rrd_userid AS rrdUserid, 
+		rrd_username AS rrdUsername, 
+		rrd_price AS rrdPrice, 
+		account_type AS accountType,
+		reflect_account AS reflectAccount,
+		rrd_state AS rrdState
+		FROM reflect_recode,user  WHERE rrd_userid=user_id
+		AND rrd_state= #{userState}
+	</select>
+
+
+	<select id="selectReflectByCommand" resultType="ReflectManager" parameterType="ReflectManager">
+		
+		SELECT 
+		rrd_id AS rrdId, 
+		rrd_applytime AS rrdApplytime,
+		rrd_userid AS rrdUserid, 
+		rrd_username AS rrdUsername, 
+		rrd_price AS rrdPrice, 
+		account_type AS accountType,
+		reflect_account AS reflectAccount,
+		rrd_state AS rrdState
+		FROM reflect_recode,user  WHERE rrd_userid=user_id
+		 <where>
+		 	<include refid="selectReflectByCommandWhere"></include>
+		 </where>
+	</select>
+	
+	<sql id="selectReflectByCommandWhere">
+		 <if test="rrdId != null">
+			and rrd_id = #{rrdId} 
+		</if>  
+		 <if test="rrdUsername != null ">
+			and rrd_username = #{rrdUsername}
+		</if>
+	</sql>
+	
+	
 </mapper>

@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.qiton.exception.BussinessException;
 import com.qiton.model.Invite;
+import com.qiton.model.ReflectManager;
 import com.qiton.model.SelectOptionTime;
 import com.qiton.model.User;
 import com.qiton.model.VipManage;
@@ -38,6 +39,9 @@ public class UserManagerTest {
 	
 	@Autowired
 	private IUserService userService;//用户
+	
+	@Autowired
+	private IReflectRecodeService ReflectRecodeservice;
 	
 	@Test
 	public void getAllUser(){
@@ -172,6 +176,16 @@ public class UserManagerTest {
 		} catch (BussinessException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void ReflectRecodeservice(){
+		Page<ReflectManager> page=new Page<>(1, Config.PAGENUM);
+		try{
+			ReflectRecodeservice.getReflectManagerList(page);
+		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}

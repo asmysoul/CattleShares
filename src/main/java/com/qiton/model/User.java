@@ -57,7 +57,7 @@ public class User implements Serializable {
 	private String validateCode;
 	
 
-	/** 0:财付通，1：支付宝 2：银行 */
+	/** 账户类型：0:财付通，1：支付宝 2：银行 */
 	@TableField(value = "account_type")
 	private Integer accountType;
 
