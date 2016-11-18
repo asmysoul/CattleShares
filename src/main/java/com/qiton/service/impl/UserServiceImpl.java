@@ -455,4 +455,59 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 			throw new BussinessException("修改体现账户信息失败");
 		}
 	}
+
+	/**
+	 * 绑定提现
+	 */
+	@Override
+	public void Bind_withdrawal(String userId, String accountType, String reflectAccount, String realName) {
+		// TODO Auto-generated method stub
+		if(StringUtils.isBlank(userId)||StringUtils.isBlank(accountType)
+				||StringUtils.isBlank(reflectAccount)||StringUtils.isBlank(realName)
+				){
+			throw new BussinessException("参数错误");
+		}
+		
+		User user=userMapper.selectById(userId);
+		if(user==null){
+			throw new BussinessException("用户不存在");
+		}
+		user.setAccountType(Integer.parseInt(accountType)); //账户类型
+		user.setReflectAccount(reflectAccount);
+		user.setRealName(realName);
+		User whereEntity=new User();whereEntity.setUserId(Long.parseLong(userId));
+		int result=userMapper.update(user, whereEntity);
+		if(result!=1){
+			throw new BussinessException("绑定失败");
+		}
+	}
+	
+	/**
+	 * 
+	* @Title: VIP_renew 
+	* @Description: 会员续费
+	* @author 尤
+	* @date 2016年11月18日 下午4:20:36  
+	* @param @param gold
+	* @param @param mark
+	* @param @throws BussinessException    设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	@Override
+	public void VIP_renew(String userId,String gold, String mark) throws BussinessException {
+		// TODO Auto-generated method stub
+		if(StringUtils.isBlank(gold)||StringUtils.isBlank(mark)){
+			throw new BussinessException("参数出错");
+		}
+		
+		User user=userMapper.selectById(userId);
+		user.setGold(Integer.parseInt(gold)+user.getGold());
+		user.setMark(Integer.parseInt(mark)+user.getMark());
+		User whereEntity=new User();whereEntity.setUserId(Long.parseLong(userId));
+		int result=userMapper.update(user, whereEntity);
+		if(result!=1){
+			throw new BussinessException("充值失败");
+		}
+	}
 }

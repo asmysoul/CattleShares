@@ -153,7 +153,7 @@ public class UserManagerTest {
 	* @return void    返回类型 
 	* @throws
 	 */
-	@Test
+	/*@Test
 	public void updateUserCaptical(){
 		User user=new User("aa", "123123", 0, new Date(), new Date(), 0, "18159801679", 100, 100);
 		user.setUserId((long) 1);
@@ -162,7 +162,7 @@ public class UserManagerTest {
 		//userService.updateUserCaptical(user, "0", "1", "100", "备注");//充值积分
 		//userService.updateUserCaptical(user, "1", "0", "20", "备注");//扣钱
 		//userService.updateUserCaptical(user, "1", "1", "20", "备注");//扣积分
-	}
+	}*/
 	
 
 

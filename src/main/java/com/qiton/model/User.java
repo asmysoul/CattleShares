@@ -65,6 +65,19 @@ public class User implements Serializable {
 	@TableField(value = "reflect_account")
 	private String reflectAccount;
 
+	/** 实名认证姓名 */
+	@TableField(value = "real_name")
+	private String realName;
+	
+	
+	
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
 
 	public Long getUserId() {
 		return this.userId;
@@ -179,8 +192,11 @@ public class User implements Serializable {
 
 	
 
+	
+
 	public User(String userName, String password, Integer grade, Date registerTime, Date endVipTime, Integer vipStatus,
-			String phone, Integer gold, Integer mark) {
+			String phone, Integer gold, Integer mark, String validateCode, Integer accountType, String reflectAccount,
+			String realName) {
 		super();
 		this.userName = userName;
 		this.password = password;
@@ -191,14 +207,19 @@ public class User implements Serializable {
 		this.phone = phone;
 		this.gold = gold;
 		this.mark = mark;
+		this.validateCode = validateCode;
+		this.accountType = accountType;
+		this.reflectAccount = reflectAccount;
+		this.realName = realName;
 	}
 
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", password=" + password + ", grade=" + grade
 				+ ", registerTime=" + registerTime + ", endVipTime=" + endVipTime + ", vipStatus=" + vipStatus
-				+ ", phone=" + phone + ", gold=" + gold + ", mark=" + mark + ", accountType=" + accountType
-				+ ", reflectAccount=" + reflectAccount + "]";
+				+ ", phone=" + phone + ", gold=" + gold + ", mark=" + mark + ", validateCode=" + validateCode
+				+ ", accountType=" + accountType + ", reflectAccount=" + reflectAccount + ", realName=" + realName
+				+ "]";
 	}
 
 	

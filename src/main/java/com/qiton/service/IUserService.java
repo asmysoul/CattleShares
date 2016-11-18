@@ -222,5 +222,35 @@ public interface IUserService extends ISuperService<User> {
 	* @throws
 	 */
 	public void updateVIPUser_Info(User user)throws BussinessException;
+
+	
+	/**
+	 * 
+	* @Title: Bind_withdrawal 
+	* @Description: app-个人中心-绑定提现
+	* @author 尤
+	* @date 2016年11月18日 下午3:55:49  
+	* @param @param userId
+	* @param @param accountType
+	* @param @param reflectAccount
+	* @param @param realName    设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	public void Bind_withdrawal(String userId, String accountType, String reflectAccount, String realName)throws BussinessException;
+
+	/**
+	 * @param mark2 
+	 * 
+	* @Title: VIP_renew 
+	* @Description: 会员续费
+	* @author 尤
+	* @date 2016年11月18日 下午4:19:43  
+	* @param @param gold
+	* @param @param mark    设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	public void VIP_renew(String gold, String mark, String mark2)throws BussinessException;
 	
 }
