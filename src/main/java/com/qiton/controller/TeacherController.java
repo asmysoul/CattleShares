@@ -153,20 +153,22 @@ public class TeacherController extends BaseController{
 	* @param @return    设定文件 
 	* @return ModelAndView    返回类型 
 	* @throws
+	* http://localhost:8080/CattleShares/teacher/selectTechList?current=1  接口 
+	* 
 	 */
 	@RequestMapping("/selectTechList")
 	@ResponseBody
-	public Object selectTechList(Page<Reference> page,HttpServletRequest request){
-		Page<Teacher> page2=new Page<Teacher>(page.getCurrent(), Config.PAGENUM);
+	public Object selectTechList(String current,HttpServletRequest request){
+		Page<Teacher> page2=new Page<Teacher>(Integer.parseInt(current), Config.PAGENUM);
 		Page<Teacher> pages = null;
 		try{
 			 pages=teacherService.selectPage(page2, null);
 		}catch(BussinessException e){
 			LOGGER.info("获取老师列表出错" + e.getLocalizedMessage());
-			return renderError("获取老师列表出错---");
+			return renderError("获取老师列表出错:"+e.getLocalizedMessage());
 		}catch (Exception e) {
 			LOGGER.info("获取老师列表出错" + "----:" + e.getLocalizedMessage());
-			return renderError("获取老师列表出错---");
+			return renderError("获取老师列表出错"+e.getLocalizedMessage());
 		}
 		return renderSuccess(pages);
 	}
@@ -208,9 +210,5 @@ public class TeacherController extends BaseController{
 		return renderSuccess();
     }
 	
-    @RequestMapping("/gotTechListJsp")
-    public String gotTechListJsp(HttpServletRequest request){
-		return "/teacher-manage";
-    }
     
 }

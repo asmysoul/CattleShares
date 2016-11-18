@@ -45,7 +45,7 @@ public class Invite implements Serializable {
 
 	/** 被邀请人用户状态：0:未开通，1:已开通，2:已过期 */
 	@TableField(value = "invi_acceptuserstate")
-	private String inviAcceptuserstate;
+	private Long inviAcceptuserstate;
 
 	/** 邀请金币 */
 	@TableField(value = "invi_gold")
@@ -110,11 +110,11 @@ public class Invite implements Serializable {
 
 	
 
-	public String getInviAcceptuserstate() {
+	public Long getInviAcceptuserstate() {
 		return inviAcceptuserstate;
 	}
 
-	public void setInviAcceptuserstate(String inviAcceptuserstate) {
+	public void setInviAcceptuserstate(Long inviAcceptuserstate) {
 		this.inviAcceptuserstate = inviAcceptuserstate;
 	}
 

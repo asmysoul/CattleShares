@@ -123,11 +123,16 @@ function pubReference() {
 		success: function(data) {
 			if(data.success) {
 				alert('恭喜，发布成功~');
+				$("#rerSharecode").val("");
+				$("#fbRerRerinfo").val("");
 				getAllReference();
+			}
+			else{
+				alert(data.msg);
 			}
 		},
 		error: function() {
-			alert('信息提交失败，请耐心重试~');
+			alert("信息提交失败，请耐心重试~");
 		}
 	});
 }

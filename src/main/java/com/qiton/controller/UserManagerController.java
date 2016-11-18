@@ -276,22 +276,6 @@ public class UserManagerController extends BaseController {
 		
 		
 		
-		/**
-		 * 
-		* @Title: gotMember_Manage 
-		* @Description: 资金管理页面
-		* @author 尤
-		* @date 2016年11月9日 上午10:55:11  
-		* @param @param request
-		* @param @return    设定文件 
-		* @return String    返回类型 
-		* @throws
-		 */
-		@RequestMapping("/gotMember_Manage")
-		public String gotMember_Manage(HttpServletRequest request){
-			return "/member-manage";
-		}
-		
 		
 		/**
 		 * 

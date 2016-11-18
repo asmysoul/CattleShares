@@ -159,4 +159,15 @@ public class DateUtils {
         sd.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         return sd.format(new Date(timestamp));
     }
+    
+    /**
+     * 将Unix时间戳转换成日期
+     * @param long timestamp 时间戳
+     * @return String 日期字符串
+     */
+    public static String unixTimestampToDate2(long timestamp) {
+        SimpleDateFormat sd = new SimpleDateFormat(DATE_SMALL_STR);
+        sd.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        return sd.format(new Date(timestamp));
+    }
 }

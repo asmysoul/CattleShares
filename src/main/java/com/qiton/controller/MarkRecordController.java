@@ -154,19 +154,4 @@ public class MarkRecordController extends BaseController {
 			return renderSuccess(page2);
 		}
 	
-		/**
-		 * 
-		* @Title: gotmarkRecodeManageJsp 
-		* @Description: 跳转到邀请管理页面
-		* @author 尤
-		* @date 2016年11月16日 上午10:14:31  
-		* @param @param request
-		* @param @return    设定文件 
-		* @return String    返回类型 
-		* @throws
-		 */
-		@RequestMapping("/gotmarkRecodeManageJsp")
-		public String gotmarkRecodeManageJsp(HttpServletRequest request){
-			return "";
-		}
 }

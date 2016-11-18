@@ -1,6 +1,7 @@
 package com.qiton.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import com.qiton.model.vo.SharesVo;
 import com.qiton.service.IReferenceService;
 import com.qiton.service.ISharesApiService;
 import com.qiton.utils.Config;
+import com.qiton.utils.DateUtils;
 import com.qiton.utils.StringUtils;
 import com.baomidou.framework.service.impl.SuperServiceImpl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -97,10 +99,9 @@ public class ReferenceServiceImpl extends SuperServiceImpl<ReferenceMapper, Refe
 	 */
 	@Override
 	public void getAllReference(Page<Reference> page) {
-		List<Reference> rers = referenceMapper.selectPage(page, null);
-		
-		System.out.println("-------"+rers.size());
-		
+		EntityWrapper<Reference> entityWrapper = new EntityWrapper<Reference>();
+		entityWrapper.between("rer_pubtime",DateUtils.unixTimestampToDate2(new Date().getTime())+" 00:00:00", DateUtils.unixTimestampToDate2(new Date().getTime())+" 23:59:59");
+		List<Reference> rers = referenceMapper.selectPage(page, entityWrapper);
 		page.setRecords(rers);
 	}
 

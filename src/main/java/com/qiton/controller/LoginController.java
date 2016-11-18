@@ -24,6 +24,7 @@ import com.qiton.service.impl.AdminServiceImpl;
  *
  */
 @Controller
+@RequestMapping("/login")
 public class LoginController extends BaseController{
 	
 	private static final Logger log=LogManager.getLogger(LoginController.class);
@@ -34,22 +35,13 @@ public class LoginController extends BaseController{
 	@Autowired
 	private IUserService userservice;
 	
-	
-	@RequestMapping("/login")
-	public String renderLogin(HttpServletRequest request){
-		return "/login";
-	}
-	
-	@RequestMapping("/index")
-	public String main(HttpServletRequest request){
-		return "/index";
-	}
-	
 	/**
 	 * 后台登录验证
 	 * @param admin
 	 * @param request
 	 * @return
+	 * 
+	 * http://localhost:8080/CattleShares/login/chenck_login?adminUsername=1&adminPassword=1   接口
 	 */
 	@RequestMapping("/chenck_login")
 	@ResponseBody
@@ -60,7 +52,6 @@ public class LoginController extends BaseController{
 			session.setAttribute("current_admin", selectadmin);
 			return renderSuccess(selectadmin);
 		}catch(BussinessException e){
-			e.printStackTrace();
 			return renderError(e.getLocalizedMessage());
 		}
 	}
@@ -75,9 +66,6 @@ public class LoginController extends BaseController{
 	@ResponseBody
 	@RequestMapping("/userLogin")
 	public Object userlogin(User user,HttpServletRequest request){
-		
-		System.out.println("-----"+user.toString());
-		
 		HttpSession session=request.getSession();
 		try{
 			User selectUser=userservice.userlogin(user);
@@ -87,11 +75,5 @@ public class LoginController extends BaseController{
 			return renderError(e.getLocalizedMessage());
 		}
 		return renderSuccess();
-	}
-	
-	@RequestMapping("/test")
-	//http://localhost:8080/CattleShares/login/test/
-	public void test(HttpServletRequest request){
-		System.out.println("---------");
 	}
 }

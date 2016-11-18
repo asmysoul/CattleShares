@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="js/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="js/bootstrap/css/bootstrap-theme.min.css" />
+		<link rel="stylesheet" href="css/my.css" />
+		<link rel="stylesheet" href="css/various-record.css" />
+		<link rel="stylesheet" href="js/bootstrap/js/My97DatePickerBeta/My97DatePicker/skin/WdatePicker.css" />
+		<title></title>
+		<style type="text/css">
+			.pager {
+				height: 30px;
+				line-height: 30px;
+				font-size: 12px;
+				margin: 25px 0px;
+				text-align: center;
+				color: #2E6AB1;
+				overflow: hidden;
+			}
+			
+			.pager a {
+				border: 1px solid #9AAFE5;
+				color: #2E6AB1;
+				margin: 0px 5px;
+				padding: 5px 8px;
+				text-decoration: none;
+			}
+			
+			.pager a.hover,
+			.pager a.active {
+				background-color: #2E6AB1;
+				border-color: #000080;
+				color: #FFF;
+			}
+			
+			.pager a.disabled {
+				color: #C8CDD2;
+				cursor: auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="content-left">
+			<div style="background-color: #f8f8f8;height: 50px;">
+				<ul class="nav-top" role="tablist">
+					<li id="widthdraw-record" role="presentation" class="tab-click click-style">
+						<a href="#">提现记录</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="search-top">
+				账号ID：<input class="usermessage" type="" name="" id="rrdUserid" value="" /> 昵称：
+				<input class="usermessage" type="" name="" id="rrdUsername" value="" />
+				状态：<select class="member-select select" id="rrdState">
+				<option value="0">未处理</option>
+				<option value="1">已处理</option>
+			</select>
+				创建时间：
+				<!--<input id="txtBeginDate" type="" name="" value="" readonly />—
+			<input id="txtEndDate" type="" name="" value="" />-->
+				<input class="Wdate" type="text" name="" id="startTime" value="" onclick="WdatePicker()" />&nbsp;-
+				<input class="Wdate" type="text" name="" id="endTime" value="" onclick="WdatePicker()" />
+				<button id="search" class="btn btn-color" onclick="getVipRecordByCommand()">
+							<i class="small-icon small-search"></i>
+							查询</button>
+			</div>
+			<div class="money-content">
+				<table class="table border">
+					<thead>
+						<tr class="firstline">
+							<th>账户ID</th>
+							<th>账户昵称</th>
+							<th>提现流水号</th>
+							<th>提现金额</th>
+							<th>申请时间</th>
+							<th>处理时间</th>
+							<th>状态</th>
+						</tr>
+					</thead>
+					<tbody id="ReflectRecode">
+						<tr>
+							<td>123456</td>
+							<td>rgrg</td>
+							<td>12:12</td>
+							<td>rgergre</td>
+							<td>ergerg</td>
+							<td>123456</td>
+							<td>rgrg</td>
+						</tr>
+					</tbody>
+					<tr>
+						<td colspan="8">
+							<div class="jqueryPage" id="jqueryPage" style="float: right;">
+
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+
+		<script src="js/bootstrap/js/bootstrap.min.js"></script>
+		<script src="js/jquery/jquery-3.0.0.min.js"></script>
+		<script src="js/bootstrap/js/jqueryPage.js"></script>
+		<script src="js/ReflectRecode.js"></script>
+		<script src="js/bootstrap/js/My97DatePickerBeta/My97DatePicker/WdatePicker.js"></script>
+	</body>
+
+</html>

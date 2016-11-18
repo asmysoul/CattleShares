@@ -18,7 +18,7 @@
         <header class="main-header">
             <a href="http://www.learun.cn/adms/index.html" target="_blank" class="logo">
                 <span class="logo-mini">LR</span>
-                <span class="logo-lg">learun<strong>敏捷框架</strong></span>
+                <span class="logo-lg">牛股<strong></strong></span>
             </a>
             <nav class="navbar navbar-static-top">
                 <a class="sidebar-toggle">
@@ -51,6 +51,17 @@
                             </a>
                             <ul class="dropdown-menu pull-right">
                                 <li><a class="menuItem" data-id="userInfo" href="/SystemManage/User/Info"><i class="fa fa-user"></i>个人信息</a></li>
+                                <li><a class="menuItem" data-id="userInfo" href="http://localhost:8080/CattleShares/gotTechListJsp"><i class="fa fa-user"></i>老师管理</a></li>
+                                <li><a class="menuItem" data-id="userInfo" href="http://localhost:8080/CattleShares/addServer"><i class="fa fa-user"></i>客服管理</a></li>
+                                <li><a class="menuItem" data-id="userInfo" href="http://localhost:8080/CattleShares/gotGoldRecordManageJsp"><i class="fa fa-user"></i>金币记录</a></li>
+                                <li><a class="menuItem" data-id="userInfo" href="http://localhost:8080/CattleShares/gotInviteManageJsp"><i class="fa fa-user"></i>邀请管理</a></li>
+                                <li><a class="menuItem" data-id="userInfo" href="http://localhost:8080/CattleShares/gotmarkRecodeManageJsp"><i class="fa fa-user"></i>积分记录</a></li>
+                                <li><a class="menuItem" data-id="userInfo" href="http://localhost:8080/CattleShares/reference"><i class="fa fa-user"></i>内参管理</a></li>
+                                <li><a class="menuItem" data-id="userInfo" href="http://localhost:8080/CattleShares/gotReflectRecodeManageJsp"><i class="fa fa-user"></i>提现管理</a></li>
+                                <li><a class="menuItem" data-id="userInfo" href="http://localhost:8080/CattleShares/gotMember_account"><i class="fa fa-user"></i>会员管理</a></li>
+                                <li><a class="menuItem" data-id="userInfo" href="http://localhost:8080/CattleShares/gotMember_Manage"><i class="fa fa-user"></i>资金管理</a></li>
+                                <li><a class="menuItem" data-id="userInfo" href="http://localhost:8080/CattleShares/gotVipRecordJsp"><i class="fa fa-user"></i>会员记录</a></li>
+                                
                                 <li><a href="javascript:void();"><i class="fa fa-trash-o"></i>清空缓存</a></li>
                                 <li><a href="javascript:void();"><i class="fa fa-paint-brush"></i>皮肤设置</a></li>
                                 <li class="divider"></li>

@@ -46,7 +46,7 @@ import com.qiton.service.ISharesApiService;
 
 /**
  * @ClassName SharesApiController
- * @Description TODO(这里用一句话描述这个类的作用)
+ * @Description 获取股票
  * @author 抽离
  * @Date 2016年11月8日 上午8:58:53
  * @version 1.0.0

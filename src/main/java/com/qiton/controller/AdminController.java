@@ -176,10 +176,4 @@ public class AdminController extends BaseController{
 		return renderSuccess(page);
 	}
 	
-	@RequestMapping("/addServer")
-	public String addServerJsp(HttpServletRequest request){
-		return "/addserver";
-	}
-
-	
 }

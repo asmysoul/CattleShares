@@ -258,20 +258,4 @@ public class UserCotroller extends BaseController{
 		return renderSuccess("修改会员信息成功");
 	}
 	
-	/**
-	 * 
-	* @Title: gotMember_account 
-	* @Description: 跳转到会员管理页面
-	* @author 尤
-	* @date 2016年11月15日 上午9:11:04  
-	* @param @param request
-	* @param @return    设定文件 
-	* @return String    返回类型 
-	* @throws
-	 */
-	@RequestMapping("/gotMember_account")
-	public String gotMember_account(HttpServletRequest request){
-	return "member-account";
-	}
-	
 }

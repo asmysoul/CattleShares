@@ -148,19 +148,4 @@ public class GoldRecordController extends BaseController {
 			return renderSuccess(page2);
 		}
 	
-		/**
-		 * 
-		* @Title: gotGoldRecordManageJsp 
-		* @Description: 跳转到邀请管理页面
-		* @author 尤
-		* @date 2016年11月16日 上午10:14:31  
-		* @param @param request
-		* @param @return    设定文件 
-		* @return String    返回类型 
-		* @throws
-		 */
-		@RequestMapping("/gotGoldRecordManageJsp")
-		public String gotGoldRecordManageJsp(HttpServletRequest request){
-			return "invaite-manage";
-		}
 }

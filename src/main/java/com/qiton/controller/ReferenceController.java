@@ -148,8 +148,4 @@ public class ReferenceController extends BaseController{
 		return renderSuccess(pageResult);
 	}
 	
-	@RequestMapping("/reference")
-	public String gotReference(HttpServletRequest request){
-		return "publishMessage";
-	}
 }
