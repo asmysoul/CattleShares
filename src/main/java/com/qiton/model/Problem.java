@@ -22,12 +22,8 @@ public class Problem implements Serializable {
 	@TableId(value = "pro_id", type = IdType.AUTO)
 	private Long proId;
 
-	/** 询问老师id */
-	@TableField(value = "pro_techid")
-	private Long proTechid;
-
 	/** 咨询问题内参 */
-	@TableField(value = "pro_userquestion")
+	@TableField(value = "pro_userquestion") 
 	private String proUserquestion;
 
 	/** 老师昵称 */
@@ -42,6 +38,18 @@ public class Problem implements Serializable {
 	@TableField(value = "pro_createtime")
 	private Date proCreatetime;
 
+	/** 提问时间 */
+	@TableField(value = "pro_questiontime")
+	private Date proQuestiontime;
+
+	/** 回答时间 */
+	@TableField(value = "pro_answertime")
+	private Date proAnswertime;
+
+	/** 提问用户名字 */
+	@TableField(value = "user_id")
+	private Long userId;
+
 
 	public Long getProId() {
 		return this.proId;
@@ -49,14 +57,6 @@ public class Problem implements Serializable {
 
 	public void setProId(Long proId) {
 		this.proId = proId;
-	}
-
-	public Long getProTechid() {
-		return this.proTechid;
-	}
-
-	public void setProTechid(Long proTechid) {
-		this.proTechid = proTechid;
 	}
 
 	public String getProUserquestion() {
@@ -89,6 +89,30 @@ public class Problem implements Serializable {
 
 	public void setProCreatetime(Date proCreatetime) {
 		this.proCreatetime = proCreatetime;
+	}
+
+	public Date getProQuestiontime() {
+		return this.proQuestiontime;
+	}
+
+	public void setProQuestiontime(Date proQuestiontime) {
+		this.proQuestiontime = proQuestiontime;
+	}
+
+	public Date getProAnswertime() {
+		return this.proAnswertime;
+	}
+
+	public void setProAnswertime(Date proAnswertime) {
+		this.proAnswertime = proAnswertime;
+	}
+
+	public Long getUserId() {
+		return this.userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 }

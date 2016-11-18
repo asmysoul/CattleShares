@@ -74,6 +74,7 @@ public class SelloutController extends BaseController {
 	@Autowired
 	private ISelloutService iSelloutService;
 
+	@ResponseBody
 	@RequestMapping("addSelloutBefore")
 	public Object addSelloutBefore(Long code){
 		SharesVo sharesVo = null;
@@ -166,7 +167,7 @@ public class SelloutController extends BaseController {
 			return renderError(e.getLocalizedMessage());
 		}catch (Exception e) {
 			LOGGER.info(e.getLocalizedMessage());
-			return renderError("撤荐卖出股票出错，请重试");
+			return renderError("获取卖出股票出错，请重试");
 		}
 			return renderSuccess(pageResult);
 		}

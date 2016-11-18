@@ -196,7 +196,6 @@ public class PurchaseServiceImpl extends SuperServiceImpl<PurchaseMapper, Purcha
 		}
 		EntityWrapper<Purchase> entityWrapper = new EntityWrapper<>();
 		entityWrapper.where("pur_stockcode={0}", code);
-		entityWrapper.andNew("create_time = DATE_FORMAT(NOW(),'%Y-%m-%d')");
 		List<Purchase> purchaseResult = purchaseMapper.selectList(entityWrapper);
 		
 		if(!purchaseResult.isEmpty()){
@@ -233,7 +232,7 @@ public class PurchaseServiceImpl extends SuperServiceImpl<PurchaseMapper, Purcha
 	 * @see com.qiton.service.IPurchaseService#findLastPurchase()
 	 */
 	@Override
-	public void findLastPurchase(Page<Purchase> page) throws BussinessException {
+	public void findLastPurchaseWithProfit(Page<Purchase> page) throws BussinessException {
 		EntityWrapper<Purchase> entityWrapper = new EntityWrapper<>();
 		entityWrapper.where("pur_issellout = {0}", 0);
 		List<Purchase> list = purchaseMapper.selectPage(page, entityWrapper);
@@ -250,6 +249,24 @@ public class PurchaseServiceImpl extends SuperServiceImpl<PurchaseMapper, Purcha
 		page.setRecords(resultList);
 	}
 	
+	
+	/* (非 Javadoc)
+	 * Description:
+	 * @see com.qiton.service.IPurchaseService#findLastPurchase(com.baomidou.mybatisplus.plugins.Page)
+	 */
+	@Override
+	public void findLastPurchase(Page<Purchase> page, int purType) throws BussinessException {
+		EntityWrapper<Purchase> entityWrapper = new EntityWrapper<>();
+		entityWrapper.where("pur_issellout = {0}", 0);
+		entityWrapper.andNew("pur_type={0}", purType);
+		List<Purchase> list = purchaseMapper.selectPage(page, entityWrapper);
+		if(list == null){
+			throw new BussinessException("获取买入股票代码失败，请重试");
+		}
+		page.setRecords(list);
+		
+	}
+	
 	/* (非 Javadoc)
 	 * Description:
 	 * @see com.qiton.service.IPurchaseService#findLastPurchase(java.lang.Long)
@@ -263,5 +280,6 @@ public class PurchaseServiceImpl extends SuperServiceImpl<PurchaseMapper, Purcha
 		return purchaseResult;
 	}
 
+	
 
 }

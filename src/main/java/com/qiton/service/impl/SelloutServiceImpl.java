@@ -95,19 +95,21 @@ public class SelloutServiceImpl extends SuperServiceImpl<SelloutMapper, Sellout>
 		
 		List<Sellout> selloutResult = selloutMapper.selectList(entityWrapper);
 		
-		if(selloutResult.isEmpty()){
+		if(!selloutResult.isEmpty()){
 			throw new BussinessException("该卖出股票已存在，请勿重复添加");                     
 		}
 		
-		int selloutresult = selloutMapper.insert(sellout);
-		if(selloutresult != 1){
-			throw new BussinessException("添加卖出股票添加失败，请重试");
-		}
+	
 		
 		Purchase purchase = iPurchaseService.findLastPurchase(sellout.getSellStockcode());
 		purchase.setPurIssellout(1);
 		int purchaseresult = purchaseMapper.updateById(purchase);
 		if(purchaseresult != 1){
+			throw new BussinessException("添加卖出股票添加失败，请重试");
+		}
+		
+		int selloutresult = selloutMapper.insert(sellout);
+		if(selloutresult != 1){
 			throw new BussinessException("添加卖出股票添加失败，请重试");
 		}
 		return sellout;
@@ -123,7 +125,7 @@ public class SelloutServiceImpl extends SuperServiceImpl<SelloutMapper, Sellout>
 			throw new BussinessException("参数错误");
 		}
 		
-		purchaseMapper.deleteById(sellout.getSellId());
+		selloutMapper.deleteById(sellout.getSellId());
 	}
 
 	/* (非 Javadoc)
@@ -184,6 +186,8 @@ public class SelloutServiceImpl extends SuperServiceImpl<SelloutMapper, Sellout>
 		}
 		double purchasePrice = purchase.getPurStockprice();
 		double profit = ((sharesVo.getNowPrice() - purchasePrice) / purchasePrice) * 100;
+		sharesVo.setPurchasePrice(purchasePrice);
+		sharesVo.setPurDate(purchase.getPurPurchasetime());
 		sharesVo.setProfit(profit);
 		return sharesVo;
 	}

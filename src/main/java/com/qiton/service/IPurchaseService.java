@@ -30,9 +30,15 @@ public interface IPurchaseService extends ISuperService<Purchase> {
 	
 	public Purchase findLastPurchase(Long code)throws BussinessException;
 	
+	
+	
 	public List<Purchase> findPurchases()throws BussinessException;
 	
-	public void findLastPurchase(Page<Purchase> page)throws BussinessException;
+	public void findLastPurchaseWithProfit(Page<Purchase> page)throws BussinessException;
+	
+	public void findLastPurchase(Page<Purchase> page, int purType)throws BussinessException;
+	
+	
 	
 	public void findPurchasesByPage(Page<Purchase> page)throws BussinessException;
 

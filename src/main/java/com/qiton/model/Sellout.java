@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.baomidou.mybatisplus.annotations.IdType;
 
@@ -40,6 +41,7 @@ public class Sellout implements Serializable {
 
 	/** 卖出时间 */
 	@TableField(value = "sell_selltime")
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
 	private Date sellSelltime;
 
 	/** 卖出价格 */
@@ -52,6 +54,7 @@ public class Sellout implements Serializable {
 
 	/** 买入时间 */
 	@TableField(value = "pur_purtime")
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
 	private Date purPurtime;
 
 	/** 买入价格 */

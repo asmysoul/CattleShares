@@ -65,10 +65,11 @@ public class SharesVo {
 
 	private Date curDate;         //当前日期
 	
+	private Date purDate;
+	
 	private double purchasePrice;
 	
 	private double selloutPrice;
-	
 	
 	private double profit;
 	
@@ -253,6 +254,23 @@ public class SharesVo {
 	 */
 	public void setCurDate(Date curDate) {
 		this.curDate = curDate;
+	}
+	
+	
+
+	/**
+	 * @return the purDate
+	 */
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
+	public Date getPurDate() {
+		return purDate;
+	}
+
+	/**
+	 * @param purDate the purDate to set
+	 */
+	public void setPurDate(Date purDate) {
+		this.purDate = purDate;
 	}
 
 	/* (非 Javadoc)

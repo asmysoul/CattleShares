@@ -213,11 +213,32 @@ public class PurchaseController extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping("getLastPurchase")
-	public Object getLastPurchase(Page<Purchase> page){
+	public Object getLastPurchase(Page<Purchase> page, HttpSession session){
+		User user = (User) session.getAttribute("current_user");
 		Page<Purchase> pageResult = new Page<Purchase>(page.getCurrent(), 10);
 		try {
-			
-			iPurchaseService.findLastPurchase(pageResult);
+			iPurchaseService.findLastPurchaseWithProfit(pageResult);
+		}catch(BussinessException e){
+			LOGGER.info(e.getLocalizedMessage());
+			return renderError(e.getLocalizedMessage());
+		}catch (Exception e) {
+			LOGGER.info(e.getLocalizedMessage());
+			return renderError("获取股票出错，请重试");
+		}
+		if(user == null ||user.getGrade() == 0){
+			return renderSuccess(pageResult);
+		}
+		else{
+			return renderVipSuccess(pageResult);
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("findLastPurchase")
+	public Object findLastPurchase(Page<Purchase> page, int purType){
+		Page<Purchase> pageResult = new Page<Purchase>(page.getCurrent(), 10);
+		try {
+			iPurchaseService.findLastPurchase(pageResult, purType);
 		}catch(BussinessException e){
 			LOGGER.info(e.getLocalizedMessage());
 			return renderError(e.getLocalizedMessage());

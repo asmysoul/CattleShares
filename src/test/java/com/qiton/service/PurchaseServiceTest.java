@@ -82,6 +82,7 @@ public class PurchaseServiceTest {
 	@Test
 	public void findLastPurchases(){
 		Page<Purchase> pageResult = new Page<Purchase>(1, 10);
-		iPurchaseService.findLastPurchase(pageResult);
+		iPurchaseService.findLastPurchase(pageResult, 0);
+		
 	}
 }
