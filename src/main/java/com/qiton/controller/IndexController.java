@@ -242,4 +242,9 @@ public class IndexController extends BaseController{
 			return "Viprecord";
 		}
 	
+		
+		@RequestMapping("/gotChiCangJsp")
+		public String gotChiCangJsp(HttpServletRequest request){
+			return "chicang";
+		}
 }

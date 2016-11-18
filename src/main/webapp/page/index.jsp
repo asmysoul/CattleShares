@@ -61,6 +61,7 @@
                                 <li><a class="menuItem" data-id="userInfo" href="http://localhost:8080/CattleShares/gotMember_account"><i class="fa fa-user"></i>会员管理</a></li>
                                 <li><a class="menuItem" data-id="userInfo" href="http://localhost:8080/CattleShares/gotMember_Manage"><i class="fa fa-user"></i>资金管理</a></li>
                                 <li><a class="menuItem" data-id="userInfo" href="http://localhost:8080/CattleShares/gotVipRecordJsp"><i class="fa fa-user"></i>会员记录</a></li>
+                                <li><a class="menuItem" data-id="userInfo" href="http://localhost:8080/CattleShares/gotChiCangJsp"><i class="fa fa-user"></i>当前持仓</a></li>
                                 
                                 <li><a href="javascript:void();"><i class="fa fa-trash-o"></i>清空缓存</a></li>
                                 <li><a href="javascript:void();"><i class="fa fa-paint-brush"></i>皮肤设置</a></li>
