@@ -144,7 +144,7 @@ public class Sellout implements Serializable {
 		this.sellTechnick = sellTechnick;
 	}
 
-	@JsonFormat(pattern="HH:mm",timezone = "GMT+8")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
 	public Date getPurPurtime() {
 		return this.purPurtime;
 	}
@@ -161,6 +161,7 @@ public class Sellout implements Serializable {
 		this.purPurprice = purPurprice;
 	}
 
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
 	public Date getCreateTime() {
 		return this.createTime;
 	}

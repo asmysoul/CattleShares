@@ -51,6 +51,7 @@ import com.qiton.model.vo.SharesVo;
 import com.qiton.service.IPurchaseService;
 import com.qiton.service.ISelloutService;
 import com.qiton.service.ISharesApiService;
+import com.qiton.service.IUserService;
 
 /**
  * @ClassName SelloutController
@@ -70,6 +71,9 @@ public class SelloutController extends BaseController {
 	
 	@Autowired
 	private IPurchaseService iPurchaseService;
+	
+	@Autowired
+	private IUserService iUserService;
 	
 	@Autowired
 	private ISelloutService iSelloutService;
@@ -174,10 +178,11 @@ public class SelloutController extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping("getSelloutList")
-	public Object getSelloutList(HttpSession session){
-		User user = (User) session.getAttribute("current_user");
+	public Object getSelloutList(Long userId){
 		List<Sellout> list = null;
+		User user = null;
 		try {
+			user = iUserService.getCurrentUser(userId.toString());
 			list = iSelloutService.findSellout();
 		}catch(BussinessException e){
 			LOGGER.info(e.getLocalizedMessage());

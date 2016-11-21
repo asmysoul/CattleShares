@@ -43,6 +43,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.qiton.exception.BussinessException;
 import com.qiton.model.Admin;
 import com.qiton.service.IAdminService;
+import com.qiton.utils.Config;
 
 /**
  * @ClassName AdminController
@@ -164,8 +165,9 @@ public class AdminController extends BaseController{
 	@ResponseBody
 	@RequestMapping("getAdmins")
 	public Object getAdmins(Page<Admin> page, HttpSession session){
+		Page<Admin> pageResult = new Page<>(page.getCurrent(), Config.PAGENUM);
 		try{
-			iAdminService.getAdmins(page);
+			iAdminService.getAdmins(pageResult);
 		}catch(BussinessException e){
 			LOGGER.info("获取客服列表出错" + e.getLocalizedMessage());
 			return renderError(e.getLocalizedMessage());
@@ -173,7 +175,7 @@ public class AdminController extends BaseController{
 			LOGGER.info("获取客服列表出错" + "----:" + e.getLocalizedMessage());
 			return renderError("获取客服列表出错请重试");
 		}
-		return renderSuccess(page);
+		return renderSuccess(pageResult);
 	}
 	
 	@RequestMapping("/addServer")

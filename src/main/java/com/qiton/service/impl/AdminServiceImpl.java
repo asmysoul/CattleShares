@@ -84,7 +84,9 @@ public class AdminServiceImpl extends SuperServiceImpl<AdminMapper, Admin> imple
 	 */
 	@Override
 	public void deleteAdmin(Long id) throws BussinessException {
-
+		if(id == null){
+			throw new BussinessException("参数错误");
+		}
 		int result = adminmapper.deleteById(id);
 		
 		if(result != 1){

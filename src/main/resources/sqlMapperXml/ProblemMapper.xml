@@ -4,7 +4,7 @@
 
 	<!-- 通用查询结果列-->
 	<sql id="Base_Column_List">
-		pro_id AS proId, pro_userquestion AS proUserquestion, pro_technick AS proTechnick, pro_answer AS proAnswer, pro_createtime AS proCreatetime, pro_questiontime AS proQuestiontime, pro_answertime AS proAnswertime, user_id AS userId
+		pro_id AS proId, pro_userquestion AS proUserquestion, pro_technick AS proTechnick, pro_answer AS proAnswer, pro_createtime AS proCreatetime, pro_questiontime AS proQuestiontime, pro_answertime AS proAnswertime, user_id AS userId, tech_id AS techId
 	</sql>
 
 </mapper>
