@@ -24,7 +24,6 @@ import com.qiton.service.impl.AdminServiceImpl;
  *
  */
 @Controller
-@RequestMapping("/login")
 public class LoginController extends BaseController{
 	
 	private static final Logger log=LogManager.getLogger(LoginController.class);
