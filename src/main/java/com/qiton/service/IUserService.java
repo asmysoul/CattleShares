@@ -6,6 +6,7 @@ import com.qiton.model.User;
 import com.qiton.model.VipManage;
 
 import java.text.ParseException;
+import java.util.List;
 
 import com.baomidou.framework.service.ISuperService;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -252,5 +253,18 @@ public interface IUserService extends ISuperService<User> {
 	* @throws
 	 */
 	public void VIP_renew(String gold, String mark, String mark2)throws BussinessException;
+
+	/**
+	 * 
+	* @Title: FriendInvite 
+	* @Description: 获取好友邀请记录
+	* @author 尤
+	* @date 2016年11月21日 上午9:04:00  
+	* @param @param username
+	* @param @throws BussinessException    设定文件 
+	* @return void    返回类型 
+	* @throws
+	 */
+	public List<Object> FriendInvite(String username)throws BussinessException;
 	
 }

@@ -6,7 +6,6 @@ import java.text.NumberFormat;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.NumberFormat.Style;
 
 import com.baomidou.mybatisplus.annotations.IdType;
 
@@ -63,7 +62,6 @@ public class Purchase implements Serializable {
 	private Integer purIssellout;
 	
 	@TableField(exist = false)
-	
 	private double profit;
 	
 	

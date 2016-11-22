@@ -124,10 +124,13 @@ CREATE TABLE `problem` (
   `pro_questiontime` datetime NOT NULL COMMENT '提问时间',
   `pro_answertime` datetime DEFAULT NULL COMMENT '回答时间',
   `user_id` bigint(20) NOT NULL COMMENT '提问用户名字',
+  `tech_id` bigint(20) NOT NULL COMMENT '老师id',
   PRIMARY KEY (`pro_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 /*Data for the table `problem` */
+
+insert  into `problem`(`pro_id`,`pro_userquestion`,`pro_technick`,`pro_answer`,`pro_createtime`,`pro_questiontime`,`pro_answertime`,`user_id`,`tech_id`) values (3,'fasdf','sdfa','','2016-11-18','2016-11-18 09:10:29',NULL,1,0),(4,'adsfasd','fasdf','asdfaf','2016-11-18','2016-11-18 09:10:53','2016-11-26 09:10:58',2,0),(5,'fasdfasdfasfd','张老师',NULL,'2016-11-18','2016-11-18 09:16:14',NULL,1,0);
 
 /*Table structure for table `purchase` */
 
@@ -148,7 +151,7 @@ CREATE TABLE `purchase` (
 
 /*Data for the table `purchase` */
 
-insert  into `purchase`(`pur_type`,`pur_id`,`pur_stockcode`,`pur_stockname`,`pur_purchasetime`,`pur_stockprice`,`pur_technick`,`create_time`,`pur_issellout`) values (1,1,600887,'伊利股份','2016-11-07 15:15:23',10.55,'张老师','2016-11-07',1),(0,2,600887,'伊利股份','2016-11-07 16:16:43',10.55,'张老师','2016-11-07',0);
+insert  into `purchase`(`pur_type`,`pur_id`,`pur_stockcode`,`pur_stockname`,`pur_purchasetime`,`pur_stockprice`,`pur_technick`,`create_time`,`pur_issellout`) values (1,1,600887,'伊利股份','2016-11-07 15:15:23',10.55,'张老师','2016-11-07',0),(0,2,600888,'伊利股份','2016-11-07 16:16:43',10.55,'张老师','2016-11-07',0);
 
 /*Table structure for table `reference` */
 
@@ -203,9 +206,11 @@ CREATE TABLE `sellout` (
   `pur_purprice` double NOT NULL COMMENT '买入价格',
   `create_time` date NOT NULL,
   PRIMARY KEY (`sell_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 /*Data for the table `sellout` */
+
+insert  into `sellout`(`sell_type`,`sell_id`,`sell_stockname`,`sell_stockcode`,`sell_selltime`,`sell_sellprice`,`sell_technick`,`pur_purtime`,`pur_purprice`,`create_time`) values (1,2,'伊利股份',600888,'2016-11-18 11:08:00',8.36,'张老师','2016-11-18 11:08:00',8.4,'2016-11-18');
 
 /*Table structure for table `teacher` */
 

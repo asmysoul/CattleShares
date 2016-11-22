@@ -16,16 +16,8 @@
     <context:component-scan base-package="com.qiton.controller"/>
     
    
-	<mvc:annotation-driven conversion-service="conversionService"/>
+	<mvc:annotation-driven />
 	
-	<bean id="conversionService"
-		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-		<property name="converters">
-			<list>
-				<!-- <bean class="com.ll.model.StringToPersonConverter" /> -->
-			</list>
-		</property>
-	</bean>
 	
 	<mvc:default-servlet-handler/>
 

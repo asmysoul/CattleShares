@@ -67,13 +67,19 @@ public class LoginController extends BaseController{
 	@RequestMapping("/userLogin")
 	public Object userlogin(User user,HttpServletRequest request){
 		HttpSession session=request.getSession();
+		User selectUser = null;
 		try{
-			User selectUser=userservice.userlogin(user);
+			selectUser = userservice.userlogin(user);
 			session.setAttribute("current_user",selectUser);
 		}catch(BussinessException e){
 			e.printStackTrace();
 			return renderError(e.getLocalizedMessage());
 		}
-		return renderSuccess();
+		if(selectUser == null || selectUser.getGrade() == 0){
+			return renderSuccess(selectUser);
+		}
+		else{
+			return renderVipSuccess(selectUser);
+		}
 	}
 }

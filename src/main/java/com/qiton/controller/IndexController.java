@@ -242,9 +242,35 @@ public class IndexController extends BaseController{
 			return "Viprecord";
 		}
 	
-		
+		/**
+		 * 
+		* @Title: gotChiCangJsp 
+		* @Description: 跳转至持仓页面
+		* @author 尤
+		* @date 2016年11月21日 下午3:07:57  
+		* @param @param request
+		* @param @return    设定文件 
+		* @return String    返回类型 
+		* @throws
+		 */
 		@RequestMapping("/gotChiCangJsp")
 		public String gotChiCangJsp(HttpServletRequest request){
 			return "chicang";
+		}
+		
+		/**
+		 * 
+		* @Title: gotWithdraw_manageJsp 
+		* @Description: 跳转至提现管理
+		* @author 尤
+		* @date 2016年11月21日 下午3:08:18  
+		* @param @param request
+		* @param @return    设定文件 
+		* @return String    返回类型 
+		* @throws
+		 */
+		@RequestMapping("/gotWithdraw_manageJsp")
+		public String gotWithdraw_manageJsp(HttpServletRequest request){
+			return "withdraw-manage";
 		}
 }

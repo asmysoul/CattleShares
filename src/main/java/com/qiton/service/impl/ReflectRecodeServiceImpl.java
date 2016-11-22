@@ -135,6 +135,12 @@ public class ReflectRecodeServiceImpl extends SuperServiceImpl<ReflectRecodeMapp
 		if(reflectManager==null){
 			throw new BussinessException("参数错误");
 		}
+		
+		System.out.println("----------------"+reflectManager.toString());
+		System.out.println("----------------"+reflectManager.toString());
+		System.out.println("----------------"+reflectManager.toString());
+		
+		if(reflectManager.getRrdUsername()=="") reflectManager.setRrdUsername(null);
 		List<ReflectManager> lists = ReflectRecodeMapper.selectReflectByCommand(page, reflectManager);
 		if(lists==null){
 			throw new BussinessException("查询数据不存在");

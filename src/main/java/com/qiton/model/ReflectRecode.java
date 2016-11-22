@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  *
- * 
+ * 体现记录
  *
  */
 @TableName("reflect_recode")

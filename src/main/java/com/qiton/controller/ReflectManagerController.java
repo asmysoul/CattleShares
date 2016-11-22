@@ -1,5 +1,8 @@
 package com.qiton.controller;
 
+import java.util.Date;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.logging.log4j.LogManager;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.qiton.exception.BussinessException;
+import com.qiton.mapper.GoldRecordMapper;
+import com.qiton.model.GoldRecord;
 import com.qiton.model.ReflectManager;
 import com.qiton.model.ReflectRecode;
 import com.qiton.model.SelectOptionTime;
@@ -36,6 +41,9 @@ public class ReflectManagerController extends BaseController {
 	
 	@Autowired
 	private IReflectRecodeService iReflectRecodeService;
+	
+	@Resource
+	private GoldRecordMapper goldRecordMapper;        //金币记录
 	
 	@Autowired
 	private IUserService userService;
@@ -170,24 +178,40 @@ public class ReflectManagerController extends BaseController {
 			 */
 			@RequestMapping("/update_UserInfo")
 			@ResponseBody
-			public Object Update_UserInfo(String rrdId,String rrdPrice,HttpServletRequest request){
+			public Object Update_UserInfo(String rrdId,String rrdUserid,String rrdPrice,HttpServletRequest request){
 				try{
 					if(StringUtils.isBlank(rrdId)||Double.parseDouble(rrdPrice)<0){
 						throw new BussinessException("参数出错");
 					}
-					User user=userService.selectById(Long.parseLong(rrdId));
+					User user=userService.selectById(Long.parseLong(rrdUserid));
 					if(Double.parseDouble(rrdPrice)>user.getGold()){
-						throw new BussinessException("用户金额不足");
+						throw new BussinessException("用户金额不足,提现金额不能大于用户余额");
 					}
-					
 					ReflectRecode whereEntity=new ReflectRecode();
 					whereEntity.setRrdId(Long.parseLong(rrdId));
 					
+					//体现记录
 					ReflectRecode entity=iReflectRecodeService.selectById(Long.parseLong(rrdId));
 					entity.setRrdPrice(Double.parseDouble(rrdPrice));
-					entity.setRrdState(0);    //未处理
+					entity.setRrdState(1);    //已处理
 					//获取体现id，修改体现记录的体现价格
 					iReflectRecodeService.update(entity, whereEntity);
+					
+					//用户扣钱
+					user.setGold(Integer.parseInt(""+(user.getGold()-Integer.parseInt((rrdPrice)))));
+					User whEntity=new User();whEntity.setUserId(user.getUserId());
+					boolean result=userService.update(user, whEntity);
+					if(!result){
+						throw new BussinessException("用户账号余额扣除失败，请重置任务");
+					}
+					
+					//新增金币记录－－扣钱支出
+					GoldRecord goldentity=new GoldRecord(user.getUserId(), user.getUserName(), 2, new Date(),Double.parseDouble(user.getGold().toString()), "用户提现"+rrdPrice+"金币");
+					goldentity.setGrdPay((Double.parseDouble(rrdPrice)));
+					int result2=goldRecordMapper.insert(goldentity);
+					if(result2!=1) throw new BussinessException("金币记录新增支出失败");
+					
+					
 				}catch(BussinessException e){
 					e.printStackTrace();
 					log.info("--修改体现操作失败---------" + e.getLocalizedMessage());
@@ -203,7 +227,7 @@ public class ReflectManagerController extends BaseController {
 			
 			/**
 			 * 
-			* @Title: Update_UserInfo 
+			* @Title: deleteReflectRecord 
 			* @Description: 删除体现记录
 			* @author 尤
 			* @date 2016年11月7日 上午11:13:48  
@@ -232,4 +256,62 @@ public class ReflectManagerController extends BaseController {
 				}
 				return renderSuccess("删除体现操作成功");
 			}
+			
+			/**
+			 * 
+			* @Title: resetrrdState 
+			* @Description: 重置状态
+			* @author 尤
+			* @date 2016年11月21日 下午2:26:23  
+			* @param @param rrdId
+			* @param @param rrdPrice
+			* @param @param request
+			* @param @return    设定文件 
+			* @return Object    返回类型 
+			* @throws
+			 */
+			@RequestMapping("/resetrrdState")
+			@ResponseBody
+			public Object resetrrdState(String rrdId,String rrdPrice,String rrdUserid,HttpServletRequest request){
+				try{
+					if(StringUtils.isBlank(rrdId)||Double.parseDouble(rrdPrice)<0){
+						throw new BussinessException("参数出错");
+					}
+					User user=userService.selectById(Long.parseLong(rrdUserid));
+					
+					ReflectRecode whereEntity=new ReflectRecode();
+					whereEntity.setRrdId(Long.parseLong(rrdId));
+					
+					//体现记录
+					ReflectRecode entity=iReflectRecodeService.selectById(Long.parseLong(rrdId));
+					entity.setRrdPrice(Double.parseDouble(rrdPrice));
+					entity.setRrdState(0);    //未处理
+					//获取体现id，修改体现记录的体现价格
+					iReflectRecodeService.update(entity, whereEntity);
+					
+					//用户将扣钱返回给用户
+					user.setGold(Integer.parseInt(""+(user.getGold()+Integer.parseInt(rrdPrice))));
+					User whEntity=new User();whEntity.setUserId(user.getUserId());
+					boolean result=userService.update(user, whEntity);
+					if(!result){
+						throw new BussinessException("用户账号余额返回扣除金币失败，请重置任务");
+					}
+
+					//新增金币记录－－返回扣钱金币
+					GoldRecord goldentity=new GoldRecord(user.getUserId(), user.getUserName(), 1, new Date(),Double.parseDouble(user.getGold().toString()), "客服提现错误操作：返回用户"+rrdPrice+"金币");
+					goldentity.setGrdIncome(Double.parseDouble(rrdPrice));
+					int result2=goldRecordMapper.insert(goldentity);
+					if(result2!=1) throw new BussinessException("金币记录新增收入失败");
+				}catch(BussinessException e){
+					e.printStackTrace();
+					log.info("--修改体现操作失败---------" + e.getLocalizedMessage());
+					return renderError(e.getLocalizedMessage());
+				}catch (Exception e) {
+					e.printStackTrace();
+					log.info("--修改体现操作失败---------" + e.getLocalizedMessage());
+					return renderError("修改体现操作失败");
+				}
+				return renderSuccess("修改体现操作成功");
+			}
+			
 }

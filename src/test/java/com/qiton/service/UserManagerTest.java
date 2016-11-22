@@ -189,5 +189,4 @@ public class UserManagerTest {
 			e.printStackTrace();
 		}
 	}
-	
 }

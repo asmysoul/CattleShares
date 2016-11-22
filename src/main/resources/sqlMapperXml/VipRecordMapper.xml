@@ -4,7 +4,8 @@
 
 	<!-- 通用查询结果列-->
 	<sql id="Base_Column_List">
-		vrd_userid AS vrdUserid, vrd_username AS vrdUsername, vrd_rechargetime AS vrdRechargetime, vrd_rechargeprice AS vrdRechargeprice, vrd_remark AS vrdRemark
+		vrd_id AS vrdId, vrd_userid AS vrdUserid, vrd_username AS vrdUsername, vrd_rechargetime AS vrdRechargetime, vrd_rechargeprice AS vrdRechargeprice, vrd_remark AS vrdRemark
 	</sql>
+
 
 </mapper>

@@ -2,10 +2,13 @@ package com.qiton.service.impl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.RowBounds;
 import org.joda.time.DateTime;
@@ -18,15 +21,20 @@ import com.qiton.mapper.InviteMapper;
 import com.qiton.mapper.MarkRecodeMapper;
 
 import com.qiton.mapper.UserMapper;
+import com.qiton.mapper.VipRecordMapper;
 import com.qiton.model.Admin;
+import com.qiton.model.FriendsInvite;
 import com.qiton.model.GoldRecord;
 import com.qiton.model.Invite;
 import com.qiton.model.MarkRecode;
 import com.qiton.model.SelectOptionTime;
 import com.qiton.model.User;
 import com.qiton.model.VipManage;
+import com.qiton.model.VipRecord;
 import com.qiton.service.IUserService;
+import com.qiton.utils.DateUtils;
 import com.qiton.utils.StringUtils;
+import com.sun.xml.internal.xsom.impl.scd.Iterators.Map;
 import com.baomidou.framework.service.impl.SuperServiceImpl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -43,10 +51,13 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 	private UserMapper userMapper;
 
 	@Resource
-	private GoldRecordMapper goldRecordMapper;
+	private GoldRecordMapper goldRecordMapper;//金币记录
 	
 	@Resource
-	private MarkRecodeMapper markRecordMapper;
+	private MarkRecodeMapper markRecordMapper;//积分记录
+	
+	@Resource
+	private VipRecordMapper vipRecordMapper;//会员记录
 	
 	@Resource
 	private InviteMapper InviteMapper;
@@ -497,17 +508,101 @@ public class UserServiceImpl extends SuperServiceImpl<UserMapper, User> implemen
 	@Override
 	public void VIP_renew(String userId,String gold, String mark) throws BussinessException {
 		// TODO Auto-generated method stub
-		if(StringUtils.isBlank(gold)||StringUtils.isBlank(mark)){
+		if(StringUtils.isBlank(gold)||StringUtils.isBlank(mark)||Integer.parseInt(gold)<0||Integer.parseInt(mark)<0){
 			throw new BussinessException("参数出错");
 		}
-		
+		int result;
+		//获取当前用户
 		User user=userMapper.selectById(userId);
+		Date endVipTime=endVipTime(Integer.parseInt(gold), user.getEndVipTime());
+		
+		//添加用户续费的会员记录,金币记录，积分记录
+		VipRecord vipentity=new VipRecord(user.getUserId(), user.getUserName(), new Date(), Integer.parseInt(gold), vrdRemark(Integer.parseInt(gold),endVipTime));
+		GoldRecord goldentity=new GoldRecord(user.getUserId(), user.getUserName(), 1, new Date(), Double.parseDouble(""+(Integer.parseInt(gold)+user.getGold())), "会员充值赠送"+gold+"金币");
+		goldentity.setGrdIncome(Double.parseDouble(gold));
+		MarkRecode markRecodeentity=new MarkRecode(user.getUserId(), user.getUserName(), 1, new Date(), Double.parseDouble(""+(Integer.parseInt(mark)+user.getMark())), "会员充值赠送"+mark+"积分");
+		markRecodeentity.setMrdIncome(Double.parseDouble(mark));
+		result=vipRecordMapper.insert(vipentity);if(result!=1) throw new BussinessException("会员记录添加失败");
+		result=goldRecordMapper.insert(goldentity);if(result!=1) throw new BussinessException("金币记录添加失败");
+		result=markRecordMapper.insert(markRecodeentity);if(result!=1) throw new BussinessException("积分记录添加失败");
+		//修改用户资金
 		user.setGold(Integer.parseInt(gold)+user.getGold());
 		user.setMark(Integer.parseInt(mark)+user.getMark());
+		
+		user.setEndVipTime(endVipTime);
 		User whereEntity=new User();whereEntity.setUserId(Long.parseLong(userId));
-		int result=userMapper.update(user, whereEntity);
+		result=userMapper.update(user, whereEntity);
 		if(result!=1){
 			throw new BussinessException("充值失败");
 		}
+		
 	}
+	
+	public Date endVipTime(Integer gold,Date date){
+		if(date==null){
+			date=new Date();
+		}
+		Date date2 = null;
+		switch (gold) {
+		case 299:
+			date2= new DateTime(date).plusDays(30).toDate();
+			break;
+		case 499:
+			date2=new DateTime(date).plusDays(90).toDate();
+			break;
+		case 599:
+			date2= new DateTime(date).plusDays(180).toDate();
+			break;
+		case 899:
+			date2= new DateTime(date).plusDays(365*100).toDate();
+			break;
+		default:
+			break;
+		}
+		return date2;
+	}
+	
+	public String vrdRemark(Integer gold,Date date){
+		String remark = null;
+		switch (gold) {
+		case 299:
+			remark= "会员延期１个月，有效期至"+DateUtils.unixTimestampToDate2(date.getTime());
+			break;
+		case 499:
+			remark= "会员延期3个月，有效期至"+DateUtils.unixTimestampToDate2(date.getTime());
+			break;
+		case 599:
+			remark= "会员延期6个月，有效期至"+DateUtils.unixTimestampToDate2(date.getTime());
+			break;
+		case 899:
+			remark= "会员延期终身，延期时长为10年，到期客服继续累加充值，有效期至"+DateUtils.unixTimestampToDate2(date.getTime());
+			break;
+		default:
+			break;
+		}
+		return remark;
+	}
+
+	/**
+	 * 获取好友邀请记录
+	 */
+	@Override
+	public List<Object> FriendInvite(String username) throws BussinessException {
+		// TODO Auto-generated method stub
+		if(StringUtils.isBlank(username)){throw new BussinessException("参数出错");}
+		EntityWrapper<Invite> entityWrapper=new EntityWrapper<>();
+		entityWrapper.where("invi_username={0}", username);
+		
+		List<Object> lists=new ArrayList<>();HashMap<String, Object> map=new HashMap<String, Object>();
+		
+		List<Invite> inviteRecordlist=InviteMapper.selectList(entityWrapper); //邀请记录
+		FriendsInvite friendsInvite=userMapper.getSumProfit(username); //邀请统计
+		map.put("suminvite", friendsInvite);
+		map.put("inviteList", inviteRecordlist);
+		lists.add(map);
+		return lists;
+	}
+	
+	
+	
 }

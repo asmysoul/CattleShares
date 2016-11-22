@@ -23,7 +23,7 @@ public class Problem implements Serializable {
 	private Long proId;
 
 	/** 咨询问题内参 */
-	@TableField(value = "pro_userquestion") 
+	@TableField(value = "pro_userquestion")
 	private String proUserquestion;
 
 	/** 老师昵称 */
@@ -49,6 +49,10 @@ public class Problem implements Serializable {
 	/** 提问用户名字 */
 	@TableField(value = "user_id")
 	private Long userId;
+
+	/** 老师id */
+	@TableField(value = "tech_id")
+	private Long techId;
 
 
 	public Long getProId() {
@@ -113,6 +117,14 @@ public class Problem implements Serializable {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+
+	public Long getTechId() {
+		return this.techId;
+	}
+
+	public void setTechId(Long techId) {
+		this.techId = techId;
 	}
 
 }

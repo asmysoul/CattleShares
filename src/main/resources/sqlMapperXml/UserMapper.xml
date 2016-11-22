@@ -174,4 +174,12 @@
 		</if>
 	</select>
 	
+	<select id="getSumProfit" resultType="FriendsInvite" parameterType="java.lang.String">
+		SELECT 
+		COUNT(*) AS inviteCount,
+		SUM(invi_gold) AS sumGold,
+		SUM(invi_mark) AS sumMark
+		FROM invite WHERE invi_username=#{inviusername};
+	</select>
+	
 </mapper>

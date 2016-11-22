@@ -71,16 +71,19 @@
 		reflect_account AS reflectAccount,
 		rrd_state AS rrdState
 		FROM reflect_recode,user  WHERE rrd_userid=user_id
-		 <where>
-		 	<include refid="selectReflectByCommandWhere"></include>
-		 </where>
+		 <if test="rrdUserid != null">
+			and rrd_userid = #{rrdUserid} 
+		</if>  
+		 <if test="rrdUsername !=null ">
+			and rrd_username = #{rrdUsername}
+		</if>
 	</select>
 	
 	<sql id="selectReflectByCommandWhere">
 		 <if test="rrdId != null">
 			and rrd_id = #{rrdId} 
 		</if>  
-		 <if test="rrdUsername != null ">
+		 <if test="rrdUsername !=null ">
 			and rrd_username = #{rrdUsername}
 		</if>
 	</sql>

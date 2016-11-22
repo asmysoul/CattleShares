@@ -48,6 +48,7 @@ import com.qiton.model.User;
 import com.qiton.model.vo.SharesVo;
 import com.qiton.service.IPurchaseService;
 import com.qiton.service.ISharesApiService;
+import com.qiton.service.IUserService;
 
 /**
  * @ClassName PurchaseController
@@ -69,6 +70,8 @@ public class PurchaseController extends BaseController {
 	@Autowired
 	private IPurchaseService iPurchaseService;
 	
+	@Autowired
+	private IUserService iUserService;
 	
 	/**
 	 * 
@@ -175,10 +178,11 @@ public class PurchaseController extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping("getPurchaseList")
-	public Object getPurchaseList(HttpSession session){
-		User user = (User) session.getAttribute("current_user");
+	public Object getPurchaseList(Long userId){
+		User user = null;
 		List<Purchase> list = null;
 		try {
+			user = iUserService.getCurrentUser(userId.toString());
 			list = iPurchaseService.findPurchases();
 		}catch(BussinessException e){
 			LOGGER.info(e.getLocalizedMessage());
@@ -213,10 +217,11 @@ public class PurchaseController extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping("getLastPurchase")
-	public Object getLastPurchase(Page<Purchase> page, HttpSession session){
-		User user = (User) session.getAttribute("current_user");
+	public Object getLastPurchase(Page<Purchase> page, Long userId){
 		Page<Purchase> pageResult = new Page<Purchase>(page.getCurrent(), 10);
+		User user = null;
 		try {
+			user = iUserService.getCurrentUser(userId.toString());
 			iPurchaseService.findLastPurchaseWithProfit(pageResult);
 		}catch(BussinessException e){
 			LOGGER.info(e.getLocalizedMessage());

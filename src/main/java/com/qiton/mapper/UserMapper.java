@@ -1,5 +1,6 @@
 package com.qiton.mapper;
 
+import com.qiton.model.FriendsInvite;
 import com.qiton.model.SelectOptionTime;
 import com.qiton.model.User;
 import com.qiton.model.VipManage;
@@ -112,4 +113,18 @@ public interface UserMapper extends AutoMapper<User> {
 	* @throws
 	 */
 	List<User> getSelectVIPUserByTime(Pagination page,SelectOptionTime selectOptionTime);
+	
+	/**
+	 * 
+	* @Title: getSumProfit 
+	* @Description: TODO
+	* @author 尤
+	* @date 2016年11月21日 上午9:25:21  
+	* @param @param inviusername
+	* @param @return    设定文件 
+	* @return List<FriendsInvite>    返回类型 
+	* @throws
+	 */
+	FriendsInvite getSumProfit(String inviusername);
+	
 }

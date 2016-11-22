@@ -3,6 +3,7 @@ package com.qiton.model;
 import java.util.Date;
 
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 
@@ -69,7 +70,7 @@ public class ReflectManager {
 	public void setRrdId(Long rrdId) {
 		this.rrdId = rrdId;
 	}
-
+	@JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
 	public Date getRrdApplytime() {
 		return rrdApplytime;
 	}

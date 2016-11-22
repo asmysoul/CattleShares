@@ -21,8 +21,12 @@ public class VipRecord implements Serializable {
 	@TableField(exist = false)
 	private static final long serialVersionUID = 1L;
 
+	/** 会员记录id */
+	@TableId(value = "vrd_id", type = IdType.AUTO)
+	private Long vrdId;
+
 	/** 账户id */
-	@TableId(value = "vrd_userid", type = IdType.AUTO)
+	@TableField(value = "vrd_userid")
 	private Long vrdUserid;
 
 	/** 账户昵称 */
@@ -86,6 +90,16 @@ public class VipRecord implements Serializable {
 	public String toString() {
 		return "VipRecord [vrdUserid=" + vrdUserid + ", vrdUsername=" + vrdUsername + ", vrdRechargetime="
 				+ vrdRechargetime + ", vrdRechargeprice=" + vrdRechargeprice + ", vrdRemark=" + vrdRemark + "]";
+	}
+
+	public VipRecord(Long vrdUserid, String vrdUsername, Date vrdRechargetime, Integer vrdRechargeprice,
+			String vrdRemark) {
+		super();
+		this.vrdUserid = vrdUserid;
+		this.vrdUsername = vrdUsername;
+		this.vrdRechargetime = vrdRechargetime;
+		this.vrdRechargeprice = vrdRechargeprice;
+		this.vrdRemark = vrdRemark;
 	}
 
 	
