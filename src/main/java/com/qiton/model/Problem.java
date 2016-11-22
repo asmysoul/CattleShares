@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotations.IdType;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  *
@@ -95,6 +96,7 @@ public class Problem implements Serializable {
 		this.proCreatetime = proCreatetime;
 	}
 
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
 	public Date getProQuestiontime() {
 		return this.proQuestiontime;
 	}
@@ -103,6 +105,7 @@ public class Problem implements Serializable {
 		this.proQuestiontime = proQuestiontime;
 	}
 
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm",timezone = "GMT+8")
 	public Date getProAnswertime() {
 		return this.proAnswertime;
 	}

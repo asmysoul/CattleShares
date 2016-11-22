@@ -116,7 +116,7 @@ public class ProblemServiceImpl extends SuperServiceImpl<ProblemMapper, Problem>
 	public void findSolvedQuestion(Page<Problem> page) throws BussinessException {
 		EntityWrapper<Problem> entityWrapper = new EntityWrapper<>();
 		entityWrapper.where("pro_answer is NOT NULL");
-		entityWrapper.andNew("order by pro_answertime");
+		entityWrapper.orderBy("pro_questiontime");
 		List<Problem> list = problemMapper.selectPage(page, entityWrapper);
 		page.setRecords(list);
 	}
@@ -129,7 +129,7 @@ public class ProblemServiceImpl extends SuperServiceImpl<ProblemMapper, Problem>
 	public void findUnSolvedQuestion(Page<Problem> page) throws BussinessException {
 		EntityWrapper<Problem> entityWrapper = new EntityWrapper<>();
 		entityWrapper.where("pro_answer is NULL");
-		entityWrapper.andNew("order by pro_questiontime");
+		entityWrapper.orderBy("pro_questiontime");
 		List<Problem> list = problemMapper.selectPage(page, entityWrapper);
 		page.setRecords(list);
 	}
@@ -145,6 +145,7 @@ public class ProblemServiceImpl extends SuperServiceImpl<ProblemMapper, Problem>
 		}
 		EntityWrapper<Problem> entityWrapper = new EntityWrapper<>();
 		entityWrapper.where("user_id={0}", user.getUserId());
+		entityWrapper.orderBy("pro_questiontime");
 		List<Problem> list = problemMapper.selectPage(page, entityWrapper);
 		page.setRecords(list);
 		
